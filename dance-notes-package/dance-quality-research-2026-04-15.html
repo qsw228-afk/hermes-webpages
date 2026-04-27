@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>舞蹈动作发力与质感研究（会话笔记）</title>
+  <style>
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-2: #1e2430;
+  --text: #eef2f7;
+  --muted: #9aa7b6;
+  --accent: #4db6ff;
+  --accent-2: #7ef0c4;
+  --warn: #ffcb6b;
+  --danger: #ff8a80;
+  --border: #2a3343;
+  --shadow: 0 14px 40px rgba(0,0,0,.28);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #0b0d12 0%, #111723 100%);
+  color: var(--text);
+  line-height: 1.75;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 64px; }
+.hero {
+  background: radial-gradient(circle at top right, rgba(77,182,255,.18), transparent 30%), linear-gradient(135deg, #181c24, #111827 60%, #10131b);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.eyebrow { color: var(--accent-2); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+h1 { margin: 10px 0 12px; font-size: 38px; line-height: 1.2; }
+.sub { color: var(--muted); max-width: 900px; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.04); border: 1px solid var(--border); color: var(--muted); padding: 8px 12px; border-radius: 999px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.card {
+  grid-column: span 12;
+  background: rgba(23,26,33,.92);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(4px);
+}
+@media (min-width: 860px) {
+  .span-6 { grid-column: span 6; }
+  .span-4 { grid-column: span 4; }
+  .span-8 { grid-column: span 8; }
+}
+h2 { margin-top: 0; font-size: 24px; }
+h3 { font-size: 18px; margin: 0 0 8px; }
+p, li { color: #e6edf5; }
+.muted { color: var(--muted); }
+.formula {
+  font-size: 18px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(77,182,255,.12), rgba(126,240,196,.08));
+  border: 1px solid rgba(126,240,196,.18);
+  margin-top: 14px;
+}
+.quote { border-left: 4px solid var(--accent); padding: 10px 16px; background: rgba(77,182,255,.08); border-radius: 10px; }
+ul, ol { padding-left: 22px; }
+li { margin-bottom: 6px; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+.section-title { color: var(--accent-2); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.inline-code { background: #0c1220; border: 1px solid var(--border); padding: 2px 8px; border-radius: 8px; }
+.kv { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-top: 16px; }
+.kv .item { padding: 12px 14px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px; }
+.kv .k { color: var(--muted); font-size: 13px; }
+.kv .v { margin-top: 4px; color: #fff; font-weight: 600; }
+.links a { color: var(--accent); text-decoration: none; }
+.footer { color: var(--muted); text-align: center; margin-top: 22px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Visual note · Dance research</div>
+      <h1>舞蹈动作发力与质感研究（会话笔记）</h1>
+      <p class="sub">### 1) 核心结论
+- 质感不等于“更用力”，而是：
+  - 地面反作用力（GRF）使用效率
+  - 拉伸-缩短循环（SSC）转换速度
+  - 近端稳定、远端加速的传导
+  - 收势与刹车能力</p>
+      <div class="meta"><span class="chip">日期：2026-04-15</span><span class="chip">维护状态：进行中（支持定期增量更新）</span><span class="chip">来源：今日与助手的舞蹈专题对话</span></div>
+      <div class="meta" style="margin-top:12px;">
+  <a class="chip" href="index.html" style="text-decoration:none;">← 返回首页</a>
+  <a class="chip" href="dance-quality-research-2026-04-15.html" style="text-decoration:none;">总纲</a>
+  <a class="chip" href="balboa-fast-slow-syncopation-musicality-2026-04-16.html" style="text-decoration:none;">Balboa</a>
+  <a class="chip" href="blues-solo-upper-body-texture-2026-04-16.html" style="text-decoration:none;">Blues Solo</a>
+</div>
+      <div class="formula"><h3>1) 核心结论</h3>
+<ul><li>质感不等于“更用力”，而是：</li></ul>
+<p>  - 地面反作用力（GRF）使用效率<br>  - 拉伸-缩短循环（SSC）转换速度<br>  - 近端稳定、远端加速的传导<br>  - 收势与刹车能力</p></div>
+    </section>
+    <section class="grid">
+      <article class="card span-8"><div class="section-title">Section 1</div><h2>一、研究主线</h2><h3>1) 核心结论</h3>
+<ul><li>质感不等于“更用力”，而是：</li></ul>
+<p>  - 地面反作用力（GRF）使用效率<br>  - 拉伸-缩短循环（SSC）转换速度<br>  - 近端稳定、远端加速的传导<br>  - 收势与刹车能力</p>
+<h3>2) 发力与表现的关键抓手</h3>
+<ul><li>压地—借力—回弹（不是只往上蹦）</li><li>起动快 + 终点稳（“冲得出去，收得回来”）</li><li>外部焦点口令（关注动作效果）优先于内部焦点口令（死盯肌肉）</li></ul>
+<p>---</p></article><article class="card span-4"><div class="section-title">Section 2</div><h2>二、四舞种“同动作不同质感”对照（已产出）</h2><p>对照了同一动作在以下舞种中的发力差异：</p>
+<ul><li>Hip-hop：脉冲、打点、卡停</li><li>Jazz-funk：爆发+线条延展</li><li>Contemporary：连续传导、流动衔接</li><li>中国舞：提沉开合、劲路与神韵</li></ul>
+<p>给出了：</p>
+<ul><li>重心位置</li><li>发力来源</li><li>时间形态</li><li>终点处理</li><li>常见错误与口令</li></ul>
+<p>---</p></article><article class="card span-6"><div class="section-title">Section 3</div><h2>三、“锤子 vs 鞭子”理论（重点）</h2><h3>1) 锤子（Hammer）</h3>
+<ul><li>特征：整体刚性、同步爆发、强终点</li><li>适用：Hit/Stop/重拍/定点</li><li>关键词：硬、稳、砸、定</li></ul>
+<h3>2) 鞭子（Whip）</h3>
+<ul><li>特征：分段传导、末端加速、速度质感</li><li>机制：近端先动→中段传→远端甩</li><li>关键词：松、传、甩、快</li></ul>
+<h3>3) 高级组合：锤中带鞭</h3>
+<ul><li>起动用锤子（拿地面力）</li><li>表达用鞭子（甩到末端）</li><li>收势回锤子（定住终点）</li></ul>
+<p>---</p></article><article class="card span-6"><div class="section-title">Section 4</div><h2>四、30秒编舞方案（6个8拍，已产出）</h2><ul><li>BPM：96</li><li>风格：Urban/Hip-hop融合</li><li>结构：</li></ul>
+<p>  - 1-2个8拍：建立锤与鞭切换<br>  - 3-4个8拍：转体与重拍爆发<br>  - 5个8拍：速度对比（慢传导+快刹车）<br>  - 6个8拍：收尾炸点与最终定格</p>
+<p>附带口令体系：</p>
+<ul><li>“踩住—打点—甩出—钉住”</li><li>“先稳再甩，甩完要收”</li><li>“脚下给力，手上出速”</li></ul>
+<p>---</p></article><article class="card span-8"><div class="section-title">Section 5</div><h2>五、脚步质感专项（已产出）</h2><h3>核心公式</h3>
+<p>脚步质感 = 重心管理 × 脚底压强变化 × 时间控制（早/准/晚） × 收势能力</p>
+<h3>6个关键点</h3>
+<p>1. 先有重再有快<br>2. 脚底三点压强切换（大脚趾球/小脚趾球/脚跟）<br>3. 压地借力<br>4. 节拍切片（早半拍/准拍/晚半拍）<br>5. 落地声音可控<br>6. 终点刹车能力</p>
+<h3>每日10-15分钟训练</h3>
+<ul><li>重心穿越</li><li>脚底压强滚动</li><li>三种节拍版本重跳</li></ul>
+<p>---</p></article><article class="card span-4"><div class="section-title">Section 6</div><h2>六、今日对话要点记录（按时间顺序）</h2><ol><li>用户请求：研究“舞蹈动作发力如何跳出质感”</li><li>输出：机制研究 + 训练模板 + 评分表</li><li>用户请求：解释“锤子和鞭子理论”</li><li>输出：定义、差异、适用场景、混合策略</li><li>用户确认继续</li><li>输出：30秒编舞（分拍标注锤/鞭）</li><li>用户请求：脚步如何做出质感</li><li>输出：脚步6要点+3练法+自检体系</li><li>用户请求：整理进笔记并输出网页，后续定期维护</li></ol>
+<p>---</p></article><article class="card span-6"><div class="section-title">Section 7</div><h2>七、后续维护规则（用于自动更新）</h2><ul><li>更新触发：出现新的舞蹈相关对话（关键词：舞蹈/发力/质感/节奏/脚步/锤子/鞭子/编舞）</li><li>更新方式：</li></ul>
+<p>  1) 在本笔记追加“增量更新块”<br>  2) 同步覆盖更新对应HTML页面</p>
+<ul><li>版本记录：</li></ul>
+<p>  - v1.0（2026-04-15 18:30 CST）首版创建<br>  - v1.1（2026-04-16 21:38 CST）补充 Balboa / Blues 相关质感与音乐性要点</p>
+<p>---</p></article><article class="card span-6"><div class="section-title">Section 8</div><h2>八、增量更新区（自动维护）</h2><h3>[v1.0] 2026-04-15 18:30 CST</h3>
+<ul><li>首次归档今日舞蹈对话</li><li>产出网页版并建立定期维护任务</li></ul>
+<h3>[v1.1] 2026-04-16 21:38 CST</h3>
+<ul><li>新增 Blues solo 上半身质感链路：低重心 → pulse → 核心/背部带动胸腔与肩带 → lag / 张力收放。</li><li>新增 groove / pulse 区分：pulse 是身体内部拍点，groove 是更整体的律动感，可理解为 pulse ⊂ groove。</li><li>新增 Balboa 音乐性结论：高级音乐性 = 稳定底拍 + 清楚体感 + 可协商的时间弹性；快不等于急，慢不等于拖。</li><li>新增 Balboa 切分表达原则：先保 rhythm continuity，再做 hold / quick / syncopation，且 timing 信息要先于图形变化传给 partner。</li></ul></article>
+      <article class="card span-12">
+        <h2>文件信息</h2>
+        <div class="kv">
+          <div class="item"><div class="k">HTML 文件</div><div class="v">/Users/edwinmac/.hermes/notes/html/dance-quality-research-2026-04-15.html</div></div>
+          <div class="item"><div class="k">交付形式</div><div class="v">单文件 HTML，可直接打开</div></div>
+        </div>
+      </article>
+    </section>
+    <article class="card span-12">
+  <h2>相关页面</h2>
+  <div class="meta">
+    <a class="chip" href="index.html" style="text-decoration:none;">首页</a>
+    <a class="chip" href="dance-quality-research-2026-04-15.html" style="text-decoration:none;">舞蹈动作发力与质感研究</a>
+    <a class="chip" href="balboa-fast-slow-syncopation-musicality-2026-04-16.html" style="text-decoration:none;">Balboa 音乐性</a>
+    <a class="chip" href="blues-solo-upper-body-texture-2026-04-16.html" style="text-decoration:none;">Blues Solo 质感</a>
+  </div>
+</article>
+    <div class="footer">Package ready · Click links to navigate between pages</div>
+  </div>
+</body>
+</html>

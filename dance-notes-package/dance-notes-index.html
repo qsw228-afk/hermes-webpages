@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>舞蹈笔记总览</title>
+  <style>
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-2: #1e2430;
+  --text: #eef2f7;
+  --muted: #9aa7b6;
+  --accent: #4db6ff;
+  --accent-2: #7ef0c4;
+  --warn: #ffcb6b;
+  --danger: #ff8a80;
+  --border: #2a3343;
+  --shadow: 0 14px 40px rgba(0,0,0,.28);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #0b0d12 0%, #111723 100%);
+  color: var(--text);
+  line-height: 1.75;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 64px; }
+.hero {
+  background: radial-gradient(circle at top right, rgba(77,182,255,.18), transparent 30%), linear-gradient(135deg, #181c24, #111827 60%, #10131b);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.eyebrow { color: var(--accent-2); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+h1 { margin: 10px 0 12px; font-size: 38px; line-height: 1.2; }
+.sub { color: var(--muted); max-width: 900px; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.04); border: 1px solid var(--border); color: var(--muted); padding: 8px 12px; border-radius: 999px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.card {
+  grid-column: span 12;
+  background: rgba(23,26,33,.92);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(4px);
+}
+@media (min-width: 860px) {
+  .span-6 { grid-column: span 6; }
+  .span-4 { grid-column: span 4; }
+  .span-8 { grid-column: span 8; }
+}
+h2 { margin-top: 0; font-size: 24px; }
+h3 { font-size: 18px; margin: 0 0 8px; }
+p, li { color: #e6edf5; }
+.muted { color: var(--muted); }
+.formula {
+  font-size: 18px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(77,182,255,.12), rgba(126,240,196,.08));
+  border: 1px solid rgba(126,240,196,.18);
+  margin-top: 14px;
+}
+.quote { border-left: 4px solid var(--accent); padding: 10px 16px; background: rgba(77,182,255,.08); border-radius: 10px; }
+ul, ol { padding-left: 22px; }
+li { margin-bottom: 6px; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+.section-title { color: var(--accent-2); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.inline-code { background: #0c1220; border: 1px solid var(--border); padding: 2px 8px; border-radius: 8px; }
+.kv { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-top: 16px; }
+.kv .item { padding: 12px 14px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px; }
+.kv .k { color: var(--muted); font-size: 13px; }
+.kv .v { margin-top: 4px; color: #fff; font-weight: 600; }
+.links a { color: var(--accent); text-decoration: none; }
+.footer { color: var(--muted); text-align: center; margin-top: 22px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Visual note hub</div>
+      <h1>舞蹈笔记总览</h1>
+      <p class="sub">按你要求改成 HTML 页面版交付。下面 3 份都可直接打开查看，也适合直接转发/保存。</p>
+      <div class="meta">
+        <span class="chip">共 3 份舞蹈笔记</span>
+        <span class="chip">交付格式：单文件 HTML</span>
+        <span class="chip">风格：深色卡片式知识页</span>
+      </div>
+    </section>
+    <section class="grid"><article class="card span-4"><div class="section-title">舞蹈笔记</div><h2>舞蹈动作发力与质感研究（会话笔记）</h2><p>### 1) 核心结论
+- 质感不等于“更用力”，而是：
+  - 地面反作用力（GRF）使用效率
+  - 拉伸-缩短循环（SSC）转换速度
+  - 近端稳定、远端加速的传导
+  - 收势与刹车能力</p><p class="links"><a href="file:///Users/edwinmac/.hermes/notes/html/dance-quality-research-2026-04-15.html">打开本地 HTML</a></p><div class="muted">dance-quality-research-2026-04-15.html</div></article><article class="card span-4"><div class="section-title">舞蹈笔记</div><h2>Balboa 双人舞：如何更好地表达快慢、不同切分与音乐性</h2><p>在 balboa 双人舞里，音乐性不是“招越多越会跳”，而是这 4 层能不能同时成立：</p><p class="links"><a href="file:///Users/edwinmac/.hermes/notes/html/balboa-fast-slow-syncopation-musicality-2026-04-16.html">打开本地 HTML</a></p><div class="muted">balboa-fast-slow-syncopation-musicality-2026-04-16.html</div></article><article class="card span-4"><div class="section-title">舞蹈笔记</div><h2>Blues Solo：上半身发力出“质感”的方法</h2><p>想把 blues solo 跳出“质感”，上半身不是单独乱动，而是建立在这条链路上：</p><p class="links"><a href="file:///Users/edwinmac/.hermes/notes/html/blues-solo-upper-body-texture-2026-04-16.html">打开本地 HTML</a></p><div class="muted">blues-solo-upper-body-texture-2026-04-16.html</div></article></section>
+    <div class="footer">Generated for Edwin · Dance notes hub</div>
+  </div>
+</body>
+</html>

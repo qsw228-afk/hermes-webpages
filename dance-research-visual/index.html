@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>舞蹈研究可视化总览</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(13, 25, 43, 0.78);
+      --panel-2: rgba(16, 33, 57, 0.92);
+      --text: #eaf2ff;
+      --muted: #a9b9d6;
+      --line: rgba(141, 179, 255, 0.28);
+      --blue: #6cb8ff;
+      --cyan: #69e3ff;
+      --purple: #b897ff;
+      --green: #6de6ad;
+      --yellow: #ffd56a;
+      --pink: #ff9ec7;
+      --shadow: 0 18px 50px rgba(0,0,0,.28);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79,151,255,.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(184,151,255,.16), transparent 28%),
+        radial-gradient(circle at 50% 120%, rgba(105,227,255,.12), transparent 36%),
+        linear-gradient(180deg, #07111f 0%, #09182a 45%, #08131f 100%);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1200px, calc(100vw - 32px)); margin: 0 auto; }
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 14, 25, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 14px 0;
+    }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    .brand small { display:block; font-weight: 500; color: var(--muted); }
+    .nav-links {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;
+    }
+    .pill {
+      padding: 8px 14px; border-radius: 999px; font-size: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: #dce8ff;
+    }
+    header.hero { padding: 56px 0 30px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.35fr .85fr; gap: 22px;
+    }
+    .hero-card, .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .hero-main {
+      padding: 34px;
+      background:
+        linear-gradient(135deg, rgba(108,184,255,.15), rgba(184,151,255,.12)),
+        var(--panel-2);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.06); color: #d8e8ff; font-size: 13px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(34px, 6vw, 56px); line-height: 1.06; }
+    .lead {
+      font-size: clamp(16px, 2vw, 20px);
+      color: #d5e4ff; max-width: 760px;
+      margin-bottom: 22px;
+    }
+    .meta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .meta-box {
+      flex: 1 1 160px; min-width: 140px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px; padding: 16px 16px 14px;
+    }
+    .meta-box strong { display:block; font-size: 24px; margin-bottom: 4px; }
+    .hero-side { padding: 22px; display:flex; flex-direction:column; gap:16px; }
+    .mini-card {
+      padding: 18px; border-radius: 18px;
+      background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07);
+    }
+    .mini-card h3 { margin: 0 0 10px; font-size: 18px; }
+    .chip-row { display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .chip {
+      padding: 8px 12px; border-radius: 999px; font-size: 13px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.06);
+      color: #dce8ff;
+    }
+    main section { padding: 18px 0 10px; }
+    .section-title { margin: 0 0 14px; font-size: clamp(26px, 3vw, 34px); }
+    .section-desc { margin: 0 0 20px; color: var(--muted); }
+    .knowledge-map {
+      position: relative;
+      min-height: 660px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+    .knowledge-map svg {
+      position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+    }
+    .node {
+      position: absolute; width: 220px; padding: 16px;
+      border-radius: 18px; border: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 18px 40px rgba(0,0,0,.22);
+      background: rgba(8, 18, 32, .92);
+    }
+    .node .kicker { display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .node h4 { margin: 0 0 8px; font-size: 18px; line-height: 1.3; }
+    .node p { margin: 0; color: #cad7ee; font-size: 14px; line-height: 1.5; }
+    .node.main { left: 50%; top: 244px; transform: translateX(-50%); width: 270px; background: linear-gradient(135deg, rgba(108,184,255,.18), rgba(255,255,255,.05)); }
+    .node.home { left: 50%; top: 28px; transform: translateX(-50%); background: linear-gradient(135deg, rgba(105,227,255,.16), rgba(255,255,255,.05)); }
+    .node.visual { left: calc(50% + 290px); top: 28px; background: linear-gradient(135deg, rgba(184,151,255,.18), rgba(255,255,255,.05)); }
+    .node.blues { left: 32px; top: 256px; background: linear-gradient(135deg, rgba(109,230,173,.18), rgba(255,255,255,.05)); }
+    .node.balboa { right: 32px; top: 256px; background: linear-gradient(135deg, rgba(255,213,106,.18), rgba(255,255,255,.05)); }
+    .node.hammer { left: calc(50% - 300px); top: 486px; background: linear-gradient(135deg, rgba(255,158,199,.16), rgba(255,255,255,.05)); }
+    .node.groove { left: calc(50% + 86px); top: 486px; background: linear-gradient(135deg, rgba(105,227,255,.12), rgba(255,255,255,.04)); }
+    .grid-2, .grid-3 {
+      display: grid; gap: 22px;
+    }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .route-card, .note-card, .concept-card, .timeline-card {
+      padding: 24px; border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+    .route-steps { display:flex; flex-direction:column; gap:14px; }
+    .step {
+      display:grid; grid-template-columns: 54px 1fr; gap:16px; align-items:start;
+      padding: 16px; border-radius: 18px; background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .step .num {
+      width: 54px; height: 54px; border-radius: 16px; display:grid; place-items:center;
+      font-size: 22px; font-weight: 800; background: rgba(108,184,255,.16); color: #fff;
+    }
+    .step h4 { margin: 0 0 6px; font-size: 19px; }
+    .step p { margin: 0; color: var(--muted); }
+    .note-card h3, .concept-card h3, .timeline-card h3 { margin: 0 0 10px; font-size: 22px; }
+    .tag {
+      display:inline-block; padding:6px 10px; border-radius:999px; font-size:12px; margin-right:8px; margin-bottom:8px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); color:#d7e7ff;
+    }
+    ul.clean { padding-left: 18px; margin: 12px 0 0; color: #dfeaff; }
+    ul.clean li { margin-bottom: 9px; }
+    .concept-card { min-height: 100%; }
+    .timeline {
+      position: relative; margin-top: 12px; padding-left: 26px;
+    }
+    .timeline:before {
+      content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: rgba(255,255,255,.12);
+    }
+    .timeline-item {
+      position: relative; padding: 0 0 18px 16px;
+    }
+    .timeline-item:before {
+      content: ''; position: absolute; left: -23px; top: 7px; width: 14px; height: 14px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple)); box-shadow: 0 0 0 6px rgba(105,227,255,.08);
+    }
+    .timeline-item strong { display:block; margin-bottom: 4px; }
+    footer {
+      padding: 28px 0 40px; color: var(--muted); font-size: 14px;
+    }
+    .footer-box {
+      padding: 22px; border-radius: 20px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    }
+    @media (max-width: 1080px) {
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .knowledge-map { min-height: auto; display: grid; gap: 16px; }
+      .knowledge-map svg { display:none; }
+      .node {
+        position: static; width: auto !important; transform: none !important;
+      }
+      .node.main, .node.home, .node.visual, .node.blues, .node.balboa, .node.hammer, .node.groove {
+        left: auto; right: auto; top: auto;
+      }
+    }
+    @media (max-width: 760px) {
+      .nav-inner { flex-direction: column; align-items: flex-start; }
+      header.hero { padding-top: 36px; }
+      .hero-main, .hero-side, .route-card, .note-card, .concept-card, .timeline-card { padding: 20px; }
+      .step { grid-template-columns: 44px 1fr; }
+      .step .num { width: 44px; height: 44px; border-radius: 14px; font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">舞蹈研究可视化网页<small>把 Obsidian 版知识结构压成一个可直接浏览的 HTML 页面</small></div>
+      <div class="nav-links">
+        <a class="pill" href="#map">知识地图</a>
+        <a class="pill" href="#route">阅读路径</a>
+        <a class="pill" href="#notes">笔记卡片</a>
+        <a class="pill" href="#concepts">概念层</a>
+        <a class="pill" href="#timeline">维护记录</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-card hero-main">
+        <div class="eyebrow">可视化输出 · HTML 单文件版</div>
+        <h1>舞蹈研究<br/>可视化总览</h1>
+        <div class="lead">
+          这一页把你之前做过的舞蹈研究笔记，重新整理成一个 <strong>可直接打开、可截图、可发人</strong> 的 HTML 页面：
+          既保留知识结构，也把阅读路径、概念分层和维护记录一起可视化。
+        </div>
+        <div class="chip-row">
+          <span class="chip">发力与质感</span>
+          <span class="chip">Balboa 音乐性</span>
+          <span class="chip">Blues Solo 上半身</span>
+          <span class="chip">锤子 / 鞭子理论</span>
+          <span class="chip">Groove / Pulse</span>
+        </div>
+        <div class="meta-row">
+          <div class="meta-box"><strong>6</strong>核心主题节点</div>
+          <div class="meta-box"><strong>3</strong>研究主笔记</div>
+          <div class="meta-box"><strong>2</strong>概念页拆分</div>
+          <div class="meta-box"><strong>v1.1</strong>当前主研究版本</div>
+        </div>
+      </div>
+      <div class="hero-card hero-side">
+        <div class="mini-card">
+          <h3>这页适合干什么</h3>
+          <p>适合直接查看、发文件、做展示、做后续继续扩写的总入口，不依赖 Obsidian 也能看。</p>
+        </div>
+        <div class="mini-card">
+          <h3>你会看到什么</h3>
+          <p>知识地图、推荐阅读顺序、研究卡片、关键概念关系、版本维护时间线。</p>
+        </div>
+        <div class="mini-card">
+          <h3>来源</h3>
+          <p>基于你之前沉淀的 3 份主研究笔记与 2 份概念页，重新整理为 HTML 可视化版。</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="map">
+      <h2 class="section-title">知识地图</h2>
+      <p class="section-desc">先看整体结构：主页作为入口，主研究笔记向左右分出 Balboa 与 Blues 两条线，再由概念层回收成统一理解。</p>
+      <div class="panel knowledge-map">
+        <svg viewBox="0 0 1200 660" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="lineA" x1="0" x2="1">
+              <stop offset="0%" stop-color="#69e3ff" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#b897ff" stop-opacity="0.9"/>
+            </linearGradient>
+          </defs>
+          <path d="M600 145 C600 180, 600 210, 600 240" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M600 300 C480 312, 360 320, 240 332" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M600 300 C720 312, 840 320, 960 332" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M600 325 C540 386, 495 434, 440 490" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M600 325 C660 386, 740 434, 820 490" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M710 86 C790 86, 860 86, 890 86" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M1000 420 C960 470, 905 500, 860 515" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M240 420 C330 470, 470 500, 760 515" stroke="url(#lineA)" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6 8"/>
+        </svg>
+
+        <div class="node home">
+          <span class="kicker">入口页</span>
+          <h4>舞蹈研究主页</h4>
+          <p>作为总导航，负责把所有研究笔记和可视化入口串起来。</p>
+        </div>
+        <div class="node visual">
+          <span class="kicker">可视化入口</span>
+          <h4>舞蹈研究可视化总览</h4>
+          <p>把结构图、阅读路径、概念层和维护记录放在一个页面里。</p>
+        </div>
+        <div class="node main">
+          <span class="kicker">总框架</span>
+          <h4>舞蹈动作发力与质感研究</h4>
+          <p>主研究骨架：发力机制、脚步质感、锤子 / 鞭子理论、编舞与版本增量。</p>
+        </div>
+        <div class="node blues">
+          <span class="kicker">Solo 路线</span>
+          <h4>Blues Solo 上半身发力与质感</h4>
+          <p>从 grounded、pulse、core-led、lag、breath 这条链路拆解上半身“味道”怎么来。</p>
+        </div>
+        <div class="node balboa">
+          <span class="kicker">双人舞路线</span>
+          <h4>Balboa 双人舞快慢切分与音乐性</h4>
+          <p>重点不是招多，而是 rhythm machine、时间处理、切分 continuity 与 partner 协商。</p>
+        </div>
+        <div class="node hammer">
+          <span class="kicker">动作理论</span>
+          <h4>锤子 vs 鞭子理论</h4>
+          <p>解释“砸、定”与“传、甩、快”的两种质地，以及锤中带鞭的高级组合。</p>
+        </div>
+        <div class="node groove">
+          <span class="kicker">概念层</span>
+          <h4>Groove 与 Pulse</h4>
+          <p>用概念页澄清：pulse 是基础拍点，groove 是整体律动感，可记成 pulse ⊂ groove。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="route">
+      <h2 class="section-title">推荐阅读路径</h2>
+      <p class="section-desc">如果你是第一次看，按这个顺序最顺：先搭框架，再抓动作质地，最后分方向深入。</p>
+      <div class="route-card">
+        <div class="route-steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <h4>先看《舞蹈动作发力与质感研究》</h4>
+              <p>建立统一框架：什么是“质感”，为什么不是纯用力，而是地面力、SSC、近端稳定远端加速、收势和刹车的综合结果。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <h4>再看《锤子 vs 鞭子理论》</h4>
+              <p>先把动作质地抓牢：什么时候该“砸定”，什么时候该“传甩”，以及怎么做出锤中带鞭。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <h4>按方向深入：Balboa / Blues</h4>
+              <p>双人舞走 Balboa，理解快慢、切分和音乐性；solo 路线走 Blues，上半身质感从 grounded 与 pulse 开始。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <h4>最后回看《Groove 与 Pulse》</h4>
+              <p>把概念层收束：为什么很多人“有拍子没味道”，以及 pulse 与 groove 的真正区别。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <h2 class="section-title">研究笔记卡片</h2>
+      <p class="section-desc">把三份主研究笔记压成卡片，方便快速扫一遍重点。</p>
+      <div class="grid-3">
+        <article class="note-card">
+          <span class="tag">主框架</span>
+          <span class="tag">发力 / 质感</span>
+          <h3>舞蹈动作发力与质感研究</h3>
+          <ul class="clean">
+            <li>质感不等于更用力，而是 <strong>GRF 使用效率 + SSC 转换速度 + 近端稳定远端加速 + 收势能力</strong>。</li>
+            <li>给出四舞种“同动作不同质感”对照、30 秒编舞方案、脚步质感公式与训练法。</li>
+            <li>主研究版本已增量到 <strong>v1.1</strong>，吸收了 Balboa / Blues 的新增要点。</li>
+          </ul>
+        </article>
+        <article class="note-card">
+          <span class="tag">双人舞</span>
+          <span class="tag">音乐性</span>
+          <h3>Balboa 双人舞快慢切分与音乐性</h3>
+          <ul class="clean">
+            <li>高级音乐性不是招多，而是 <strong>稳定底拍 + 清楚体感 + 可协商的时间弹性</strong>。</li>
+            <li>快不等于急，慢不等于拖；切分的前提不是 creativity，而是 continuity。</li>
+            <li>重点训练：all beats / even beats、hold 但不断电、快歌只练少数变化、phrase tail stretch。</li>
+          </ul>
+        </article>
+        <article class="note-card">
+          <span class="tag">Solo</span>
+          <span class="tag">上半身质感</span>
+          <h3>Blues Solo 上半身发力与质感</h3>
+          <ul class="clean">
+            <li>核心链路：<strong>低重心 → pulse → 核心/背部带动胸腔与肩带 → lag → 呼吸与张力收放</strong>。</li>
+            <li>关键不是乱动肩，而是 grounded、core-led、polycentric、breath & tone。</li>
+            <li>训练集中在 groove reset、肋骨 isolations、lag drill、上下半身分层。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="concepts">
+      <h2 class="section-title">关键概念层</h2>
+      <p class="section-desc">把最容易混的东西拆开：动作质地怎么分，节奏体感怎么分。</p>
+      <div class="grid-2">
+        <article class="concept-card">
+          <span class="tag">动作理论</span>
+          <h3>锤子 vs 鞭子</h3>
+          <ul class="clean">
+            <li><strong>锤子</strong>：整体刚性、同步爆发、强终点，适合 Hit / Stop / 重拍 / 定点。</li>
+            <li><strong>鞭子</strong>：分段传导、末端加速、速度质感，适合甩感、速度感、层次感。</li>
+            <li><strong>高级组合</strong>：起动拿地面力用锤子，表达出速度用鞭子，终点再回锤子收住。</li>
+          </ul>
+        </article>
+        <article class="concept-card">
+          <span class="tag">音乐概念</span>
+          <h3>Groove 与 Pulse</h3>
+          <ul class="clean">
+            <li><strong>Pulse</strong> 是身体里的基础拍点 / 脉冲，是节奏运转的底层装置。</li>
+            <li><strong>Groove</strong> 是在 pulse 基础上，加上重量感、timing、lag、呼吸、音乐回应后的整体律动感。</li>
+            <li>一句话：<strong>pulse ⊂ groove</strong>。有 pulse 不一定有 groove，但没有 pulse 通常很难有 groove。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <h2 class="section-title">维护记录 / 版本时间线</h2>
+      <p class="section-desc">把这组研究笔记的关键生成和增量过程压缩成时间线，方便后续继续更新。</p>
+      <div class="timeline-card">
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>2026-04-15 · v1.0</strong>
+            首次建立《舞蹈动作发力与质感研究》，沉淀发力机制、锤子 / 鞭子、脚步质感和编舞结构。
+          </div>
+          <div class="timeline-item">
+            <strong>2026-04-16 · Blues 专题建立</strong>
+            形成《Blues Solo 上半身发力与质感》，聚焦 grounded、pulse、core-led、lag 与呼吸控制。
+          </div>
+          <div class="timeline-item">
+            <strong>2026-04-16 · Balboa 专题建立</strong>
+            形成《Balboa 双人舞快慢切分与音乐性》，整理快慢表达、切分 continuity 与 partner 协商。
+          </div>
+          <div class="timeline-item">
+            <strong>2026-04-16 · 主研究升级到 v1.1</strong>
+            把 Blues 的上半身质感链路和 Balboa 的快慢 / 切分 / 音乐性结论增量并回主研究笔记。
+          </div>
+          <div class="timeline-item">
+            <strong>2026-04-17 · Obsidian 可视化版</strong>
+            输出首页、Mermaid 可视化页、Canvas 知识地图，并继续整理成这份 HTML 单页展示版。
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-box">
+      本页为单文件 HTML 交付版。可直接打开浏览，也适合继续导出为截图、发附件或后续再扩成多页网站。<br/>
+      源内容来自：`dance-quality-research-2026-04-15.md`、`balboa-fast-slow-syncopation-musicality-2026-04-16.md`、`blues-solo-upper-body-texture-2026-04-16.md`。
+    </div>
+  </footer>
+</body>
+</html>
