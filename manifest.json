@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-27 23:57:44 CST",
+  "updated_at": "2026-04-28 00:06:24 CST",
   "pages": [
     {
       "slug": "wenjie-m9",
@@ -63,6 +63,61 @@
       "source": "/Users/edwinmac/.hermes/notes/html/dance-quality-research-2026-04-15.html",
       "url_path": "/dance-quality-research/",
       "size": 10102
+    }
+  ],
+  "navigation": [
+    {
+      "id": "product",
+      "label": "产品与商业分析",
+      "summary": "汽车、消费产品、商业观察类网页。",
+      "accent": "#38bdf8",
+      "groups": [
+        {
+          "label": "汽车科技",
+          "items": [
+            "wenjie-m9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-workflow",
+      "label": "AI 工具与工作流",
+      "summary": "AI 项目拆解、知识库、Agent 工作流与效率工具。",
+      "accent": "#a78bfa",
+      "groups": [
+        {
+          "label": "知识库 / 第二大脑",
+          "items": [
+            "claude-obsidian-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dance",
+      "label": "舞蹈研究知识库",
+      "summary": "舞蹈质感、音乐性、Balboa、Blues Solo 等系统笔记。",
+      "accent": "#f472b6",
+      "groups": [
+        {
+          "label": "总览与整合",
+          "items": [
+            "dance-notes",
+            "dance-notes-package",
+            "dance-research-visual",
+            "dance-quality-research"
+          ]
+        },
+        {
+          "label": "专项笔记",
+          "items": [
+            "balboa-syncopation",
+            "balboa-musicality",
+            "blues-solo-texture"
+          ]
+        }
+      ]
     }
   ]
 }
