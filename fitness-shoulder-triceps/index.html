@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="肩部与三头练宽练厚的黄金动作、组数次数、每周两练安排与执行要点。" />
+  <title>肩部与三头练宽练厚黄金动作笔记</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b10;
+      --panel: rgba(18, 24, 34, .78);
+      --panel-2: rgba(255, 255, 255, .055);
+      --line: rgba(255,255,255,.12);
+      --text: #f5f7fb;
+      --muted: #a8b3c5;
+      --soft: #d6dde9;
+      --accent: #f97316;
+      --accent-2: #22c55e;
+      --accent-3: #60a5fa;
+      --danger: #f43f5e;
+      --radius: 28px;
+      --shadow: 0 30px 90px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(249,115,22,.22), transparent 34%),
+        radial-gradient(circle at 88% 12%, rgba(34,197,94,.14), transparent 28%),
+        radial-gradient(circle at 48% 88%, rgba(96,165,250,.13), transparent 38%),
+        linear-gradient(180deg, #080a0f, #10131b 45%, #090b10);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 18px 72px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; color:var(--muted); font-size:13px; }
+    .back { text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:8px 12px; background:rgba(255,255,255,.05); }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 38px;
+      padding: clamp(28px, 6vw, 66px);
+      background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.025));
+      box-shadow: var(--shadow);
+    }
+    .hero::after { content:""; position:absolute; width:520px; height:520px; border-radius:50%; right:-190px; bottom:-260px; background:radial-gradient(circle, rgba(249,115,22,.26), transparent 66%); pointer-events:none; }
+    .kicker { margin:0 0 12px; color:#fdba74; font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { margin:0; max-width: 900px; font-size: clamp(34px, 7vw, 76px); line-height: .98; letter-spacing:-.055em; }
+    .lead { margin:18px 0 0; max-width:760px; color:var(--soft); font-size:clamp(16px, 2vw, 19px); }
+    .formula { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top:24px; }
+    .formula-card { border:1px solid var(--line); border-radius:20px; padding:16px; background:rgba(12,17,25,.58); min-height:128px; }
+    .formula-card b { display:block; font-size:15px; margin-bottom:8px; color:#fff; }
+    .formula-card span { color:var(--muted); font-size:14px; }
+    .layout { display:grid; grid-template-columns: 260px minmax(0,1fr); gap:22px; margin-top:22px; align-items:start; }
+    nav { position:sticky; top:14px; border:1px solid var(--line); border-radius:26px; padding:14px; background:rgba(12,17,25,.72); backdrop-filter: blur(18px); }
+    nav p { margin:6px 10px 12px; color:var(--muted); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
+    nav a { display:block; text-decoration:none; padding:11px 12px; border-radius:16px; color:var(--soft); font-size:14px; }
+    nav a:hover { background:rgba(255,255,255,.07); color:#fff; }
+    section.card { border:1px solid var(--line); border-radius: var(--radius); background: var(--panel); margin-bottom:18px; overflow:hidden; }
+    .section-head { padding:24px 24px 16px; border-bottom:1px solid var(--line); background:linear-gradient(90deg, rgba(249,115,22,.12), transparent 65%); }
+    .section-head.blue { background:linear-gradient(90deg, rgba(96,165,250,.13), transparent 65%); }
+    .section-head.green { background:linear-gradient(90deg, rgba(34,197,94,.12), transparent 65%); }
+    h2 { margin:0; font-size: clamp(24px, 3vw, 38px); line-height:1.12; letter-spacing:-.035em; }
+    .section-head p { margin:8px 0 0; color:var(--muted); }
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; padding:18px; }
+    .move { position:relative; padding:18px; border:1px solid var(--line); border-radius:22px; background:var(--panel-2); }
+    .move .num { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:12px; background:rgba(249,115,22,.18); color:#fdba74; font-weight:900; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .move h3 { margin:14px 0 6px; font-size:20px; letter-spacing:-.02em; }
+    .move .variant { margin:0 0 12px; color:#fed7aa; font-size:14px; }
+    .move ul { margin:0; padding-left:18px; color:var(--soft); }
+    .move li { margin:6px 0; }
+    .tag { display:inline-block; margin-top:12px; padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.07); color:var(--muted); font-size:12px; }
+    .six { display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; padding:18px; }
+    .pill { display:flex; align-items:center; justify-content:center; min-height:74px; text-align:center; padding:12px; border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.055); font-weight:800; }
+    .plans { display:grid; grid-template-columns: 1fr 1fr; gap:14px; padding:18px; }
+    .plan { border:1px solid var(--line); border-radius:22px; background:rgba(255,255,255,.045); overflow:hidden; }
+    .plan h3 { margin:0; padding:18px 18px 12px; font-size:22px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:12px 14px; border-top:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { color:#fff; font-size:13px; background:rgba(255,255,255,.035); }
+    td { color:var(--soft); font-size:14px; }
+    .rules { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; padding:18px; }
+    .rule { border:1px solid var(--line); border-radius:20px; padding:16px; background:rgba(255,255,255,.045); color:var(--soft); }
+    .quote { margin:18px; padding:22px; border-radius:24px; border:1px solid rgba(249,115,22,.28); background:linear-gradient(135deg, rgba(249,115,22,.15), rgba(255,255,255,.035)); font-size:20px; line-height:1.55; font-weight:850; letter-spacing:-.015em; }
+    .quote span { color:#fdba74; }
+    footer { margin-top:24px; color:var(--muted); font-size:13px; text-align:center; }
+    @media (max-width: 980px) {
+      .formula { grid-template-columns: repeat(2, 1fr); }
+      .layout { grid-template-columns:1fr; }
+      nav { position:relative; top:auto; }
+      .grid { grid-template-columns:1fr; }
+      .six { grid-template-columns: repeat(2, 1fr); }
+      .plans { grid-template-columns:1fr; }
+      .rules { grid-template-columns:1fr; }
+    }
+    @media (max-width: 520px) {
+      .wrap { padding:18px 12px 56px; }
+      .hero { border-radius:28px; }
+      .formula { grid-template-columns:1fr; }
+      .six { grid-template-columns:1fr; }
+      th, td { padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topbar"><a class="back" href="../">← 返回网页档案</a><span>训练笔记 · 2026-04-30 15:49:18 CST</span></div>
+    <section class="hero">
+      <p class="kicker">Shoulders & Triceps Hypertrophy</p>
+      <h1>肩部与三头练宽练厚黄金动作笔记</h1>
+      <p class="lead">把动作压缩到最值得长期执行的组合：肩部抓住推举、中束侧平举、后束飞鸟；三头抓住窄距卧推、过头臂屈伸、下压/臂屈伸。</p>
+      <div class="formula">
+        <div class="formula-card"><b>肩要宽</b><span>三角肌中束优先：侧平举 / 绳索侧平举做长期容量。</span></div>
+        <div class="formula-card"><b>肩要厚</b><span>推举负责力量底盘，后束负责侧后方立体感。</span></div>
+        <div class="formula-card"><b>三头要厚</b><span>长头优先：过头臂屈伸要有充分拉伸。</span></div>
+        <div class="formula-card"><b>线条要清楚</b><span>绳索下压负责外侧头和马蹄形收缩感。</span></div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <nav aria-label="页面导航">
+        <p>目录</p>
+        <a href="#shoulder">肩部黄金动作</a>
+        <a href="#triceps">三头黄金动作</a>
+        <a href="#six">最推荐 6 动作</a>
+        <a href="#plan">每周两练安排</a>
+        <a href="#rules">执行规则</a>
+      </nav>
+
+      <div>
+        <section class="card" id="shoulder">
+          <div class="section-head"><h2>肩部：练宽练厚核心动作</h2><p>中束决定视觉宽度，后束决定立体厚度，推举决定整体力量上限。</p></div>
+          <div class="grid">
+            <article class="move"><span class="num">01</span><h3>坐姿/站姿推举</h3><p class="variant">杠铃推举 / 哑铃肩推 / 史密斯肩推</p><ul><li>4 组 × 6-10 次</li><li>练肩部整体厚度、前束和中束力量</li><li>别耸肩，核心收紧，手臂接近伸直即可</li></ul><span class="tag">厚度底盘</span></article>
+            <article class="move"><span class="num">02</span><h3>侧平举</h3><p class="variant">哑铃侧平举 / 绳索侧平举</p><ul><li>4-6 组 × 12-20 次</li><li>肩宽核心动作，主攻三角肌中束</li><li>手肘带动，不靠甩，不用斜方肌抢活</li></ul><span class="tag">肩宽核心</span></article>
+            <article class="move"><span class="num">03</span><h3>反向飞鸟 / 面拉</h3><p class="variant">蝴蝶机 / 绳索面拉 / 俯身飞鸟</p><ul><li>3-5 组 × 12-20 次</li><li>补后三角，让肩从背面和侧面更厚</li><li>动作慢，顶峰收缩，避免耸肩代偿</li></ul><span class="tag">后束立体</span></article>
+          </div>
+        </section>
+
+        <section class="card" id="triceps">
+          <div class="section-head blue"><h2>三头：练粗练厚核心动作</h2><p>三头想变大，重点是重型推力 + 长头拉伸 + 外侧头挤压。</p></div>
+          <div class="grid">
+            <article class="move"><span class="num">04</span><h3>窄距卧推</h3><p class="variant">重型基础动作</p><ul><li>4 组 × 6-10 次</li><li>三头整体力量和厚度</li><li>手距略窄于肩，肘部别太外展</li></ul><span class="tag">力量底盘</span></article>
+            <article class="move"><span class="num">05</span><h3>双杠臂屈伸</h3><p class="variant">自重 / 负重</p><ul><li>3-4 组 × 8-12 次</li><li>三头外侧头、胸下沿、整体推力</li><li>想练三头就尽量直立，肘往后走</li></ul><span class="tag">复合推力</span></article>
+            <article class="move"><span class="num">06</span><h3>过头臂屈伸</h3><p class="variant">绳索 / 哑铃颈后 / EZ 杠仰卧</p><ul><li>4 组 × 10-15 次</li><li>主攻三头长头，决定手臂后侧厚度</li><li>充分拉伸，慢速控制，不要甩</li></ul><span class="tag">长头关键</span></article>
+            <article class="move"><span class="num">07</span><h3>绳索下压</h3><p class="variant">直杆 / 绳索</p><ul><li>3-5 组 × 12-20 次</li><li>外侧头和马蹄形线条</li><li>肘固定，底部外旋绳子并挤压</li></ul><span class="tag">线条收缩</span></article>
+          </div>
+        </section>
+
+        <section class="card" id="six">
+          <div class="section-head green"><h2>如果只选最黄金的 6 个动作</h2><p>长期执行，少而精，比堆动作更重要。</p></div>
+          <div class="six">
+            <div class="pill">肩推</div><div class="pill">侧平举</div><div class="pill">反向飞鸟 / 面拉</div><div class="pill">窄距卧推</div><div class="pill">过头绳索臂屈伸</div><div class="pill">绳索下压 / 双杠臂屈伸</div>
+          </div>
+          <div class="quote"><span>重点：</span>肩想宽，侧平举必须多；三头想厚，过头臂屈伸必须做；整体想大，推举和窄距卧推不能少。</div>
+        </section>
+
+        <section class="card" id="plan">
+          <div class="section-head"><h2>每周练 2 次：A 厚度日 + B 泵感宽度日</h2><p>一周两次足够高效：一次偏重，一次偏容量和控制。</p></div>
+          <div class="plans">
+            <div class="plan"><h3>A：力量厚度日</h3><table><thead><tr><th>动作</th><th>组数 × 次数</th><th>重点</th></tr></thead><tbody><tr><td>坐姿肩推</td><td>4 × 6-10</td><td>重量递进，练整体厚度</td></tr><tr><td>窄距卧推</td><td>4 × 6-10</td><td>三头力量底盘</td></tr><tr><td>侧平举</td><td>5 × 12-20</td><td>中束容量，肩宽核心</td></tr><tr><td>过头臂屈伸</td><td>4 × 10-15</td><td>三头长头拉伸</td></tr><tr><td>面拉</td><td>3 × 15-20</td><td>后束与肩胛稳定</td></tr></tbody></table></div>
+            <div class="plan"><h3>B：泵感宽度日</h3><table><thead><tr><th>动作</th><th>组数 × 次数</th><th>重点</th></tr></thead><tbody><tr><td>哑铃肩推</td><td>3 × 8-12</td><td>控制轨迹，避免耸肩</td></tr><tr><td>绳索侧平举</td><td>5 × 12-20</td><td>持续张力，肩宽核心</td></tr><tr><td>双杠臂屈伸</td><td>3 × 8-12</td><td>身体更直，偏三头</td></tr><tr><td>绳索下压</td><td>4 × 12-20</td><td>外侧头与马蹄形线条</td></tr><tr><td>反向飞鸟</td><td>4 × 15-20</td><td>后束立体感</td></tr></tbody></table></div>
+          </div>
+        </section>
+
+        <section class="card" id="rules">
+          <div class="section-head blue"><h2>执行规则</h2><p>动作再好，也要靠稳定、可恢复、可渐进。</p></div>
+          <div class="rules">
+            <div class="rule">每个动作保留 <b>1-2 次余力</b>，不要每组都力竭。</div>
+            <div class="rule">侧平举、反向飞鸟、下压：优先追求稳定控制和泵感。</div>
+            <div class="rule">推举、窄距卧推、臂屈伸：优先做渐进超负荷。</div>
+            <div class="rule">肩肘不舒服时，优先换成绳索/器械版本，减少硬顶和锁死。</div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer>Hosted by GitHub Pages · qsw228-afk/hermes-webpages · v1.0</footer>
+  </main>
+</body>
+</html>

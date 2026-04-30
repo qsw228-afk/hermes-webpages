@@ -20,6 +20,13 @@ AI 项目拆解、知识库、Agent 工作流与效率工具。
 - 知识库 / 第二大脑
   - [claude-obsidian 项目拆解与适配评估](claude-obsidian-review/)
 
+### 健身训练笔记
+
+增肌、动作选择、训练计划与执行要点。
+
+- 肩部 / 三头
+  - [肩部与三头练宽练厚黄金动作笔记](fitness-shoulder-triceps/)
+
 ### 舞蹈研究知识库
 
 舞蹈质感、音乐性、Balboa、Blues Solo 等系统笔记。
