@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>平面 UI 设计基本原则与 2026 潮流趋势｜交互图解</title>
+  <meta name="description" content="用交互图解总结平面 UI 设计最基本原则，以及 2026 年值得关注的视觉与交互趋势。" />
+  <style>
+    :root{
+      color-scheme: light;
+      --bg:#f7f6f1;--paper:#fffdf7;--ink:#050505;--muted:#5f625d;--subtle:#8a8d86;--line:rgba(5,5,5,.14);
+      --soft-line:rgba(5,5,5,.08);--accent:#111;--hot:#ff5a1f;--blue:#2563eb;--green:#00b894;--pink:#ff4da6;--violet:#7c3aed;--yellow:#ffd43b;
+      --radius:28px;--radius-sm:16px;--shadow:0 22px 70px rgba(20,20,10,.12);--grid:rgba(0,0,0,.055);
+    }
+    [data-theme="dark"]{color-scheme:dark;--bg:#08080b;--paper:#111115;--ink:#faf7ef;--muted:#beb8ad;--subtle:#89857f;--line:rgba(255,255,255,.18);--soft-line:rgba(255,255,255,.09);--accent:#fff;--shadow:0 24px 80px rgba(0,0,0,.55);--grid:rgba(255,255,255,.075)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-feature-settings:"kern";}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/72px 72px,linear-gradient(0deg,var(--grid) 1px,transparent 1px) 0 0/72px 72px;mask-image:linear-gradient(to bottom,#000 0%,transparent 72%);z-index:-2}
+    body::after{content:"";position:fixed;inset:auto -16vw -30vh auto;width:58vw;height:58vw;border-radius:999px;background:radial-gradient(circle,rgba(255,90,31,.20),transparent 60%);pointer-events:none;z-index:-1}
+    a{color:inherit}.shell{max-width:1280px;margin:0 auto;padding:22px clamp(14px,2.4vw,32px) 80px}.topbar{position:sticky;top:12px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 16px;margin-bottom:20px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(18px);box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:820;letter-spacing:-.03em}.brand-mark{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 20deg,var(--hot),var(--yellow),var(--green),var(--blue),var(--pink),var(--hot));border:2px solid var(--ink);box-shadow:inset 0 0 0 4px var(--paper)}
+    .top-actions{display:flex;gap:8px;align-items:center}.pill-btn,.tab-btn,.filter-btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;min-height:42px;padding:0 15px;font-weight:760;cursor:pointer;transition:.18s ease}.pill-btn:hover,.tab-btn:hover,.filter-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.08)}.pill-btn:focus-visible,.tab-btn:focus-visible,.filter-btn:focus-visible,a:focus-visible,input:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+    .hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:42px;background:linear-gradient(135deg,var(--paper),color-mix(in srgb,var(--paper) 76%,#ffe6d6));padding:clamp(28px,5vw,66px);box-shadow:var(--shadow)}[data-theme="dark"] .hero{background:linear-gradient(135deg,#111115,#17131c 70%,#2a1107)}
+    .kicker{display:inline-flex;gap:8px;align-items:center;margin:0 0 14px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.32);font-size:12px;font-weight:860;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}[data-theme="dark"] .kicker{background:rgba(255,255,255,.06)}
+    h1{margin:0;max-width:950px;font-size:clamp(40px,8.5vw,112px);line-height:.91;letter-spacing:-.085em}.hero-lead{max-width:780px;margin:22px 0 0;color:var(--muted);font-size:clamp(16px,2vw,21px);line-height:1.75}.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:28px;align-items:end}.hero-visual{position:relative;min-height:330px;border:1px solid var(--line);border-radius:34px;background:#050505;overflow:hidden;color:white;box-shadow:0 26px 70px rgba(0,0,0,.22)}.hero-visual::before{content:"";position:absolute;inset:-35%;background:conic-gradient(from 180deg,#ff5a1f,#ffd43b,#00b894,#2563eb,#ff4da6,#ff5a1f);filter:blur(36px);opacity:.75;animation:spin 14s linear infinite}.hero-visual-inner{position:absolute;inset:18px;border:1px solid rgba(255,255,255,.28);border-radius:26px;background:rgba(5,5,5,.54);backdrop-filter:blur(18px);padding:18px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:12px}.canvas-title{grid-column:1/-1;display:flex;justify-content:space-between;color:rgba(255,255,255,.82);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}.mini-window{border:1px solid rgba(255,255,255,.22);border-radius:18px;background:rgba(255,255,255,.08);padding:13px}.mini-window.big{grid-row:span 2}.mini-line{height:9px;border-radius:99px;background:rgba(255,255,255,.8);margin:7px 0}.mini-line.w40{width:40%}.mini-line.w60{width:60%}.mini-line.w80{width:80%}.mini-dot{width:36px;height:36px;border-radius:12px;background:#ffd43b;margin-bottom:12px}.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.mini-cell{height:42px;border-radius:12px;background:rgba(255,255,255,.18)}@keyframes spin{to{transform:rotate(1turn)}}
+    .metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.metric{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--paper) 70%,transparent);color:var(--muted);font-size:13px;font-weight:720}.tabs{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}.tab-btn.active,.filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}.panel{display:none}.panel.active{display:block}.section{margin-top:22px;border:1px solid var(--line);border-radius:34px;background:color-mix(in srgb,var(--paper) 83%,transparent);box-shadow:0 18px 46px rgba(0,0,0,.06);overflow:hidden}.section-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;padding:26px;border-bottom:1px solid var(--soft-line)}.section-label{margin:0 0 8px;font-size:12px;color:var(--hot);font-weight:900;letter-spacing:.14em;text-transform:uppercase}h2{margin:0;font-size:clamp(26px,4.2vw,52px);line-height:1;letter-spacing:-.055em}.section-head p{margin:10px 0 0;max-width:720px;color:var(--muted);line-height:1.68}.tag{white-space:nowrap;padding:8px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;font-weight:760}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:18px}.principle-card{position:relative;min-height:300px;display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid var(--line);border-radius:24px;background:var(--paper);overflow:hidden;transition:.2s ease}.principle-card:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(0,0,0,.1)}.principle-card h3{margin:0;font-size:22px;letter-spacing:-.035em}.principle-card p{margin:0;color:var(--muted);line-height:1.62}.badge{display:inline-flex;width:max-content;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:12px;font-weight:820;color:var(--muted)}.demo{height:120px;border:1px dashed var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(0,0,0,.025),transparent);padding:12px;position:relative;overflow:hidden}.demo .block{position:absolute;border-radius:11px;background:var(--ink);opacity:.9}.demo .ghost{background:transparent;border:2px solid var(--ink)}.caption{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--subtle);letter-spacing:.04em}.filters{display:flex;flex-wrap:wrap;gap:8px;padding:18px 18px 0}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px}.compare-box{border:1px solid var(--line);border-radius:28px;background:var(--paper);padding:18px}.compare-canvas{position:relative;height:330px;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:#f0eee7}.bad-ui,.good-ui{position:absolute;inset:0;padding:20px}.bad-ui{background:#f8f2ef;color:#111}.good-ui{background:#111;color:white;clip-path:inset(0 calc(100% - var(--reveal,50%)) 0 0)}.bad-ui .mess{position:absolute;border:2px solid #111;background:#ffd43b}.good-card{height:100%;border-radius:26px;padding:24px;background:linear-gradient(135deg,#222,#090909);border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:space-between}.good-title{font-size:42px;line-height:.95;letter-spacing:-.06em}.good-stack{display:grid;gap:10px}.good-row{height:20px;border-radius:99px;background:rgba(255,255,255,.75)}.range{width:100%;accent-color:var(--hot)}.trend-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px;padding:18px}.trend-list{display:grid;gap:8px}.trend-btn{width:100%;text-align:left;min-height:54px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink);padding:12px;cursor:pointer;font-weight:800}.trend-btn small{display:block;color:var(--muted);font-weight:640;margin-top:4px}.trend-btn.active{background:var(--ink);color:var(--paper)}.trend-btn.active small{color:color-mix(in srgb,var(--paper) 75%,transparent)}.trend-stage{min-height:540px;border:1px solid var(--line);border-radius:30px;background:var(--paper);overflow:hidden}.trend-hero{padding:26px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,var(--trend-color,#ff5a1f),transparent 62%)}.trend-hero h3{margin:0;font-size:clamp(30px,5vw,64px);letter-spacing:-.06em}.trend-hero p{max-width:760px;margin:12px 0 0;color:var(--muted);line-height:1.7}.trend-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:18px}.mockup{min-height:280px;border:1px solid var(--line);border-radius:24px;background:#0b0b0e;color:white;padding:18px;position:relative;overflow:hidden}.mockup.light{background:#fbfaf5;color:#111}.mockup::after{content:"";position:absolute;inset:auto -20% -30% auto;width:250px;height:250px;border-radius:999px;background:var(--trend-color,#ff5a1f);filter:blur(30px);opacity:.35}.mock-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.mock-pill{height:30px;border-radius:999px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.16);padding:7px 10px;font-size:12px}.light .mock-pill{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12)}.bento{display:grid;grid-template-columns:1.3fr .7fr;grid-template-rows:110px 90px;gap:10px}.bento div{border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18)}.light .bento div{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12)}.trend-notes{display:grid;gap:12px}.note-card{border:1px solid var(--line);border-radius:20px;padding:16px;background:color-mix(in srgb,var(--paper) 78%,transparent)}.note-card strong{display:block;margin-bottom:6px}.note-card span{color:var(--muted);line-height:1.58}.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:18px}.rule{border:1px solid var(--line);border-radius:22px;padding:18px;background:var(--paper)}.rule h3{margin:0 0 8px;font-size:20px}.rule ul{margin:0;padding-left:20px;color:var(--muted);line-height:1.75}.checker{padding:18px;display:grid;grid-template-columns:360px 1fr;gap:18px}.score-card{position:sticky;top:90px;align-self:start;border:1px solid var(--line);border-radius:28px;background:var(--paper);padding:22px}.score-num{font-size:76px;line-height:1;letter-spacing:-.07em;font-weight:900}.score-bar{height:14px;border-radius:999px;background:rgba(0,0,0,.08);overflow:hidden;margin:14px 0}.score-fill{height:100%;width:0;background:linear-gradient(90deg,#ff5a1f,#ffd43b,#00b894);transition:.25s ease}.check-list{display:grid;gap:10px}.check-item{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;border:1px solid var(--line);border-radius:18px;padding:14px;background:var(--paper)}.check-item input{width:22px;height:22px;accent-color:#00b894}.check-item strong{display:block;margin-bottom:4px}.check-item span{color:var(--muted);line-height:1.55}.sources{padding:18px;display:grid;gap:10px}.source{display:block;border:1px solid var(--line);border-radius:18px;padding:14px;text-decoration:none;background:var(--paper)}.source:hover{background:color-mix(in srgb,var(--paper) 76%,var(--hot))}.source small{display:block;color:var(--muted);margin-top:4px;line-height:1.45}.footer-note{text-align:center;color:var(--muted);margin-top:26px;font-size:13px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.hide{display:none!important}
+    @media(max-width:980px){.hero-grid,.trend-layout,.trend-body,.split,.checker{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.score-card{position:relative;top:auto}.hero-visual{min-height:280px}}
+    @media(max-width:680px){.shell{padding-inline:12px}.topbar{border-radius:22px;align-items:flex-start}.top-actions{flex-wrap:wrap;justify-content:flex-end}.hero{border-radius:30px}.cards,.rules{grid-template-columns:1fr}.section-head{display:block}.tag{display:inline-flex;margin-top:12px}.trend-stage{min-height:auto}.hero-visual-inner{grid-template-columns:1fr}.mini-window.big{display:none}.compare-canvas{height:280px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body data-theme="light">
+  <main class="shell">
+    <nav class="topbar" aria-label="页面导航">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>UI Design Field Guide</span></div>
+      <div class="top-actions">
+        <button class="pill-btn" data-jump="principles">基础原则</button>
+        <button class="pill-btn" data-jump="trends">2026 趋势</button>
+        <button class="pill-btn" data-jump="checker">检查表</button>
+        <button class="pill-btn" id="themeToggle">夜间</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">Visual UI Basics · Updated 2026-04-30 17:28:46 CST</p>
+          <h1>平面 UI 设计：先把基本功做对，再追趋势。</h1>
+          <p class="hero-lead">这页把“平面设计的视觉原则”和“UI 的可用性原则”合在一起，用交互图解说明：什么决定一个界面是否清楚、好看、可点击、能转化；以及 2026 年最值得借鉴但不能盲跟的视觉潮流。</p>
+          <div class="metrics">
+            <span class="metric">10 条基本原则</span>
+            <span class="metric">9 个最新趋势</span>
+            <span class="metric">内置 before/after 图解</span>
+            <span class="metric">可勾选设计体检表</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="UI 设计画布示意图">
+          <div class="hero-visual-inner">
+            <div class="canvas-title"><span>Design Canvas</span><span>Grid / Type / Motion</span></div>
+            <div class="mini-window big">
+              <div class="mini-dot"></div><div class="mini-line w80"></div><div class="mini-line w60"></div><div class="mini-line w40"></div>
+              <div class="mini-grid"><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div></div>
+            </div>
+            <div class="mini-window"><div class="mini-line w60"></div><div class="mini-line w80"></div><div class="mini-line w40"></div></div>
+            <div class="mini-window"><div class="mini-grid"><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist" aria-label="内容切换">
+      <button class="tab-btn active" data-tab="principles">01 基本原则</button>
+      <button class="tab-btn" data-tab="visual">02 图解对比</button>
+      <button class="tab-btn" data-tab="trends">03 最新趋势</button>
+      <button class="tab-btn" data-tab="checker">04 设计体检</button>
+      <button class="tab-btn" data-tab="sources">05 资料来源</button>
+    </div>
+
+    <section id="principles" class="panel active section">
+      <div class="section-head">
+        <div><p class="section-label">Principles</p><h2>最基本的 10 条原则</h2><p>记住一句话：UI 不是“装饰画”，而是“带任务的视觉系统”。平面设计负责看清楚，UI 设计负责点得对、走得顺。</p></div>
+        <span class="tag">推荐顺序：层级 → 网格 → 对比 → 反馈</span>
+      </div>
+      <div class="filters" aria-label="原则筛选">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="layout">版式</button>
+        <button class="filter-btn" data-filter="visual">视觉</button>
+        <button class="filter-btn" data-filter="ui">交互</button>
+      </div>
+      <div class="cards" id="principleCards">
+        <article class="principle-card" data-group="layout"><span class="badge">01 · Hierarchy</span><div class="demo"><span class="block" style="left:16px;top:18px;width:138px;height:30px"></span><span class="block" style="left:16px;top:62px;width:82px;height:13px;opacity:.45"></span><span class="block" style="left:16px;top:86px;width:170px;height:10px;opacity:.22"></span></div><h3>视觉层级</h3><p>先让用户知道“最重要的是什么”。用字号、粗细、位置、留白和颜色排出主次，而不是所有东西都抢眼。</p><span class="caption">判断：3 秒内能否看懂主按钮？</span></article>
+        <article class="principle-card" data-group="layout"><span class="badge">02 · Alignment</span><div class="demo"><span class="block ghost" style="left:18px;top:16px;width:2px;height:88px"></span><span class="block" style="left:34px;top:20px;width:92px;height:16px"></span><span class="block" style="left:34px;top:50px;width:150px;height:16px;opacity:.55"></span><span class="block" style="left:34px;top:80px;width:116px;height:16px;opacity:.35"></span></div><h3>对齐</h3><p>对齐会制造秩序感。界面里看似“高级”的整洁，大多来自统一起点、统一边距、统一基线。</p><span class="caption">诀窍：减少随机坐标。</span></article>
+        <article class="principle-card" data-group="layout"><span class="badge">03 · Proximity</span><div class="demo"><span class="block" style="left:16px;top:18px;width:76px;height:24px"></span><span class="block" style="left:16px;top:50px;width:110px;height:12px;opacity:.35"></span><span class="block" style="right:18px;bottom:18px;width:86px;height:24px;background:var(--hot)"></span><span class="block" style="right:18px;bottom:50px;width:122px;height:12px;opacity:.35"></span></div><h3>亲密性 / 分组</h3><p>相关元素靠近，不相关元素拉开。分组清楚，用户就不用猜哪些信息属于同一件事。</p><span class="caption">距离本身就是信息。</span></article>
+        <article class="principle-card" data-group="visual"><span class="badge">04 · Contrast</span><div class="demo"><span class="block" style="left:16px;top:18px;width:142px;height:40px;background:var(--hot)"></span><span class="block" style="left:16px;top:74px;width:142px;height:12px;opacity:.2"></span><span class="block" style="left:16px;top:94px;width:96px;height:12px;opacity:.2"></span></div><h3>对比</h3><p>大小、颜色、明暗、疏密都能形成对比。没有对比，页面会像一块灰布；对比过多，又会变成噪音。</p><span class="caption">对比服务重点，而不是炫技。</span></article>
+        <article class="principle-card" data-group="visual"><span class="badge">05 · Repetition</span><div class="demo"><span class="block" style="left:16px;top:18px;width:58px;height:78px;border-radius:14px"></span><span class="block" style="left:86px;top:18px;width:58px;height:78px;border-radius:14px;opacity:.6"></span><span class="block" style="left:156px;top:18px;width:58px;height:78px;border-radius:14px;opacity:.3"></span></div><h3>重复 / 一致性</h3><p>相同功能用相同样式，相同层级用相同规格。重复让用户形成记忆，也让产品显得专业。</p><span class="caption">组件化是高级重复。</span></article>
+        <article class="principle-card" data-group="layout"><span class="badge">06 · Whitespace</span><div class="demo"><span class="block" style="left:22px;top:22px;width:112px;height:18px"></span><span class="block" style="left:22px;top:58px;width:170px;height:10px;opacity:.24"></span><span class="block" style="left:22px;top:78px;width:132px;height:10px;opacity:.24"></span></div><h3>留白</h3><p>留白不是浪费空间，而是给内容呼吸。越重要的内容，越需要周围有安静区域。</p><span class="caption">留白 = 注意力预算。</span></article>
+        <article class="principle-card" data-group="visual"><span class="badge">07 · Typography</span><div class="demo"><span class="block" style="left:16px;top:16px;width:170px;height:28px"></span><span class="block" style="left:16px;top:58px;width:130px;height:16px;opacity:.55"></span><span class="block" style="left:16px;top:88px;width:188px;height:9px;opacity:.25"></span></div><h3>字体与可读性</h3><p>字号、行高、字重、字距要形成阶梯。正文优先可读，标题优先识别，标签优先扫描。</p><span class="caption">移动端正文通常 ≥ 15–16px。</span></article>
+        <article class="principle-card" data-group="visual"><span class="badge">08 · Color</span><div class="demo"><span class="block" style="left:18px;top:18px;width:44px;height:44px;background:var(--hot)"></span><span class="block" style="left:72px;top:18px;width:44px;height:44px;background:var(--blue)"></span><span class="block" style="left:126px;top:18px;width:44px;height:44px;background:var(--green)"></span><span class="block" style="left:18px;top:78px;width:152px;height:16px;opacity:.2"></span></div><h3>色彩系统</h3><p>颜色先服务状态：主行动、成功、警告、危险、信息。不要每个模块都发明新颜色。</p><span class="caption">一主色 + 中性色 + 状态色。</span></article>
+        <article class="principle-card" data-group="ui"><span class="badge">09 · Affordance</span><div class="demo"><span class="block" style="left:28px;top:36px;width:148px;height:48px;border-radius:999px;background:var(--hot)"></span><span class="block" style="left:56px;top:52px;width:92px;height:12px;background:white;opacity:.9"></span></div><h3>可点击感</h3><p>按钮要像按钮，输入框要像输入框。用户不该为了“这能不能点”而思考。</p><span class="caption">形状、阴影、文案、状态一起提示。</span></article>
+        <article class="principle-card" data-group="ui"><span class="badge">10 · Feedback</span><div class="demo"><span class="block ghost" style="left:26px;top:28px;width:140px;height:48px;border-radius:999px;border-color:var(--green)"></span><span class="block" style="left:54px;top:44px;width:84px;height:12px;background:var(--green)"></span><span class="block" style="left:174px;top:42px;width:28px;height:28px;border-radius:50%;background:var(--green)"></span></div><h3>反馈与无障碍</h3><p>悬停、按下、加载、成功、错误、禁用、焦点状态都要明确。好 UI 对鼠标、键盘、触屏都友好。</p><span class="caption">无障碍不是加分项，是底线。</span></article>
+      </div>
+    </section>
+
+    <section id="visual" class="panel section">
+      <div class="section-head"><div><p class="section-label">Before / After</p><h2>拖动滑杆：从“混乱”到“清楚”</h2><p>同样的信息，改变层级、对齐、留白和主按钮位置，感知会完全不同。你可以拖动滑杆看前后对比。</p></div><span class="tag">图解：信息结构优先于装饰</span></div>
+      <div class="split">
+        <div class="compare-box">
+          <div class="compare-canvas" id="compareCanvas" style="--reveal:52%">
+            <div class="bad-ui" aria-label="混乱版界面"><div class="mess" style="left:18px;top:22px;width:152px;height:42px"></div><div class="mess" style="right:28px;top:72px;width:92px;height:68px;background:#ff4da6"></div><div class="mess" style="left:82px;top:148px;width:210px;height:34px;background:#00b894"></div><div class="mess" style="left:30px;bottom:38px;width:128px;height:72px;background:#2563eb"></div><div class="mess" style="right:30px;bottom:28px;width:168px;height:44px;background:#ffd43b"></div></div>
+            <div class="good-ui" aria-label="优化版界面"><div class="good-card"><div><div class="caption" style="color:rgba(255,255,255,.65);margin-bottom:14px">PRIMARY ACTION</div><div class="good-title">清楚的层级先让人安心。</div></div><div class="good-stack"><div class="good-row" style="width:86%"></div><div class="good-row" style="width:64%;opacity:.5"></div><div class="good-row" style="width:42%;height:44px;background:#ff5a1f;opacity:1"></div></div></div></div>
+          </div>
+          <p style="margin:14px 0 8px;color:var(--muted)">滑杆越往右，优化版越多：</p><input class="range" id="revealRange" type="range" min="0" max="100" value="52" />
+        </div>
+        <div class="compare-box">
+          <h3 style="font-size:26px;margin:0 0 10px;letter-spacing:-.04em">怎么改才有效？</h3>
+          <div class="rules" style="padding:0;grid-template-columns:1fr">
+            <div class="rule"><h3>1. 先排信息优先级</h3><ul><li>主标题只讲一个核心价值。</li><li>主按钮只保留一个首选动作。</li><li>次要信息降低对比，不抢第一眼。</li></ul></div>
+            <div class="rule"><h3>2. 再统一视觉系统</h3><ul><li>统一边距、圆角、字号阶梯。</li><li>减少颜色数量，颜色只承担明确语义。</li><li>所有可点击元素必须有状态反馈。</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trends" class="panel section">
+      <div class="section-head"><div><p class="section-label">2026 Trends</p><h2>最新潮流：值得借鉴，但不要盲跟</h2><p>综合 2026 UI/UX 与平面设计趋势文章：AI、动效、Bento、3D、手工质感、实验字体、负责任的玻璃拟态、强对比极简、无障碍会继续强化。</p></div><span class="tag">截至 2026-04-30 17:28:46 CST</span></div>
+      <div class="trend-layout">
+        <div class="trend-list" id="trendList"></div>
+        <div class="trend-stage">
+          <div class="trend-hero" id="trendHero"><h3 id="trendTitle">AI-first / 生成式 UI</h3><p id="trendDesc">界面会根据用户、场景和任务动态生成模块与推荐路径。设计师的角色从“画固定页面”变成“定义规则、边界和质量标准”。</p></div>
+          <div class="trend-body">
+            <div class="mockup" id="trendMock"><div class="mock-head"><span class="mock-pill">AI LAYOUT</span><span class="mock-pill">Adaptive</span></div><div class="bento"><div></div><div></div><div></div><div></div></div></div>
+            <div class="trend-notes"><div class="note-card"><strong>适合用在</strong><span id="trendUse">个性化首页、智能仪表盘、内容推荐、B2B SaaS 工作台。</span></div><div class="note-card"><strong>落地提醒</strong><span id="trendCaution">不要把 AI 当装饰。必须保留用户控制、解释依据和可撤销操作。</span></div><div class="note-card"><strong>设计关键词</strong><span id="trendKeys">规则系统、动态模块、上下文、可解释、人工可控。</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="checker" class="panel section">
+      <div class="section-head"><div><p class="section-label">Checklist</p><h2>上线前 12 项设计体检</h2><p>把它当作每次做页面、海报、App 界面前的快速检查。勾选会自动保存到浏览器本地。</p></div><span class="tag">目标：80 分以上再交付</span></div>
+      <div class="checker">
+        <aside class="score-card"><div class="caption">DESIGN SCORE</div><div class="score-num"><span id="scoreNum">0</span>%</div><div class="score-bar"><div class="score-fill" id="scoreFill"></div></div><p id="scoreText" style="color:var(--muted);line-height:1.6;margin:0">先勾选左侧检查项。</p></aside>
+        <div class="check-list" id="checkList"></div>
+      </div>
+    </section>
+
+    <section id="sources" class="panel section">
+      <div class="section-head"><div><p class="section-label">Sources</p><h2>趋势参考来源</h2><p>基础原则来自通用视觉设计与 UI 可用性方法；趋势部分参考了近期公开设计趋势文章，并做了筛选：只保留对实际项目有用的方向。</p></div><span class="tag">附链接，便于继续阅读</span></div>
+      <div class="sources">
+        <a class="source" href="https://www.vezadigital.com/post/ai-ux-ui-design-trends" target="_blank" rel="noreferrer"><strong>VEZA Digital — AI in UX/UI Design Trends 2026</strong><small>AI 驱动个性化、生成式设计、会话界面、自动化无障碍、视觉趋势。</small></a>
+        <a class="source" href="https://www.index.dev/blog/ui-ux-design-trends" target="_blank" rel="noreferrer"><strong>Index.dev — 12 UI/UX Design Trends That Will Dominate 2026</strong><small>战略极简、AI-first、Zero UI、3D/空间、Anti-design、负责任玻璃拟态、流体字体、包容性。</small></a>
+        <a class="source" href="https://digitalsynopsis.com/design/graphic-design-trends-2026/" target="_blank" rel="noreferrer"><strong>Digital Synopsis — Top 20 Graphic Design Trends For 2026</strong><small>Bento Grid、3D、液态字体、动效品牌、混合媒介、新粗野主义、渐变、拼贴、模糊扭曲。</small></a>
+        <a class="source" href="https://www.creativebloq.com/design/graphic-design/texture-warmth-and-tactile-rebellion-the-big-graphic-design-trends-for-2026" target="_blank" rel="noreferrer"><strong>Creative Bloq — Graphic Design Trends for 2026</strong><small>触感、温度、人味、反 AI 手工感、情绪色彩、多感官身份、字体即设计。</small></a>
+        <a class="source" href="https://www.nngroup.com/articles/ux-reset-2025/" target="_blank" rel="noreferrer"><strong>NN/g — The UX Reckoning: Prepare for 2025 and Beyond</strong><small>后炒作 AI、价值与用户主动权、浅层 UX 会越来越难生存。</small></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><p class="section-label">One-page Summary</p><h2>一句话版本</h2><p><strong>基本功：</strong>层级清楚、对齐稳定、分组明确、对比有节制、重复成系统、留白给重点、文字可读、颜色有语义、按钮像按钮、反馈及时。<br><strong>追趋势：</strong>AI 和动效可以增强体验，Bento/3D/玻璃/粗野主义/实验字体可以增强记忆点，但都必须服务可读性、任务效率和品牌气质。</p></div><span class="tag">先清楚，再漂亮；先可用，再潮流。</span></div>
+    </section>
+    <p class="footer-note">Edwin Hermes Web Archive · 平面 UI 设计原则与趋势交互笔记 · 2026-04-30 17:28:46 CST</p>
+  </main>
+
+  <script>
+    const $ = (s, r=document)=>r.querySelector(s); const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+    const tabs = $$('.tab-btn'); const panels = $$('.panel');
+    function openTab(id){tabs.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));history.replaceState(null,'','#'+id);}
+    tabs.forEach(btn=>btn.addEventListener('click',()=>openTab(btn.dataset.tab)));
+    $$('[data-jump]').forEach(btn=>btn.addEventListener('click',()=>{openTab(btn.dataset.jump);setTimeout(()=>$('#'+btn.dataset.jump).scrollIntoView({block:'start',behavior:'smooth'}),20)}));
+    if(location.hash && $(location.hash)){openTab(location.hash.slice(1));}
+    $('#themeToggle').addEventListener('click',()=>{const dark=document.body.dataset.theme!=='dark';document.body.dataset.theme=dark?'dark':'light';$('#themeToggle').textContent=dark?'日间':'夜间';localStorage.setItem('uiGuideTheme',document.body.dataset.theme)});
+    const savedTheme=localStorage.getItem('uiGuideTheme'); if(savedTheme){document.body.dataset.theme=savedTheme;$('#themeToggle').textContent=savedTheme==='dark'?'日间':'夜间'}
+    $$('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{const f=btn.dataset.filter;$$('.filter-btn').forEach(b=>b.classList.toggle('active',b===btn));$$('.principle-card').forEach(card=>card.classList.toggle('hide',f!=='all'&&card.dataset.group!==f));}));
+    $('#revealRange').addEventListener('input',e=>$('#compareCanvas').style.setProperty('--reveal',e.target.value+'%'));
+
+    const trends=[
+      {id:'ai',title:'AI-first / 生成式 UI',sub:'动态生成，不是静态页面',color:'#ff5a1f',desc:'界面根据用户、场景和任务动态生成模块与推荐路径。设计师从“画固定页面”变成“定义规则、边界和质量标准”。',use:'个性化首页、智能仪表盘、内容推荐、B2B SaaS 工作台。',caution:'不要把 AI 当装饰。必须保留用户控制、解释依据和可撤销操作。',keys:'规则系统、动态模块、上下文、可解释、人工可控。',light:false},
+      {id:'bento',title:'Bento Grid 信息卡片',sub:'复杂信息模块化',color:'#2563eb',desc:'用大小不同的卡片组织内容，让页面既有秩序又有节奏。适合把多种功能/卖点放在一个可扫描画面里。',use:'官网首页、产品功能介绍、作品集、数据看板。',caution:'不要为了 Bento 而 Bento。卡片大小必须反映信息权重。',keys:'模块化、卡片层级、可扫描、节奏。',light:true},
+      {id:'motion',title:'动效驱动品牌',sub:'Motion-led Branding',color:'#00b894',desc:'动效不只是转场，而是品牌识别的一部分：按钮反馈、状态变化、滚动叙事、微交互都在表达气质。',use:'品牌官网、App onboarding、数据加载、状态反馈。',caution:'动效要解释状态，而不是拖慢用户；必须尊重 prefers-reduced-motion。',keys:'微交互、连续性、状态反馈、节奏。',light:false},
+      {id:'spatial',title:'3D / 空间化界面',sub:'Spatial + 3D',color:'#7c3aed',desc:'3D 从炫技走向克制：用空间、透视和层级帮助用户理解结构，而不是堆满立体元素。',use:'产品展示、AR/VR、硬件、教育可视化、品牌关键视觉。',caution:'3D 成本高，移动端性能和可访问性要优先考虑。',keys:'深度、空间层级、克制、性能。',light:false},
+      {id:'tactile',title:'手工质感 / 反 AI 完美感',sub:'Tactile Rebellion',color:'#ffd43b',desc:'越是 AI 生成泛滥，越需要纹理、手绘、拼贴、纸张、颗粒和不完美感来制造人味。',use:'品牌视觉、活动页、文化内容、创意作品集。',caution:'手工感不能牺牲可读性；质感应成为情绪，不是噪点污染。',keys:'纹理、人味、拼贴、颗粒、情绪。',light:true},
+      {id:'type',title:'实验字体 / 液态 Typography',sub:'Type as Design',color:'#ff4da6',desc:'字体不再只是承载文字，也成为画面主体：液态变形、ink-trap、夸张字重、可变字体都更常见。',use:'海报、活动页、品牌标题、音乐/潮流内容。',caution:'正文别玩过头。实验字体最好只用于标题和关键视觉。',keys:'可变字体、液态、标题即视觉、字重对比。',light:true},
+      {id:'glass',title:'负责任的玻璃拟态',sub:'Responsible Glass',color:'#8b5cf6',desc:'模糊、透明和层叠依然流行，但 2026 的重点是可读性、边界和对比，而不是一味半透明。',use:'控制面板、浮层、AI 助手、媒体类界面。',caution:'低对比文字是大坑；玻璃层必须有足够背景遮罩和边框。',keys:'透明、模糊、边界、对比、可读性。',light:false},
+      {id:'brutal',title:'新粗野主义 + 实用主义',sub:'Neo-brutal / Utilitarian',color:'#050505',desc:'更强的边框、更直接的排版、更少的装饰，用近似“工具”的诚实感对抗千篇一律的精致。',use:'开发者工具、独立品牌、实验项目、编辑类网站。',caution:'粗野不是粗糙。仍然需要网格、间距和信息层级。',keys:'硬边框、高对比、直接、实用、反装饰。',light:true},
+      {id:'access',title:'包容性与无障碍优先',sub:'Neurodiversity + Accessibility',color:'#10b981',desc:'高对比、键盘导航、可缩放字体、减少认知负担、适配不同注意力与感知方式，会从“合规”变成“竞争力”。',use:'所有正式产品，尤其是金融、医疗、教育、效率工具。',caution:'不要只靠自动检测；真实用户测试和清晰文案同样重要。',keys:'WCAG、焦点状态、可读性、认知负担、键盘。',light:true}
+    ];
+    const list=$('#trendList');
+    trends.forEach((t,i)=>{const b=document.createElement('button');b.className='trend-btn'+(i===0?' active':'');b.innerHTML=`${t.title}<small>${t.sub}</small>`;b.addEventListener('click',()=>setTrend(t.id));list.appendChild(b);});
+    function setTrend(id){const t=trends.find(x=>x.id===id);$$('.trend-btn').forEach((b,i)=>b.classList.toggle('active',trends[i].id===id));$('#trendHero').style.setProperty('--trend-color',t.color);$('#trendMock').style.setProperty('--trend-color',t.color);$('#trendTitle').textContent=t.title;$('#trendDesc').textContent=t.desc;$('#trendUse').textContent=t.use;$('#trendCaution').textContent=t.caution;$('#trendKeys').textContent=t.keys;$('#trendMock').classList.toggle('light',t.light);}
+    setTrend('ai');
+
+    const checks=[
+      ['首屏 3 秒内能看出页面目的和主行动。','层级'],['主要内容沿同一网格/边距对齐。','版式'],['相关信息已经靠近并分组，不相关信息有明显距离。','版式'],['主按钮只有一个，并且视觉权重最高。','交互'],['颜色有语义：主色、成功、警告、危险不混用。','视觉'],['正文可读，字号/行高适合移动端。','字体'],['所有可点击元素看起来可点击。','交互'],['悬停、按下、加载、错误、成功、禁用状态齐全。','反馈'],['键盘 Tab 可见焦点，重要操作不用只靠鼠标。','无障碍'],['文字与背景对比足够，玻璃/图片上文字不糊。','无障碍'],['组件样式重复一致，没有临时发明太多样式。','系统'],['趋势元素服务内容，而不是抢内容。','判断']
+    ];
+    const saved=JSON.parse(localStorage.getItem('uiGuideChecks')||'[]'); const cl=$('#checkList');
+    checks.forEach((c,i)=>{const label=document.createElement('label');label.className='check-item';label.innerHTML=`<input type="checkbox" ${saved.includes(i)?'checked':''}/><span><strong>${c[0]}</strong><span>${c[1]}</span></span>`;label.querySelector('input').addEventListener('change',updateScore);cl.appendChild(label);});
+    function updateScore(){const inputs=$$('#checkList input');const on=inputs.map((x,i)=>x.checked?i:null).filter(x=>x!==null);localStorage.setItem('uiGuideChecks',JSON.stringify(on));const score=Math.round(on.length/inputs.length*100);$('#scoreNum').textContent=score;$('#scoreFill').style.width=score+'%';$('#scoreText').textContent=score>=90?'可以交付：基本功扎实，趋势也没有喧宾夺主。':score>=75?'接近可交付：再检查可读性、状态反馈和主按钮。':score>=50?'还需要整理：优先处理层级、对齐、对比和点击感。':'先别追趋势：基础信息结构还没有站稳。';}
+    updateScore();
+  </script>
+</body>
+</html>

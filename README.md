@@ -27,6 +27,13 @@ AI 项目拆解、知识库、Agent 工作流与效率工具。
 - 肩部 / 三头
   - [肩部与三头练宽练厚黄金动作笔记](fitness-shoulder-triceps/)
 
+### 设计与视觉方法
+
+UI、平面设计、视觉原则、趋势与可交互学习页面。
+
+- UI / 平面设计
+  - [平面 UI 设计基本原则与 2026 潮流趋势](ui-design-principles-trends/)
+
 ### 舞蹈研究知识库
 
 舞蹈质感、音乐性、Balboa、Blues Solo 等系统笔记。
