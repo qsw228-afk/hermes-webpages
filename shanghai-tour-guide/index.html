@@ -265,7 +265,8 @@
   .route-img .ph{
     position:absolute;inset:0;
     display:flex;align-items:center;justify-content:center;
-    font-size:64px;color:#fff;
+    font-size:64px;color:#fff;z-index:1;
+    /* 仅在图片加载失败时显示 */
   }
   .route-img.r1{background:linear-gradient(135deg,#FF6B9D,#FF4D6D);}
   .route-img.r2{background:linear-gradient(135deg,#FFB72B,#FF8A3D);}
@@ -273,6 +274,18 @@
   .route-img.r4{background:linear-gradient(135deg,#7C3AED,#A855F7);}
   .route-img.r5{background:linear-gradient(135deg,#22C55E,#10B981);}
   .route-img.r6{background:linear-gradient(135deg,#F472B6,#EC4899);}
+  .route-photo{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;z-index:2;
+    transition:transform .5s;
+  }
+  .route:hover .route-photo{transform:scale(1.06);}
+  .route-img::after{
+    content:"";position:absolute;inset:0;z-index:3;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.25) 100%);
+    pointer-events:none;
+  }
+  .route-tag,.route-fav{z-index:4;}
   .route-tag{
     position:absolute;top:14px;left:14px;
     background:#fff;color:var(--ink);
@@ -651,6 +664,10 @@
     <div class="routes-grid">
       <div class="route">
         <div class="route-img r1">
+          <!-- 外滩夜景 / 浦东天际线 -->
+          <img class="route-photo" alt="外滩夜景"
+               src="https://images.unsplash.com/photo-1545893835-abaa50cbe628?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/shanghai,bund,night'">
           <span class="ph">🌃</span>
           <span class="route-tag">🔥 最热门</span>
           <span class="route-fav">❤️</span>
@@ -669,6 +686,10 @@
 
       <div class="route">
         <div class="route-img r2">
+          <!-- 本帮菜 / 小笼包 -->
+          <img class="route-photo" alt="本帮菜"
+               src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/xiaolongbao,dimsum,chinese,food'">
           <span class="ph">🥟</span>
           <span class="route-tag">🍴 美食</span>
           <span class="route-fav">❤️</span>
@@ -687,6 +708,10 @@
 
       <div class="route">
         <div class="route-img r3">
+          <!-- 武康路 / 梧桐街道 -->
+          <img class="route-photo" alt="武康路梧桐区"
+               src="https://images.unsplash.com/photo-1538428494232-9c0d8a3ab1ad?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/shanghai,wukang,street,plane,trees'">
           <span class="ph">📸</span>
           <span class="route-tag">📷 出片</span>
           <span class="route-fav">❤️</span>
@@ -705,6 +730,10 @@
 
       <div class="route">
         <div class="route-img r4">
+          <!-- 豫园 / 老上海建筑 -->
+          <img class="route-photo" alt="豫园老上海"
+               src="https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/yuyuan,garden,shanghai,china'">
           <span class="ph">🏛️</span>
           <span class="route-tag">⭐ 经典</span>
           <span class="route-fav">❤️</span>
@@ -723,6 +752,10 @@
 
       <div class="route">
         <div class="route-img r5">
+          <!-- 迪士尼城堡 -->
+          <img class="route-photo" alt="迪士尼乐园"
+               src="https://images.unsplash.com/photo-1518003091296-22f3eea5a47c?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/disney,castle,disneyland'">
           <span class="ph">🎢</span>
           <span class="route-tag">👨‍👩‍👧 亲子</span>
           <span class="route-fav">❤️</span>
@@ -741,6 +774,10 @@
 
       <div class="route">
         <div class="route-img r6">
+          <!-- 小众咖啡 / 古着 -->
+          <img class="route-photo" alt="小众咖啡店"
+               src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop"
+               onerror="this.onerror=null;this.src='https://loremflickr.com/900/500/coffee,cafe,vintage,shanghai'">
           <span class="ph">🛍️</span>
           <span class="route-tag">💎 小众</span>
           <span class="route-fav">❤️</span>

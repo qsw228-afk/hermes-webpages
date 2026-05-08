@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-08 11:30:04 CST",
+  "updated_at": "2026-05-08 11:48:27 CST",
   "pages": [
     {
       "title": "问界 M9｜全景智慧旗舰 SUV 交互介绍",
@@ -11,11 +11,12 @@
     },
     {
       "title": "魔都向导 · 上海本地人陪你玩 | 私人定制一日游",
-      "source": "/Users/edwinmac/.hermes/cache/documents/doc_13ab8ce88499_shanghai-tour-guide.html",
+      "source": "/Users/edwinmac/.hermes/cache/documents/doc_5c4e8702f1a9_shanghai-tour-guide.html",
       "note": "shanghai-tour-guide.html",
-      "size": 38534,
+      "size": 40957,
       "slug": "shanghai-tour-guide",
-      "url_path": "/shanghai-tour-guide/"
+      "url_path": "/shanghai-tour-guide/",
+      "updated_at": "2026-05-08 11:48:27 CST"
     },
     {
       "title": "claude-obsidian 项目拆解与适配评估",
