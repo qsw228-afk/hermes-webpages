@@ -4,90 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Edwin 的 Hermes 网页档案｜分层导航</title>
+  <meta name="description" content="Edwin 的 GitHub Pages 网页档案，收录可外网访问的 HTML 页面。" />
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #07111f;
-      --bg2: #0d1728;
-      --panel: rgba(15, 23, 42, .78);
-      --panel-strong: rgba(15, 23, 42, .95);
-      --text: #eef5ff;
-      --muted: #94a3b8;
-      --soft: #cbd5e1;
-      --line: rgba(148, 163, 184, .20);
-      --line-strong: rgba(148, 163, 184, .34);
-      --accent: #a78bfa;
-      --shadow: 0 24px 80px rgba(0,0,0,.32);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(124,58,237,.28), transparent 34%),
-        radial-gradient(circle at 90% 18%, rgba(14,165,233,.18), transparent 32%),
-        linear-gradient(180deg, #070f1e, var(--bg));
-      color: var(--text);
-    }
-    a { color: inherit; }
-    .shell { max-width: 1240px; margin: 0 auto; padding: 34px 18px 72px; }
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(26px, 5vw, 56px);
-      border: 1px solid var(--line);
-      border-radius: 34px;
-      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
-      box-shadow: var(--shadow);
-    }
-    .hero::after { content: ""; position: absolute; inset: auto -18% -44% auto; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,.25), transparent 63%); pointer-events: none; }
-    .eyebrow { margin:0 0 12px; color:#c4b5fd; font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
-    h1 { margin: 0; max-width: 860px; font-size: clamp(34px, 6vw, 72px); line-height: .98; letter-spacing: -.05em; }
-    .intro { margin: 18px 0 0; max-width: 790px; color: var(--soft); font-size: clamp(15px, 2vw, 18px); line-height: 1.75; }
-    .metrics { display:flex; flex-wrap:wrap; gap: 10px; margin-top: 24px; }
-    .metric { padding: 10px 13px; border:1px solid var(--line); border-radius:999px; background: rgba(15,23,42,.55); color: var(--soft); font-size: 13px; }
-    .layout { display:grid; grid-template-columns: 270px minmax(0,1fr); gap: 22px; margin-top: 22px; align-items:start; }
-    aside { position: sticky; top: 14px; border: 1px solid var(--line); border-radius: 26px; background: var(--panel); backdrop-filter: blur(18px); padding: 14px; }
-    .nav-title { padding: 8px 10px 12px; color: var(--muted); font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
-    .nav-link { display:grid; grid-template-columns: 36px 1fr auto; gap:10px; align-items:center; min-height:48px; padding: 8px 10px; border-radius:16px; text-decoration:none; color: var(--soft); }
-    .nav-link:hover { background: rgba(255,255,255,.06); color: var(--text); }
-    .nav-link span { color:#a78bfa; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
-    .nav-link em { font-style:normal; color: var(--muted); font-size:12px; }
-    .search { margin: 12px 0 2px; position: relative; }
-    .search input { width:100%; min-height:44px; border:1px solid var(--line); border-radius:15px; background:rgba(2,6,23,.65); color:var(--text); padding: 0 12px; outline:none; }
-    .search input:focus { border-color:#a78bfa; box-shadow:0 0 0 3px rgba(167,139,250,.15); }
-    .layer { scroll-margin-top: 18px; border:1px solid var(--line); border-radius: 30px; background: rgba(15,23,42,.55); overflow:hidden; margin-bottom:18px; }
-    .layer-head { display:flex; justify-content:space-between; gap:18px; padding: 24px; border-bottom:1px solid var(--line); background: linear-gradient(90deg, color-mix(in srgb, var(--section-accent) 16%, transparent), transparent 58%); }
-    .layer-kicker { margin:0 0 8px; color: var(--section-accent); font-weight:800; font-size:12px; letter-spacing:.15em; text-transform:uppercase; }
-    h2 { margin:0; font-size: clamp(24px, 3vw, 38px); letter-spacing:-.035em; }
-    .layer-head p:last-child { margin: 9px 0 0; color: var(--muted); line-height:1.65; }
-    .count { height:max-content; white-space:nowrap; padding: 8px 11px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid var(--line); color:var(--soft); font-size:12px; }
-    .group { border-top: 1px solid var(--line); }
-    .group:first-of-type { border-top: 0; }
-    summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; padding: 18px 24px; color:var(--soft); font-weight:750; }
-    summary::-webkit-details-marker { display:none; }
-    summary::before { content:"▾"; color: var(--section-accent); transform: rotate(-90deg); transition:.18s ease; }
-    details[open] summary::before { transform: rotate(0deg); }
-    summary span { flex:1; } summary em { font-style:normal; color:var(--muted); font-size:12px; font-weight:500; }
-    .page-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; padding: 0 24px 24px; }
-    .page-card { position:relative; display:flex; min-height: 154px; flex-direction:column; gap: 10px; justify-content:space-between; padding: 18px; border:1px solid var(--line); border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.022)); text-decoration:none; transition:.18s ease; }
-    .page-card::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; border-radius: 22px 0 0 22px; background: var(--section-accent); opacity:.85; }
-    .page-card:hover { transform: translateY(-2px); border-color: var(--line-strong); background: color-mix(in srgb, var(--section-accent) 13%, rgba(255,255,255,.04)); }
-    .page-kind { align-self:flex-start; padding: 5px 8px; border-radius:999px; background: color-mix(in srgb, var(--section-accent) 18%, rgba(255,255,255,.06)); color: color-mix(in srgb, var(--section-accent) 74%, white); font-size: 12px; }
-    .page-card strong { font-size: 18px; line-height:1.35; letter-spacing:-.015em; }
-    .page-card small { color: var(--muted); line-height:1.5; }
-    .empty { display:none; padding: 18px 24px 26px; color: var(--muted); }
-    footer { margin-top: 26px; color: var(--muted); font-size: 13px; text-align:center; }
-    @media (max-width: 820px) {
-      .shell { padding: 18px 12px 56px; }
-      .layout { grid-template-columns: 1fr; }
-      aside { position: relative; top:auto; }
-      .layer-head { flex-direction:column; padding:20px; }
-      summary { padding:16px 18px; }
-      .page-grid { padding: 0 18px 18px; grid-template-columns: 1fr; }
-    }
+    :root { color-scheme: dark; --bg:#07111f; --panel:rgba(15,23,42,.78); --text:#eef5ff; --muted:#94a3b8; --soft:#cbd5e1; --line:rgba(148,163,184,.20); --line-strong:rgba(148,163,184,.34); --shadow:0 24px 80px rgba(0,0,0,.32); }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; min-height:100vh; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Segoe UI",sans-serif; background:radial-gradient(circle at 10% 0%,rgba(124,58,237,.28),transparent 34%),radial-gradient(circle at 90% 18%,rgba(14,165,233,.18),transparent 32%),linear-gradient(180deg,#070f1e,var(--bg)); color:var(--text); }
+    a { color:inherit; } .shell { max-width:1240px; margin:0 auto; padding:34px 18px 72px; } .hero { position:relative; overflow:hidden; padding:clamp(26px,5vw,56px); border:1px solid var(--line); border-radius:34px; background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025)); box-shadow:var(--shadow); }
+    .eyebrow { margin:0 0 12px; color:#c4b5fd; font-size:12px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; } h1 { margin:0; max-width:860px; font-size:clamp(34px,6vw,72px); line-height:.98; letter-spacing:-.05em; } .intro { margin:18px 0 0; max-width:820px; color:var(--soft); font-size:clamp(15px,2vw,18px); line-height:1.75; } .metrics { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; } .metric { padding:10px 13px; border:1px solid var(--line); border-radius:999px; background:rgba(15,23,42,.55); color:var(--soft); font-size:13px; }
+    .layout { display:grid; grid-template-columns:270px minmax(0,1fr); gap:22px; margin-top:22px; align-items:start; } aside { position:sticky; top:14px; border:1px solid var(--line); border-radius:26px; background:var(--panel); backdrop-filter:blur(18px); padding:14px; } .nav-title { padding:8px 10px 12px; color:var(--muted); font-size:12px; letter-spacing:.12em; text-transform:uppercase; } .nav-link { display:grid; grid-template-columns:36px 1fr auto; gap:10px; align-items:center; min-height:48px; padding:8px 10px; border-radius:16px; text-decoration:none; color:var(--soft); } .nav-link:hover { background:rgba(255,255,255,.06); color:var(--text); } .nav-link span { color:#a78bfa; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; } .nav-link em { font-style:normal; color:var(--muted); font-size:12px; } .search { margin:12px 0 2px; } .search input { width:100%; min-height:44px; border:1px solid var(--line); border-radius:15px; background:rgba(2,6,23,.65); color:var(--text); padding:0 12px; outline:none; } .search input:focus { border-color:#a78bfa; box-shadow:0 0 0 3px rgba(167,139,250,.15); }
+    .layer { scroll-margin-top:18px; border:1px solid var(--line); border-radius:30px; background:rgba(15,23,42,.55); overflow:hidden; margin-bottom:18px; } .layer-head { display:flex; justify-content:space-between; gap:18px; padding:24px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,color-mix(in srgb,var(--section-accent) 16%,transparent),transparent 58%); } .layer-kicker { margin:0 0 8px; color:var(--section-accent); font-weight:800; font-size:12px; letter-spacing:.15em; text-transform:uppercase; } h2 { margin:0; font-size:clamp(24px,3vw,38px); letter-spacing:-.035em; } .layer-head p:last-child { margin:9px 0 0; color:var(--muted); line-height:1.65; } .count { height:max-content; white-space:nowrap; padding:8px 11px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid var(--line); color:var(--soft); font-size:12px; }
+    .group { border-top:1px solid var(--line); } .group:first-of-type { border-top:0; } summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 24px; color:var(--soft); font-weight:750; } summary::-webkit-details-marker { display:none; } summary::before { content:"▾"; color:var(--section-accent); transform:rotate(-90deg); transition:.18s ease; } details[open] summary::before { transform:rotate(0deg); } summary span { flex:1; } summary em { font-style:normal; color:var(--muted); font-size:12px; font-weight:500; } .page-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; padding:0 24px 24px; } .page-card { position:relative; display:flex; min-height:154px; flex-direction:column; gap:10px; justify-content:space-between; padding:18px; border:1px solid var(--line); border-radius:22px; background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.022)); text-decoration:none; transition:.18s ease; } .page-card::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; border-radius:22px 0 0 22px; background:var(--section-accent); opacity:.85; } .page-card:hover { transform:translateY(-2px); border-color:var(--line-strong); background:color-mix(in srgb,var(--section-accent) 13%,rgba(255,255,255,.04)); } .page-kind { align-self:flex-start; padding:5px 8px; border-radius:999px; background:color-mix(in srgb,var(--section-accent) 18%,rgba(255,255,255,.06)); color:color-mix(in srgb,var(--section-accent) 74%,white); font-size:12px; } .page-card strong { font-size:18px; line-height:1.35; letter-spacing:-.015em; } .page-card small { color:var(--muted); line-height:1.5; } .empty { display:none; padding:18px 24px 26px; color:var(--muted); } footer { margin-top:26px; color:var(--muted); font-size:13px; text-align:center; }
+    @media(max-width:820px){ .shell{padding:18px 12px 56px;} .layout{grid-template-columns:1fr;} aside{position:relative; top:auto;} .layer-head{flex-direction:column; padding:20px;} summary{padding:16px 18px;} .page-grid{padding:0 18px 18px; grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
@@ -95,23 +21,12 @@
     <section class="hero">
       <p class="eyebrow">Hermes Web Archive</p>
       <h1>Edwin 的网页档案</h1>
-      <p class="intro">已改成分层导航：先按主题分类，再在每个主题下按子栏目展开。适合在微信 / 飞书里直接点入口，也适合以后继续追加新的网页。</p>
-      <div class="metrics">
-        <span class="metric">11 个网页</span>
-        <span class="metric">5 个一级分类</span>
-        <span class="metric">更新时间：2026-04-30 17:28:46 CST</span>
-      </div>
+      <p class="intro">分层导航：先按主题分类，再在每个主题下按子栏目展开。适合在微信 / 飞书里直接点入口，也适合以后继续追加新的网页。</p>
+      <div class="metrics"><span class="metric">12 个网页</span><span class="metric">6 个一级分类</span><span class="metric">更新时间：2026-05-08 11:30:04 CST</span></div>
     </section>
-
     <div class="layout">
-      <aside aria-label="分层导航">
-        <div class="nav-title">分层导航</div>
-        <a href="#product" class="nav-link"><span>01</span>产品与商业分析<em>1</em></a><a href="#ai-workflow" class="nav-link"><span>02</span>AI 工具与工作流<em>1</em></a><a href="#fitness" class="nav-link"><span>03</span>健身训练笔记<em>1</em></a><a href="#dance" class="nav-link"><span>04</span>舞蹈研究知识库<em>7</em></a><a href="#design" class="nav-link"><span>05</span>设计与视觉方法<em>1</em></a>
-        <div class="search"><input id="search" type="search" placeholder="搜索页面标题…" aria-label="搜索页面标题" /></div>
-      </aside>
-
-      <div class="content">
-        <section class="layer" id="product" style="--section-accent:#38bdf8">
+      <aside aria-label="分层导航"><div class="nav-title">分层导航</div><a href="#product" class="nav-link"><span>01</span>产品与商业分析<em>1</em></a><a href="#travel-local" class="nav-link"><span>02</span>旅行与本地生活<em>1</em></a><a href="#ai-workflow" class="nav-link"><span>03</span>AI 工具与工作流<em>1</em></a><a href="#fitness" class="nav-link"><span>04</span>健身训练笔记<em>1</em></a><a href="#design" class="nav-link"><span>05</span>设计与视觉方法<em>1</em></a><a href="#dance" class="nav-link"><span>06</span>舞蹈研究知识库<em>7</em></a><div class="search"><input id="search" type="search" placeholder="搜索页面标题…" aria-label="搜索页面标题" /></div></aside>
+      <div class="content"><section class="layer" id="product" style="--section-accent:#38bdf8">
       <div class="layer-head">
         <div>
           <p class="layer-kicker">Layer 01</p>
@@ -128,10 +43,31 @@
       <small>wenjie-m9-interactive.html · 29.3 KB</small>
     </a></div>
         </details>
-    </section><section class="layer" id="ai-workflow" style="--section-accent:#a78bfa">
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section>
+<section class="layer" id="travel-local" style="--section-accent:#22c55e">
       <div class="layer-head">
         <div>
           <p class="layer-kicker">Layer 02</p>
+          <h2>旅行与本地生活</h2>
+          <p>城市体验、旅游向导、本地服务与生活方式网页。</p>
+        </div>
+        <span class="count">1 pages</span>
+      </div>
+      <details class="group" open>
+          <summary><span>上海城市体验</span><em>1 个页面</em></summary>
+          <div class="page-grid"><a class="page-card" href="shanghai-tour-guide/" data-title="魔都向导 · 上海本地人陪你玩 | 私人定制一日游" data-section="travel-local">
+      <span class="page-kind">HTML 页面</span>
+      <strong>魔都向导 · 上海本地人陪你玩 | 私人定制一日游</strong>
+      <small>shanghai-tour-guide.html · 37.6 KB</small>
+    </a></div>
+        </details>
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section>
+<section class="layer" id="ai-workflow" style="--section-accent:#a78bfa">
+      <div class="layer-head">
+        <div>
+          <p class="layer-kicker">Layer 03</p>
           <h2>AI 工具与工作流</h2>
           <p>AI 项目拆解、知识库、Agent 工作流与效率工具。</p>
         </div>
@@ -145,10 +81,12 @@
       <small>claude-obsidian-review-2026-04-18.html · 14.4 KB</small>
     </a></div>
         </details>
-    </section><section class="layer" id="fitness" style="--section-accent:#fb923c">
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section>
+<section class="layer" id="fitness" style="--section-accent:#fb923c">
       <div class="layer-head">
         <div>
-          <p class="layer-kicker">Layer 03</p>
+          <p class="layer-kicker">Layer 04</p>
           <h2>健身训练笔记</h2>
           <p>增肌、动作选择、训练计划与执行要点。</p>
         </div>
@@ -156,16 +94,37 @@
       </div>
       <details class="group" open>
           <summary><span>肩部 / 三头</span><em>1 个页面</em></summary>
-          <div class="page-grid"><a class="page-card" href="fitness-shoulder-triceps/" data-title="肩部与三头练宽练厚黄金动作笔记 shoulder triceps" data-section="fitness">
+          <div class="page-grid"><a class="page-card" href="fitness-shoulder-triceps/" data-title="肩部与三头练宽练厚黄金动作笔记" data-section="fitness">
       <span class="page-kind">HTML 页面</span>
       <strong>肩部与三头练宽练厚黄金动作笔记</strong>
-      <small>fitness-shoulder-triceps/index.html · 单文件训练页</small>
+      <small>单文件训练页 · 14.1 KB</small>
     </a></div>
         </details>
-    </section><section class="layer" id="dance" style="--section-accent:#f472b6">
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section>
+<section class="layer" id="design" style="--section-accent:#ff5a1f">
       <div class="layer-head">
         <div>
-          <p class="layer-kicker">Layer 04</p>
+          <p class="layer-kicker">Layer 05</p>
+          <h2>设计与视觉方法</h2>
+          <p>UI、平面设计、视觉原则、趋势与可交互学习页面。</p>
+        </div>
+        <span class="count">1 pages</span>
+      </div>
+      <details class="group" open>
+          <summary><span>UI / 平面设计</span><em>1 个页面</em></summary>
+          <div class="page-grid"><a class="page-card" href="ui-design-principles-trends/" data-title="平面 ui 设计基本原则与 2026 潮流趋势｜交互图解" data-section="design">
+      <span class="page-kind">HTML 页面</span>
+      <strong>平面 UI 设计基本原则与 2026 潮流趋势｜交互图解</strong>
+      <small>交互图解页面 · 42.1 KB</small>
+    </a></div>
+        </details>
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section>
+<section class="layer" id="dance" style="--section-accent:#f472b6">
+      <div class="layer-head">
+        <div>
+          <p class="layer-kicker">Layer 06</p>
           <h2>舞蹈研究知识库</h2>
           <p>舞蹈质感、音乐性、Balboa、Blues Solo 等系统笔记。</p>
         </div>
@@ -211,51 +170,21 @@
       <small>blues-solo-upper-body-texture-2026-04-16.html · 16.0 KB</small>
     </a></div>
         </details>
-    </section>
-<section class="layer" id="design" style="--section-accent:#ff5a1f">
-      <div class="layer-head">
-        <div>
-          <p class="layer-kicker">Layer 05</p>
-          <h2>设计与视觉方法</h2>
-          <p>UI、平面设计、视觉原则、趋势与可交互学习页面。</p>
-        </div>
-        <span class="count">1 pages</span>
-      </div>
-      <details class="group" open>
-          <summary><span>UI / 平面设计</span><em>1 个页面</em></summary>
-          <div class="page-grid"><a class="page-card" href="ui-design-principles-trends/" data-title="平面 ui 设计基本原则与 2026 潮流趋势 交互图解 design ui" data-section="design">
-      <span class="page-kind">交互网页</span>
-      <strong>平面 UI 设计基本原则与 2026 潮流趋势</strong>
-      <small>ui-design-principles-trends/index.html · 交互图解页</small>
-    </a></div>
-        </details>
-    </section>
-                <div id="empty" class="empty">没有找到匹配的页面。</div>
-      </div>
+      <div class="empty">这个分类下没有匹配搜索结果。</div>
+    </section></div>
     </div>
-    <footer>Hosted by GitHub Pages · Repository: qsw228-afk/hermes-webpages</footer>
+    <footer>GitHub Pages: qsw228-afk/hermes-webpages · 自动维护的静态网页档案</footer>
   </main>
   <script>
-    const input = document.getElementById('search');
+    const search = document.getElementById('search');
     const cards = [...document.querySelectorAll('.page-card')];
-    const empty = document.getElementById('empty');
-    input.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
-      let shown = 0;
-      cards.forEach(card => {
-        const ok = !q || card.dataset.title.includes(q);
-        card.style.display = ok ? '' : 'none';
-        if (ok) shown++;
-      });
-      document.querySelectorAll('.group').forEach(group => {
-        const visible = [...group.querySelectorAll('.page-card')].some(card => card.style.display !== 'none');
-        group.style.display = visible ? '' : 'none';
-      });
+    search?.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      cards.forEach(card => card.style.display = !q || card.dataset.title.includes(q) ? '' : 'none');
       document.querySelectorAll('.layer').forEach(layer => {
         const visible = [...layer.querySelectorAll('.page-card')].some(card => card.style.display !== 'none');
-        layer.style.display = visible ? '' : 'none';
+        layer.querySelector('.empty').style.display = visible ? 'none' : 'block';
       });
-      empty.style.display = shown ? 'none' : 'block';
     });
   </script>
 </body>

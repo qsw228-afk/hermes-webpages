@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>魔都向导 · 上海本地人陪你玩 | 私人定制一日游</title>
+<meta name="description" content="土生土长上海人,带你避开人挤人,深度玩转外滩、武康路、菜市场,吃最地道本帮菜。微信预约,小团/单人皆可。">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --primary:#FF4D6D;        /* 活力珊瑚红 */
+    --primary-dark:#E53E5E;
+    --accent:#FFB72B;          /* 暖金黄 */
+    --shanghai:#1E5BA8;        /* 上海蓝 */
+    --ink:#1A1A2E;
+    --ink-soft:#4A4A68;
+    --bg:#FFF9F5;
+    --card:#FFFFFF;
+    --line:#FFE4DC;
+    --grad:linear-gradient(135deg,#FF4D6D 0%,#FF8A3D 50%,#FFB72B 100%);
+    --grad-blue:linear-gradient(135deg,#1E5BA8 0%,#3F8EE6 100%);
+    --shadow:0 10px 40px rgba(255,77,109,.18);
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+    padding-bottom:72px; /* 为底部CTA栏留出空间 */
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+  /* ============ 导航栏 ============ */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,249,245,.92);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,77,109,.08);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1180px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;}
+  .logo-mark{
+    width:38px;height:38px;border-radius:12px;
+    background:var(--grad);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:20px;
+    box-shadow:0 6px 16px rgba(255,77,109,.4);
+  }
+  .nav-links{display:flex;gap:28px;font-size:14px;}
+  .nav-links a{color:var(--ink-soft);transition:color .2s;}
+  .nav-links a:hover{color:var(--primary);}
+  .nav-cta{
+    padding:9px 18px;border-radius:24px;
+    background:var(--ink);color:#fff!important;
+    font-weight:600;font-size:13px;
+  }
+  @media(max-width:780px){.nav-links{display:none;} .nav-cta{padding:8px 14px;}}
+
+  /* ============ Hero ============ */
+  .hero{
+    position:relative;padding:60px 0 80px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;top:-200px;right:-200px;
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,183,43,.35),transparent 70%);
+    z-index:0;
+  }
+  .hero::after{
+    content:"";position:absolute;bottom:-150px;left:-150px;
+    width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,77,109,.25),transparent 70%);
+    z-index:0;
+  }
+  .hero-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:20px;
+    background:#fff;border:1px solid var(--line);
+    font-size:13px;font-weight:600;color:var(--primary);
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(255,77,109,.08);
+  }
+  .hero-eyebrow .dot{width:8px;height:8px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .hero h1{
+    font-size:54px;line-height:1.15;font-weight:900;letter-spacing:-1px;
+    margin-bottom:20px;
+  }
+  .hero h1 .highlight{
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    position:relative;display:inline-block;
+  }
+  .hero h1 .highlight::after{
+    content:"";position:absolute;bottom:4px;left:0;width:100%;height:8px;
+    background:rgba(255,183,43,.35);z-index:-1;border-radius:4px;
+  }
+  .hero p.lead{
+    font-size:18px;color:var(--ink-soft);margin-bottom:32px;max-width:520px;
+  }
+  .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;}
+  .tag{
+    padding:8px 14px;border-radius:24px;
+    background:#fff;border:1px solid var(--line);
+    font-size:13px;font-weight:500;color:var(--ink-soft);
+  }
+  .tag b{color:var(--primary);}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:15px 28px;border-radius:30px;
+    font-weight:700;font-size:15px;cursor:pointer;border:none;
+    transition:transform .2s,box-shadow .2s;
+  }
+  .btn-primary{
+    background:var(--grad);color:#fff;
+    box-shadow:0 12px 30px rgba(255,77,109,.35);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,77,109,.45);}
+  .btn-secondary{
+    background:#fff;color:var(--ink);border:1.5px solid var(--ink);
+  }
+  .btn-secondary:hover{background:var(--ink);color:#fff;}
+
+  /* Hero 视觉卡片 */
+  .hero-visual{
+    position:relative;height:520px;
+  }
+  .v-card{
+    position:absolute;border-radius:24px;overflow:hidden;
+    box-shadow:0 20px 50px rgba(26,26,46,.18);
+    transition:transform .4s;
+  }
+  .v-card:hover{transform:translateY(-6px);}
+  .v-card-1{
+    width:75%;height:65%;top:0;right:0;
+    background:linear-gradient(135deg,#FF4D6D,#7C3AED);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:24px;color:#fff;
+  }
+  .v-card-1::before{
+    content:"";position:absolute;inset:0;
+    background:url('https://images.unsplash.com/photo-1545893835-abaa50cbe628?w=800&q=80') center/cover;
+    opacity:.7;
+  }
+  .v-card-1>*{position:relative;z-index:1;}
+  .v-card-2{
+    width:55%;height:50%;bottom:0;left:0;
+    background:linear-gradient(135deg,#FFB72B,#FF8A3D);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;
+  }
+  .v-card-2::before{
+    content:"";position:absolute;inset:0;
+    background:url('https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=600&q=80') center/cover;
+    opacity:.75;
+  }
+  .v-card-2>*{position:relative;z-index:1;}
+  .v-card h3{font-size:20px;font-weight:800;margin-bottom:4px;}
+  .v-card p{font-size:13px;opacity:.95;}
+  .v-badge{
+    position:absolute;top:24px;right:-24px;
+    background:#fff;color:var(--ink);
+    padding:14px 18px;border-radius:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    font-size:13px;font-weight:600;
+    transform:rotate(6deg);
+    display:flex;align-items:center;gap:10px;
+    z-index:3;
+  }
+  .v-badge .stars{color:var(--accent);}
+
+  @media(max-width:920px){
+    .hero{padding:36px 0 50px;}
+    .hero-grid{grid-template-columns:1fr;gap:36px;}
+    .hero h1{font-size:38px;}
+    .hero p.lead{font-size:16px;}
+    .hero-visual{height:380px;}
+    .v-badge{right:0;top:auto;bottom:-12px;}
+  }
+  @media(max-width:480px){
+    .hero h1{font-size:32px;}
+    .btn{padding:13px 22px;font-size:14px;}
+  }
+
+  /* ============ 数字条 ============ */
+  .stats{
+    background:var(--ink);color:#fff;padding:36px 0;
+    margin:20px 0 0;
+  }
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+  .stats-grid .num{
+    font-size:36px;font-weight:900;
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .stats-grid .lbl{font-size:13px;opacity:.7;margin-top:4px;}
+  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:24px;} .stats-grid .num{font-size:28px;}}
+
+  /* ============ 通用 section ============ */
+  section{padding:80px 0;}
+  .section-head{text-align:center;margin-bottom:50px;}
+  .section-head .kicker{
+    display:inline-block;padding:5px 14px;border-radius:20px;
+    background:rgba(255,77,109,.1);color:var(--primary);
+    font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .section-head h2{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:10px;}
+  .section-head p{color:var(--ink-soft);font-size:16px;max-width:600px;margin:0 auto;}
+  @media(max-width:600px){section{padding:56px 0;} .section-head h2{font-size:28px;}}
+
+  /* ============ 服务卡片 ============ */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .svc{
+    background:#fff;border-radius:22px;padding:28px 22px;
+    border:1px solid var(--line);
+    transition:all .3s;cursor:pointer;
+    position:relative;overflow:hidden;
+  }
+  .svc::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:4px;
+    background:var(--grad);
+    transform:scaleX(0);transform-origin:left;transition:transform .3s;
+  }
+  .svc:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent;}
+  .svc:hover::before{transform:scaleX(1);}
+  .svc-icon{
+    width:54px;height:54px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;margin-bottom:18px;
+  }
+  .svc:nth-child(1) .svc-icon{background:linear-gradient(135deg,#FFE4DC,#FFB7C5);}
+  .svc:nth-child(2) .svc-icon{background:linear-gradient(135deg,#FFF1C9,#FFD79A);}
+  .svc:nth-child(3) .svc-icon{background:linear-gradient(135deg,#D4E8FF,#A8C8F0);}
+  .svc:nth-child(4) .svc-icon{background:linear-gradient(135deg,#E0E0FF,#C9B7FF);}
+  .svc h3{font-size:18px;font-weight:800;margin-bottom:8px;}
+  .svc p{font-size:14px;color:var(--ink-soft);margin-bottom:14px;}
+  .svc .price{font-size:13px;color:var(--primary);font-weight:700;}
+  @media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.services-grid{grid-template-columns:1fr;}}
+
+  /* ============ 路线 ============ */
+  .routes{background:#fff;}
+  .routes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .route{
+    border-radius:20px;overflow:hidden;
+    background:#fff;border:1px solid var(--line);
+    transition:transform .3s,box-shadow .3s;
+    cursor:pointer;
+  }
+  .route:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .route-img{
+    height:200px;position:relative;overflow:hidden;
+    background:#F0F0F0;
+  }
+  .route-img .ph{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:64px;color:#fff;
+  }
+  .route-img.r1{background:linear-gradient(135deg,#FF6B9D,#FF4D6D);}
+  .route-img.r2{background:linear-gradient(135deg,#FFB72B,#FF8A3D);}
+  .route-img.r3{background:linear-gradient(135deg,#3F8EE6,#1E5BA8);}
+  .route-img.r4{background:linear-gradient(135deg,#7C3AED,#A855F7);}
+  .route-img.r5{background:linear-gradient(135deg,#22C55E,#10B981);}
+  .route-img.r6{background:linear-gradient(135deg,#F472B6,#EC4899);}
+  .route-tag{
+    position:absolute;top:14px;left:14px;
+    background:#fff;color:var(--ink);
+    padding:5px 12px;border-radius:20px;
+    font-size:11px;font-weight:700;
+  }
+  .route-fav{
+    position:absolute;top:14px;right:14px;
+    background:rgba(255,255,255,.92);
+    width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+  }
+  .route-body{padding:20px;}
+  .route-body h3{font-size:17px;font-weight:800;margin-bottom:6px;}
+  .route-body .meta{
+    font-size:12px;color:var(--ink-soft);margin-bottom:12px;
+    display:flex;flex-wrap:wrap;gap:14px;
+  }
+  .route-body .meta span{display:flex;align-items:center;gap:4px;}
+  .route-foot{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;border-top:1px dashed var(--line);
+  }
+  .route-foot .price{font-size:18px;font-weight:900;color:var(--primary);}
+  .route-foot .price small{font-size:12px;color:var(--ink-soft);font-weight:500;}
+  .route-foot .book{
+    padding:7px 14px;border-radius:18px;
+    background:var(--ink);color:#fff;
+    font-size:12px;font-weight:600;
+  }
+  @media(max-width:900px){.routes-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.routes-grid{grid-template-columns:1fr;}}
+
+  /* ============ 流程 ============ */
+  .how{background:linear-gradient(180deg,#FFF9F5 0%,#FFE9E0 100%);}
+  .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;}
+  .how-step{
+    background:#fff;border-radius:20px;padding:28px 22px;
+    text-align:center;position:relative;
+    box-shadow:0 6px 20px rgba(0,0,0,.04);
+  }
+  .how-step .n{
+    width:42px;height:42px;border-radius:50%;
+    background:var(--grad);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:18px;margin:0 auto 16px;
+    box-shadow:0 8px 18px rgba(255,77,109,.35);
+  }
+  .how-step h4{font-size:16px;font-weight:800;margin-bottom:6px;}
+  .how-step p{font-size:13px;color:var(--ink-soft);}
+  @media(max-width:900px){.how-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.how-grid{grid-template-columns:1fr;}}
+
+  /* ============ 关于向导 ============ */
+  .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center;}
+  .about-photo{
+    aspect-ratio:1;border-radius:30px;
+    background:var(--grad);
+    position:relative;overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .about-photo .avatar{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:140px;
+  }
+  .about-content h2{font-size:34px;font-weight:900;line-height:1.2;margin-bottom:18px;}
+  .about-content h2 .highlight{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .about-content p{color:var(--ink-soft);font-size:15px;margin-bottom:16px;}
+  .about-list{list-style:none;margin-top:20px;}
+  .about-list li{
+    padding:10px 0;display:flex;align-items:flex-start;gap:12px;
+    font-size:14px;color:var(--ink);
+  }
+  .about-list li::before{
+    content:"✓";flex-shrink:0;
+    width:24px;height:24px;border-radius:50%;
+    background:var(--grad);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;
+  }
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:30px;} .about-photo{max-width:280px;margin:0 auto;}}
+
+  /* ============ 评价 ============ */
+  .reviews{background:#fff;}
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .review{
+    background:var(--bg);border-radius:20px;padding:28px;
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .review .quote{
+    position:absolute;top:18px;right:22px;
+    font-size:60px;color:var(--primary);opacity:.15;
+    font-family:Georgia,serif;line-height:1;
+  }
+  .review-stars{color:var(--accent);font-size:14px;margin-bottom:12px;}
+  .review p{font-size:14px;color:var(--ink);margin-bottom:18px;line-height:1.7;}
+  .review-user{display:flex;align-items:center;gap:12px;}
+  .review-avatar{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:16px;
+  }
+  .ra1{background:linear-gradient(135deg,#FF4D6D,#FF8A3D);}
+  .ra2{background:linear-gradient(135deg,#3F8EE6,#7C3AED);}
+  .ra3{background:linear-gradient(135deg,#22C55E,#10B981);}
+  .review-user .name{font-weight:700;font-size:14px;}
+  .review-user .from{font-size:12px;color:var(--ink-soft);}
+  @media(max-width:900px){.reviews-grid{grid-template-columns:1fr;}}
+
+  /* ============ 联系/CTA ============ */
+  .contact{
+    background:var(--ink);color:#fff;
+    border-radius:30px;margin:80px 20px;
+    padding:60px 40px;
+    position:relative;overflow:hidden;
+  }
+  .contact::before{
+    content:"";position:absolute;top:-100px;right:-100px;
+    width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,77,109,.4),transparent 70%);
+  }
+  .contact::after{
+    content:"";position:absolute;bottom:-100px;left:-100px;
+    width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,183,43,.3),transparent 70%);
+  }
+  .contact-inner{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center;
+    max-width:1100px;margin:0 auto;
+  }
+  .contact-text h2{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:14px;}
+  .contact-text h2 .highlight{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .contact-text p{opacity:.85;margin-bottom:28px;font-size:15px;}
+  .contact-list{display:grid;gap:14px;}
+  .contact-item{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 20px;border-radius:16px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    transition:background .2s;
+  }
+  .contact-item:hover{background:rgba(255,255,255,.12);}
+  .contact-item .ico{
+    width:46px;height:46px;border-radius:14px;
+    background:var(--grad);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;flex-shrink:0;
+  }
+  .contact-item .lbl{font-size:12px;opacity:.7;}
+  .contact-item .val{font-size:16px;font-weight:700;letter-spacing:.5px;}
+
+  .qr-card{
+    background:#fff;color:var(--ink);
+    border-radius:24px;padding:30px;
+    text-align:center;
+    box-shadow:0 30px 60px rgba(0,0,0,.3);
+  }
+  .qr-card h3{font-size:18px;font-weight:800;margin-bottom:6px;}
+  .qr-card .sub{font-size:12px;color:var(--ink-soft);margin-bottom:20px;}
+  .qr-box{
+    aspect-ratio:1;background:linear-gradient(135deg,#FFF9F5,#FFE4DC);
+    border-radius:18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:2px dashed var(--primary);
+    margin-bottom:18px;
+  }
+  .qr-box .qr-emoji{font-size:80px;margin-bottom:10px;}
+  .qr-box .qr-hint{font-size:13px;color:var(--ink-soft);padding:0 20px;}
+  .qr-card .wxid{
+    background:var(--bg);border-radius:12px;padding:10px 14px;
+    font-size:13px;font-weight:600;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+  }
+  .qr-card .wxid .copy{
+    background:var(--ink);color:#fff;
+    border:none;padding:5px 12px;border-radius:14px;
+    font-size:11px;font-weight:600;cursor:pointer;
+  }
+  @media(max-width:900px){
+    .contact{padding:44px 24px;margin:50px 16px;}
+    .contact-inner{grid-template-columns:1fr;gap:30px;}
+    .contact-text h2{font-size:28px;}
+  }
+
+  /* ============ FAQ ============ */
+  .faq-list{max-width:800px;margin:0 auto;}
+  .faq-item{
+    background:#fff;border:1px solid var(--line);
+    border-radius:16px;margin-bottom:12px;
+    overflow:hidden;
+  }
+  .faq-q{
+    padding:18px 22px;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;
+    font-weight:700;font-size:15px;
+    user-select:none;
+  }
+  .faq-q::after{
+    content:"+";font-size:24px;color:var(--primary);
+    transition:transform .3s;font-weight:300;
+  }
+  .faq-item.open .faq-q::after{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;
+    transition:max-height .3s,padding .3s;
+    padding:0 22px;color:var(--ink-soft);font-size:14px;
+  }
+  .faq-item.open .faq-a{max-height:300px;padding:0 22px 18px;}
+
+  /* ============ Footer ============ */
+  footer{
+    background:var(--ink);color:rgba(255,255,255,.6);
+    padding:40px 20px 30px;text-align:center;font-size:13px;
+  }
+  footer .logo{justify-content:center;margin-bottom:14px;color:#fff;}
+  footer .copyright{opacity:.5;font-size:12px;margin-top:14px;}
+
+  /* ============ 移动端固定底部CTA ============ */
+  .mobile-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:#fff;
+    border-top:1px solid var(--line);
+    padding:10px 14px;
+    display:flex;gap:10px;
+    box-shadow:0 -4px 20px rgba(0,0,0,.06);
+  }
+  .mobile-cta .btn{flex:1;padding:13px 16px;font-size:14px;border-radius:24px;justify-content:center;}
+  .mobile-cta .btn-call{background:var(--ink);color:#fff;}
+  @media(min-width:781px){.mobile-cta{display:none;} body{padding-bottom:0;}}
+
+  /* 复制成功提示 */
+  .toast{
+    position:fixed;top:30px;left:50%;transform:translateX(-50%) translateY(-200%);
+    background:var(--ink);color:#fff;
+    padding:12px 22px;border-radius:24px;
+    font-size:14px;z-index:100;
+    transition:transform .3s;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">沪</div>
+      <span>魔都向导</span>
+    </div>
+    <div class="nav-links">
+      <a href="#services">服务</a>
+      <a href="#routes">路线</a>
+      <a href="#how">流程</a>
+      <a href="#about">关于我</a>
+      <a href="#reviews">评价</a>
+      <a href="#faq">常见问题</a>
+    </div>
+    <a href="#contact" class="nav-cta">立即预约</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="dot"></span> 今日仍可接单 · 5月档期紧张
+        </div>
+        <h1>
+          上海本地人<br>
+          带你<span class="highlight">玩出真味道</span>
+        </h1>
+        <p class="lead">
+          不是导游,而是熟门熟路的上海朋友。避开人挤人、踩坑店,带你钻弄堂、吃本帮菜、拍出小红书爆款大片。
+        </p>
+        <div class="hero-tags">
+          <span class="tag">📍 <b>30+</b> 私藏路线</span>
+          <span class="tag">⭐ 好评率 <b>99%</b></span>
+          <span class="tag">💬 微信秒回</span>
+          <span class="tag">🚗 可接送机</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">
+            微信咨询路线 →
+          </a>
+          <a href="#routes" class="btn btn-secondary">
+            看看热门玩法
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="v-card v-card-1">
+          <h3>外滩 · 浦东天际线</h3>
+          <p>带你找到游客拍不到的机位</p>
+        </div>
+        <div class="v-card v-card-2">
+          <h3>弄堂里的本帮菜</h3>
+          <p>本地人才知道的苍蝇馆子</p>
+        </div>
+        <div class="v-badge">
+          <span class="stars">★★★★★</span>
+          <span><b>500+</b> 位游客</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 数字 ===== -->
+<div class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="num">500+</div><div class="lbl">满意游客</div></div>
+      <div><div class="num">30+</div><div class="lbl">私藏路线</div></div>
+      <div><div class="num">99%</div><div class="lbl">好评率</div></div>
+      <div><div class="num">3年</div><div class="lbl">本地带玩经验</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 服务 ===== -->
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">SERVICES</div>
+      <h2>提供哪些服务?</h2>
+      <p>从一日游到接送机,根据你的时间和喜好灵活定制</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc">
+        <div class="svc-icon">🏙️</div>
+        <h3>经典景点一日游</h3>
+        <p>外滩 · 豫园 · 南京路 · 东方明珠 · 田子坊,一天搞定打卡圣地</p>
+        <div class="price">¥598/天起</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🌆</div>
+        <h3>特色小众路线</h3>
+        <p>武康路梧桐区 · 老弄堂 Citywalk · 拍照机位 · 复古咖啡馆</p>
+        <div class="price">¥498/天起</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🍜</div>
+        <h3>美食带逛</h3>
+        <p>本帮菜老字号 · 苍蝇馆子 · 网红探店 · 早茶生煎小笼</p>
+        <div class="price">¥298/4小时起</div>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">✈️</div>
+        <h3>接送机/商务陪同</h3>
+        <p>浦东虹桥接送 · 商务翻译陪同 · 高铁站接驳 · 私家车配合</p>
+        <div class="price">¥198/次起</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 路线推荐 ===== -->
+<section id="routes" class="routes">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">POPULAR ROUTES</div>
+      <h2>热门玩法推荐</h2>
+      <p>这些是回头客点名最多的路线,可以直接选,也可以混搭定制</p>
+    </div>
+    <div class="routes-grid">
+      <div class="route">
+        <div class="route-img r1">
+          <span class="ph">🌃</span>
+          <span class="route-tag">🔥 最热门</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>外滩夜景 + 浦东天际线</h3>
+          <div class="meta">
+            <span>⏱ 4小时</span><span>👥 1-6人</span><span>🌙 黄昏-夜</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥398 <small>/人</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-img r2">
+          <span class="ph">🥟</span>
+          <span class="route-tag">🍴 美食</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>本帮菜深度美食一条龙</h3>
+          <div class="meta">
+            <span>⏱ 5小时</span><span>👥 2-4人</span><span>🍜 含3-4家</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥498 <small>/人</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-img r3">
+          <span class="ph">📸</span>
+          <span class="route-tag">📷 出片</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>武康路梧桐区 Citywalk</h3>
+          <div class="meta">
+            <span>⏱ 3小时</span><span>👥 1-4人</span><span>📸 跟拍</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥358 <small>/人</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-img r4">
+          <span class="ph">🏛️</span>
+          <span class="route-tag">⭐ 经典</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>老上海一日游(豫园+外滩+南京路)</h3>
+          <div class="meta">
+            <span>⏱ 8小时</span><span>👥 1-6人</span><span>🚶 全程陪同</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥598 <small>/人</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-img r5">
+          <span class="ph">🎢</span>
+          <span class="route-tag">👨‍👩‍👧 亲子</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>迪士尼陪玩攻略</h3>
+          <div class="meta">
+            <span>⏱ 全天</span><span>👥 2-5人</span><span>🎯 排队优化</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥698 <small>/天</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-img r6">
+          <span class="ph">🛍️</span>
+          <span class="route-tag">💎 小众</span>
+          <span class="route-fav">❤️</span>
+        </div>
+        <div class="route-body">
+          <h3>菜市场 + 小众咖啡 + 古着店</h3>
+          <div class="meta">
+            <span>⏱ 4小时</span><span>👥 1-3人</span><span>☕ 在地体验</span>
+          </div>
+          <div class="route-foot">
+            <div class="price">¥428 <small>/人</small></div>
+            <a href="#contact" class="book">预约</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 流程 ===== -->
+<section id="how" class="how">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">HOW IT WORKS</div>
+      <h2>预约只要4步</h2>
+      <p>简单沟通,就能定一次属于你的上海之旅</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="n">1</div>
+        <h4>微信咨询</h4>
+        <p>扫码加我微信,告诉我人数、时间和兴趣方向</p>
+      </div>
+      <div class="how-step">
+        <div class="n">2</div>
+        <h4>定制路线</h4>
+        <p>我会根据天气和人流,帮你设计当天最舒服的路线</p>
+      </div>
+      <div class="how-step">
+        <div class="n">3</div>
+        <h4>付定金确认</h4>
+        <p>定金 ¥100 锁档期,余款见面付,放心安心</p>
+      </div>
+      <div class="how-step">
+        <div class="n">4</div>
+        <h4>当天玩起来</h4>
+        <p>地铁口/酒店准时碰面,带你开启上海漫游</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 关于我 ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="avatar">👨‍🎓</div>
+      </div>
+      <div class="about-content">
+        <div class="kicker" style="display:inline-block;padding:5px 14px;border-radius:20px;background:rgba(255,77,109,.1);color:var(--primary);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">ABOUT ME</div>
+        <h2>我是<span class="highlight">阿沪</span>,土生土长的上海人</h2>
+        <p>
+          90 后,在浦西长大,在浦东上班。本职做设计,业余带朋友玩了 3 年多上海。
+          带过 500+ 来自全国各地的小伙伴,从北方大姐到广东小情侣,都给我留过五星好评。
+        </p>
+        <p>
+          我不背景点解说稿,也不带购物。我只把自己最常去的店、最爱拍的角落、
+          最舒服的散步路线分享给你 —— 就像带朋友逛自己家。
+        </p>
+        <ul class="about-list">
+          <li>3 年专职带玩经验,熟悉每个区每个季节的玩法</li>
+          <li>会拍照,免费帮你出片,不收额外摄影费</li>
+          <li>普通话/上海话/英语日常交流没问题</li>
+          <li>有自己的车,可以视情况安排接送(另计油费)</li>
+          <li>不强制消费,所有花销当天明明白白</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 评价 ===== -->
+<section id="reviews" class="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">REVIEWS</div>
+      <h2>来自小伙伴的真实评价</h2>
+      <p>每一条都来自真实带过的客人,可截图对话验证</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review">
+        <div class="quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p>第一次来上海,被网上攻略劝退好几次,后来加了阿沪。从早茶到夜游外滩安排得明明白白,根本没踩坑,而且帮我拍的照片我朋友圈点赞过百!</p>
+        <div class="review-user">
+          <div class="review-avatar ra1">小</div>
+          <div>
+            <div class="name">小美 · 北京</div>
+            <div class="from">3天定制游</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p>带我妈来上海过生日,我担心老人腿脚跟不上。阿沪安排得特别贴心,挑的都是不远的小路线,中间还预约了一家本帮菜老字号,我妈吃得超开心。</p>
+        <div class="review-user">
+          <div class="review-avatar ra2">阿</div>
+          <div>
+            <div class="name">阿杰 · 深圳</div>
+            <div class="from">亲子+长辈路线</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p>来上海出差,周末半天闲。微信约了武康路 Citywalk,找了好几个我从来没在小红书刷到过的拍照点,出片率超高,完全值这个价。</p>
+        <div class="review-user">
+          <div class="review-avatar ra3">L</div>
+          <div>
+            <div class="name">Linda · 成都</div>
+            <div class="from">3小时 Citywalk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">FAQ</div>
+      <h2>大家都在问</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">报价含哪些费用?</div>
+        <div class="faq-a">报价为我的陪同服务费,不含路上的门票、交通、餐费(这些都是你自己结)。我会建议性价比最高的吃喝玩法,绝不带购物店,绝不强制消费。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">人数多了价格怎么算?</div>
+        <div class="faq-a">报价默认 1-2 人价。3 人以上可以分摊或者按团报价更划算,具体加微信告诉我人数我给你算最优方案,小团比单人便宜。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">能临时取消或改期吗?</div>
+        <div class="faq-a">提前 24 小时可免费改期或退定金;24 小时内取消定金不退,但可顺延一次。下雨天我会主动建议是否改期。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">可以接外地朋友的特别需求吗?</div>
+        <div class="faq-a">完全可以。带过摄影粉的、求婚布置的、毕业打卡的、商务客户陪同翻译的,都做过。微信告诉我场景,一起想方案。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">付款方式?</div>
+        <div class="faq-a">微信/支付宝转账。预约时付 ¥100 定金锁档期,当天开始时付剩余款项。不收任何隐藏费用。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 联系 ===== -->
+<section id="contact" style="padding:0;">
+  <div class="contact">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <div class="kicker" style="display:inline-block;padding:5px 14px;border-radius:20px;background:rgba(255,77,109,.2);color:#fff;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">CONTACT</div>
+        <h2>想到上海玩?<br><span class="highlight">先来微信聊聊</span></h2>
+        <p>不收咨询费,先聊清楚再决定要不要约。我会根据你的时间、人数、口味,推一份最适合你的方案。</p>
+        <div class="contact-list">
+          <a href="tel:13800000000" class="contact-item">
+            <div class="ico">📱</div>
+            <div>
+              <div class="lbl">电话/手机</div>
+              <div class="val">138 0000 0000</div>
+            </div>
+          </a>
+          <div class="contact-item">
+            <div class="ico">💬</div>
+            <div>
+              <div class="lbl">微信号</div>
+              <div class="val">shanghai_guide_a</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ico">⏰</div>
+            <div>
+              <div class="lbl">服务时间</div>
+              <div class="val">每天 8:00 - 22:00 · 微信秒回</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-card">
+        <h3>扫码加微信</h3>
+        <div class="sub">备注「上海游玩」优先回复</div>
+        <div class="qr-box">
+          <div class="qr-emoji">📱</div>
+          <div class="qr-hint">把你的微信二维码<br>替换到这里</div>
+        </div>
+        <div class="wxid">
+          <span>微信号:shanghai_guide_a</span>
+          <button class="copy" onclick="copyWx()">复制</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="logo">
+    <div class="logo-mark">沪</div>
+    <span>魔都向导</span>
+  </div>
+  <div>上海本地人 · 私人定制游 · 微信预约</div>
+  <div class="copyright">© 2026 魔都向导. 仅作为个人兼职服务推广.</div>
+</footer>
+
+<!-- ===== 移动端固定底部CTA ===== -->
+<div class="mobile-cta">
+  <a href="tel:13800000000" class="btn btn-call">📱 打电话</a>
+  <a href="#contact" class="btn btn-primary">💬 微信咨询</a>
+</div>
+
+<!-- ===== 提示 ===== -->
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+  // FAQ 折叠
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      q.parentElement.classList.toggle('open');
+    });
+  });
+  // 默认展开第一个
+  document.querySelector('.faq-item')?.classList.add('open');
+
+  // 复制微信号
+  function copyWx(){
+    const txt='shanghai_guide_a';
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(txt).then(showToast);
+    }else{
+      const ta=document.createElement('textarea');
+      ta.value=txt;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');showToast();}catch(e){}
+      document.body.removeChild(ta);
+    }
+  }
+  function showToast(){
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),1800);
+  }
+
+  // 滚动出现动画 (轻量级)
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.svc,.route,.how-step,.review,.about-content,.about-photo').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(24px)';
+    el.style.transition='opacity .6s ease, transform .6s ease';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

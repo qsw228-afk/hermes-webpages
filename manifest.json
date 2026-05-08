@@ -1,68 +1,101 @@
 {
-  "updated_at": "2026-04-28 00:06:24 CST",
+  "updated_at": "2026-05-08 11:30:04 CST",
   "pages": [
     {
-      "slug": "wenjie-m9",
       "title": "问界 M9｜全景智慧旗舰 SUV 交互介绍",
       "source": "/Users/edwinmac/.Hermes/workspace/outputs/wenjie-m9-interactive.html",
-      "url_path": "/wenjie-m9/",
-      "size": 30053
+      "note": "wenjie-m9-interactive.html",
+      "size": 30053,
+      "slug": "wenjie-m9",
+      "url_path": "/wenjie-m9/"
     },
     {
-      "slug": "claude-obsidian-review",
+      "title": "魔都向导 · 上海本地人陪你玩 | 私人定制一日游",
+      "source": "/Users/edwinmac/.hermes/cache/documents/doc_13ab8ce88499_shanghai-tour-guide.html",
+      "note": "shanghai-tour-guide.html",
+      "size": 38534,
+      "slug": "shanghai-tour-guide",
+      "url_path": "/shanghai-tour-guide/"
+    },
+    {
       "title": "claude-obsidian 项目拆解与适配评估",
       "source": "/Users/edwinmac/.hermes/notes/claude-obsidian-review-2026-04-18.html",
-      "url_path": "/claude-obsidian-review/",
-      "size": 14738
+      "note": "claude-obsidian-review-2026-04-18.html",
+      "size": 14738,
+      "slug": "claude-obsidian-review",
+      "url_path": "/claude-obsidian-review/"
     },
     {
-      "slug": "dance-notes",
+      "title": "肩部与三头练宽练厚黄金动作笔记",
+      "source": "/Users/edwinmac/.Hermes/workspace/github-pages/hermes-webpages/fitness-shoulder-triceps/index.html",
+      "note": "单文件训练页",
+      "size": 14404,
+      "slug": "fitness-shoulder-triceps",
+      "url_path": "/fitness-shoulder-triceps/"
+    },
+    {
+      "title": "平面 UI 设计基本原则与 2026 潮流趋势｜交互图解",
+      "source": "/Users/edwinmac/.Hermes/workspace/github-pages/hermes-webpages/ui-design-principles-trends/index.html",
+      "note": "交互图解页面",
+      "size": 43102,
+      "slug": "ui-design-principles-trends",
+      "url_path": "/ui-design-principles-trends/"
+    },
+    {
       "title": "舞蹈笔记 · 单文件整合版",
       "source": "/Users/edwinmac/.hermes/notes/html/dance-notes-all-in-one.html",
-      "url_path": "/dance-notes/",
-      "size": 43147
+      "note": "dance-notes-all-in-one.html",
+      "size": 43147,
+      "slug": "dance-notes",
+      "url_path": "/dance-notes/"
     },
     {
-      "slug": "dance-notes-package",
       "title": "舞蹈笔记首页",
       "source": "/Users/edwinmac/.hermes/notes/html/dance-notes-package/index.html",
-      "url_path": "/dance-notes-package/",
-      "size": 5370
+      "note": "index.html",
+      "size": 5370,
+      "slug": "dance-notes-package",
+      "url_path": "/dance-notes-package/"
     },
     {
-      "slug": "dance-research-visual",
       "title": "舞蹈研究可视化总览",
       "source": "/Users/edwinmac/.hermes/exports/dance-research-visual-2026-04-17.html",
-      "url_path": "/dance-research-visual/",
-      "size": 22326
+      "note": "dance-research-visual-2026-04-17.html",
+      "size": 22326,
+      "slug": "dance-research-visual",
+      "url_path": "/dance-research-visual/"
     },
     {
-      "slug": "balboa-syncopation",
-      "title": "Balboa 基础动作中的音乐切分表达笔记",
-      "source": "/Users/edwinmac/.hermes/notes/balboa-syncopation-notes.html",
-      "url_path": "/balboa-syncopation/",
-      "size": 8469
-    },
-    {
-      "slug": "balboa-musicality",
-      "title": "Balboa 双人舞：如何更好地表达快慢、不同切分与音乐性",
-      "source": "/Users/edwinmac/.hermes/notes/html/balboa-fast-slow-syncopation-musicality-2026-04-16.html",
-      "url_path": "/balboa-musicality/",
-      "size": 20637
-    },
-    {
-      "slug": "blues-solo-texture",
-      "title": "Blues Solo：上半身发力出“质感”的方法",
-      "source": "/Users/edwinmac/.hermes/notes/html/blues-solo-upper-body-texture-2026-04-16.html",
-      "url_path": "/blues-solo-texture/",
-      "size": 16379
-    },
-    {
-      "slug": "dance-quality-research",
       "title": "舞蹈动作发力与质感研究（会话笔记）",
       "source": "/Users/edwinmac/.hermes/notes/html/dance-quality-research-2026-04-15.html",
-      "url_path": "/dance-quality-research/",
-      "size": 10102
+      "note": "dance-quality-research-2026-04-15.html",
+      "size": 10102,
+      "slug": "dance-quality-research",
+      "url_path": "/dance-quality-research/"
+    },
+    {
+      "title": "Balboa 基础动作中的音乐切分表达笔记",
+      "source": "/Users/edwinmac/.hermes/notes/balboa-syncopation-notes.html",
+      "note": "balboa-syncopation-notes.html",
+      "size": 8469,
+      "slug": "balboa-syncopation",
+      "url_path": "/balboa-syncopation/"
+    },
+    {
+      "title": "Balboa 双人舞：如何更好地表达快慢、不同切分与音乐性",
+      "source": "/Users/edwinmac/.hermes/notes/html/balboa-fast-slow-syncopation-musicality-2026-04-16.html",
+      "note": "balboa-fast-slow-syncopation-musicality-2026-04-16.html",
+      "size": 20637,
+      "slug": "balboa-musicality",
+      "url_path": "/balboa-musicality/"
+    },
+    {
+      "title": "Blues Solo：上半身发力出“质感”的方法",
+      "source": "/Users/edwinmac/.hermes/notes/html/blues-solo-upper-body-texture-2026-04-16.html",
+      "note": "blues-solo-upper-body-texture-2026-04-16.html",
+      "size": 16379,
+      "slug": "blues-solo-texture",
+      "url_path": "/blues-solo-texture/"
     }
   ],
   "navigation": [
@@ -81,6 +114,20 @@
       ]
     },
     {
+      "id": "travel-local",
+      "label": "旅行与本地生活",
+      "summary": "城市体验、旅游向导、本地服务与生活方式网页。",
+      "accent": "#22c55e",
+      "groups": [
+        {
+          "label": "上海城市体验",
+          "items": [
+            "shanghai-tour-guide"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ai-workflow",
       "label": "AI 工具与工作流",
       "summary": "AI 项目拆解、知识库、Agent 工作流与效率工具。",
@@ -90,6 +137,34 @@
           "label": "知识库 / 第二大脑",
           "items": [
             "claude-obsidian-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fitness",
+      "label": "健身训练笔记",
+      "summary": "增肌、动作选择、训练计划与执行要点。",
+      "accent": "#fb923c",
+      "groups": [
+        {
+          "label": "肩部 / 三头",
+          "items": [
+            "fitness-shoulder-triceps"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "label": "设计与视觉方法",
+      "summary": "UI、平面设计、视觉原则、趋势与可交互学习页面。",
+      "accent": "#ff5a1f",
+      "groups": [
+        {
+          "label": "UI / 平面设计",
+          "items": [
+            "ui-design-principles-trends"
           ]
         }
       ]
