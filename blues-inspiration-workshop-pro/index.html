@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c1120">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="蓝调工坊">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23161d33'/%3E%3Ctext x='50%25' y='54%25' font-size='110' text-anchor='middle' dominant-baseline='central'%3E%F0%9F%8E%B7%3C/text%3E%3C/svg%3E">
+<title>蓝调灵感工坊 Pro · 离线练习室</title>
+<style>
+  :root{
+    --bg0:#0c1120; --bg1:#161d33; --bg-spot:rgba(244,179,82,.10);
+    --card:#1a2238; --card2:#212b46; --card-line:rgba(255,255,255,.07);
+    --text:#eef1fa; --muted:#9aa6c6;
+    --line:rgba(255,255,255,.09);
+    --accent:#f4b352; --accent-d:#e2893b;
+    --teal:#56c6c0; --rose:#d9809a;
+    --fig:#efe4c6; --fig-accent:var(--accent);
+    --primary-text:#2a1c06;
+    --teal-grad:linear-gradient(135deg,#5ccac4,#349b97); --teal-text:#062420;
+    --shadow:0 6px 20px rgba(0,0,0,.30); --shadow-sm:0 3px 10px rgba(0,0,0,.20);
+    --radius:12px; --radius-lg:16px;
+  }
+  html[data-theme="light"]{
+    --bg0:#efe9dc; --bg1:#fbf7ef; --bg-spot:rgba(217,137,59,.12);
+    --card:#ffffff; --card2:#f6f1e8; --card-line:rgba(20,28,54,.08);
+    --text:#1d2440; --muted:#5d6688;
+    --line:rgba(22,32,64,.12);
+    --fig:#2b3354;
+    --primary-text:#33210a;
+    --teal-grad:linear-gradient(135deg,#3bb3ad,#1f857f); --teal-text:#04231f;
+    --shadow:0 5px 16px rgba(60,45,20,.12); --shadow-sm:0 2px 8px rgba(60,45,20,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  [hidden]{display:none!important;}
+  html,body{height:100%;}
+  body{
+    font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei','Helvetica Neue',Roboto,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1100px 700px at 85% -20%, var(--bg-spot), transparent 60%),
+      linear-gradient(168deg,var(--bg0),var(--bg1));
+    background-attachment:fixed;min-height:100vh;
+    -webkit-user-select:none;user-select:none;transition:background .4s,color .25s;
+  }
+  ::selection{background:var(--accent);color:#1a1206;}
+  button{font-family:inherit;cursor:pointer;color:inherit;background:none;border:0;}
+  input,textarea,select{font-family:inherit;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 16px 80px;}
+
+  /* 顶栏 */
+  .topbar{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
+    background:linear-gradient(180deg,color-mix(in srgb,var(--bg0) 86%,transparent),color-mix(in srgb,var(--bg0) 40%,transparent));
+    border-bottom:1px solid var(--line);}
+  .topbar-inner{max-width:1000px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:10px;}
+  .brand{display:flex;align-items:center;gap:11px;min-width:0;}
+  .brand .logo{width:42px;height:42px;border-radius:14px;flex:none;background:linear-gradient(135deg,var(--accent),var(--accent-d));
+    display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--shadow-sm);}
+  .brand .t1{font-size:1.1rem;font-weight:800;letter-spacing:.5px;line-height:1.15;}
+  .brand .t2{font-size:.68rem;color:var(--muted);font-weight:600;}
+  .spacer{flex:1;}
+  .icon-btn{width:40px;height:40px;border-radius:13px;border:1px solid var(--line);background:var(--card);
+    display:grid;place-items:center;font-size:1.05rem;transition:transform .12s,background .2s;}
+  .icon-btn:hover{background:var(--card2);} .icon-btn:active{transform:scale(.92);}
+
+  .tabs{display:flex;justify-content:center;margin:18px 0 6px;}
+  .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px;gap:3px;box-shadow:var(--shadow-sm);flex-wrap:wrap;justify-content:center;}
+  .seg button{border:none;background:transparent;color:var(--muted);padding:9px 18px;border-radius:999px;font-weight:700;font-size:.9rem;transition:.18s;white-space:nowrap;}
+  .seg button.active{background:var(--accent);color:var(--primary-text);}
+
+  .grid-2{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-top:14px;}
+  @media (max-width:780px){.grid-2{grid-template-columns:1fr;}}
+  .gen-stack{display:grid;grid-template-columns:1fr;gap:16px;margin-top:14px;}
+  .card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius-lg);padding:18px 16px;box-shadow:var(--shadow-sm);}
+  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+  .card-head .ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 16%,transparent);font-size:1.05rem;flex:none;}
+  .card-head .ic.teal{background:rgba(86,198,192,.16);}
+  .card-head h2{font-size:1.02rem;font-weight:800;} .card-head .sub{font-size:.7rem;color:var(--muted);font-weight:600;}
+
+  .motd{display:flex;align-items:center;gap:12px;background:color-mix(in srgb,var(--accent) 6%,transparent);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:14px;cursor:pointer;transition:.15s;}
+  .motd:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent);}
+  .motd .mf{width:54px;height:54px;flex:none;display:grid;place-items:center;background:var(--card);border-radius:12px;}
+  .motd .mf svg{height:48px;}
+  .motd .mt{font-size:.66rem;color:var(--muted);font-weight:800;letter-spacing:1px;text-transform:uppercase;}
+  .motd .mn{font-weight:800;font-size:.98rem;} .motd .md{font-size:.72rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;}
+
+  .controls-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 4px;}
+  .modeseg{display:inline-flex;background:var(--bg0);border:1px solid var(--line);border-radius:999px;padding:3px;}
+  .modeseg button{border:none;background:transparent;color:var(--muted);padding:6px 12px;border-radius:999px;font-size:.76rem;font-weight:700;}
+  .modeseg button.active{background:var(--card2);color:var(--text);}
+  .switch{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--muted);}
+  .toggle{width:38px;height:22px;border-radius:999px;background:var(--line);position:relative;transition:.18s;flex:none;border:none;}
+  .toggle::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+  .toggle.on{background:var(--accent);} .toggle.on::after{left:19px;}
+
+  .stepper-row{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 0 4px;background:color-mix(in srgb,var(--accent) 9%,transparent);border:1px solid var(--line);border-radius:999px;padding:8px 14px;flex-wrap:wrap;}
+  .stepper-row label{font-size:.8rem;font-weight:700;color:var(--muted);}
+  .stepper{display:inline-flex;align-items:center;gap:10px;}
+  .stepper .sbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:1.25rem;font-weight:700;display:grid;place-items:center;line-height:1;color:var(--text);transition:.12s;}
+  .stepper .sbtn:active{transform:scale(.9);}
+  .stepper .sval{min-width:42px;text-align:center;font-size:1.3rem;font-weight:800;font-variant-numeric:tabular-nums;}
+  .smax{font-size:.68rem;color:var(--muted);}
+
+  .filter-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px;}
+  .fchip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px;font-size:.72rem;font-weight:700;color:var(--muted);transition:.12s;}
+  .fchip.on{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--text);border-color:color-mix(in srgb,var(--accent) 45%,transparent);}
+
+  .result-area{background:color-mix(in srgb,var(--bg0) 42%,transparent);border:1px solid var(--line);border-radius:13px;padding:14px 12px;margin:12px 0;min-height:170px;display:flex;align-items:center;justify-content:center;}
+  .placeholder{color:var(--muted);font-size:.9rem;font-weight:600;text-align:center;line-height:1.7;}
+  .placeholder .big{font-size:2rem;display:block;margin-bottom:6px;opacity:.8;}
+
+  .move-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px;width:100%;}
+  .move-card{background:var(--card);border:1px solid var(--card-line);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:5px;box-shadow:none;transition:transform .15s,border-color .2s;position:relative;animation:pop .3s ease both;}
+  .move-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 50%,transparent);}
+  .move-card .figbox{width:100%;height:112px;display:grid;place-items:center;}
+  .move-card .figbox svg,.move-card .figbox img{height:100%;max-width:100%;object-fit:contain;border-radius:12px;}
+  .move-card .mname{font-weight:800;font-size:.88rem;text-align:center;line-height:1.2;}
+  .move-card .mzh{font-size:.66rem;color:var(--muted);font-weight:600;}
+  .move-card .mcount{font-size:.6rem;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);padding:2px 8px;border-radius:999px;}
+  .move-card .slot{position:absolute;top:7px;left:9px;font-size:.6rem;color:var(--muted);font-weight:800;}
+  .move-card .corner{position:absolute;top:5px;right:6px;display:flex;gap:3px;}
+  .move-card .cbtn{width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--card2);display:grid;place-items:center;font-size:.72rem;opacity:0;transition:.15s;}
+  .move-card:hover .cbtn{opacity:1;}
+  .move-card .cbtn.on{opacity:1;color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent);}
+  .move-card .cbtn.pinned{opacity:1;color:var(--teal);}
+  .move-card.dim{opacity:.42;}
+  .travel-ic{position:absolute;bottom:8px;right:9px;font-size:.7rem;color:var(--muted);font-weight:800;}
+  @keyframes pop{from{opacity:0;transform:scale(.85) translateY(8px);}to{opacity:1;transform:none;}}
+
+  .timeline{width:100%;margin-top:12px;}
+  .tl-bar{display:flex;height:34px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--bg0);}
+  .tl-seg{display:flex;align-items:center;gap:3px;font-size:.62rem;font-weight:800;color:var(--primary-text);border-right:2px solid var(--bg0);overflow:hidden;white-space:nowrap;padding:0 5px;min-width:0;}
+  .tl-seg .tl-num{flex:none;opacity:.62;font-variant-numeric:tabular-nums;}
+  .tl-seg .tl-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:center;}
+  .tl-seg .tl-cont{flex:none;font-weight:900;font-size:.82rem;line-height:1;opacity:.72;}
+  .tl-seg.cont-r{box-shadow:inset -4px 0 5px -3px rgba(0,0,0,.45);}
+  .tl-seg.cont-l{box-shadow:inset 4px 0 5px -3px rgba(0,0,0,.45);}
+  .tl-counts{display:flex;margin-top:3px;}
+  .tl-c{font-size:.58rem;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;}
+
+  .combo-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px;width:100%;}
+  .combo-text{font-size:.8rem;color:var(--muted);font-weight:600;text-align:center;flex:1;min-width:160px;}
+  .combo-text b{color:var(--text);font-weight:800;}
+
+  .btn{border:none;border-radius:12px;font-weight:800;font-size:.96rem;padding:15px 22px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;box-shadow:none;transition:transform .12s,filter .2s;letter-spacing:.3px;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--accent);color:var(--primary-text);}
+  .btn-teal{background:var(--teal);color:var(--teal-text);}
+  .pill{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 14px;font-size:.8rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:.15s;color:var(--text);}
+  .pill:hover{background:var(--card2);border-color:color-mix(in srgb,var(--accent) 45%,transparent);}
+  .pill.accent{background:var(--accent);color:var(--primary-text);border:none;}
+  .pill.sm{padding:6px 11px;font-size:.72rem;}
+
+  /* groove */
+  .groove-show{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;}
+  .groove-figbox{width:140px;height:140px;display:grid;place-items:center;}
+  .groove-figbox svg{height:100%;}
+  .groove-pair{display:flex;align-items:center;gap:10px;font-weight:800;flex-wrap:wrap;justify-content:center;}
+  .groove-chip{background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:8px 16px;font-size:1.02rem;box-shadow:var(--shadow-sm);}
+  .groove-x{width:30px;height:30px;border-radius:50%;background:rgba(86,198,192,.22);color:var(--teal);display:grid;place-items:center;font-size:1.1rem;font-weight:800;}
+  .groove-prompt{font-size:.8rem;color:var(--muted);font-weight:600;text-align:center;}
+
+  .history{margin-top:18px;}
+  .history-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .history-head .ttl{font-size:.84rem;font-weight:800;display:flex;align-items:center;gap:7px;color:var(--muted);}
+  .history-records{display:flex;flex-wrap:wrap;gap:7px;}
+  .history-badge{font-size:.72rem;background:var(--card);border:1px solid var(--card-line);border-left:3px solid var(--accent);border-radius:12px;padding:5px 11px;color:var(--text);font-weight:600;}
+  .history-badge.r{border-left-color:var(--teal);}
+  .history-empty{font-size:.78rem;color:var(--muted);}
+
+  /* practice */
+  .metro{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .beat-dots{display:flex;gap:14px;}
+  .beat-dots .bd{width:18px;height:18px;border-radius:50%;background:var(--line);transition:transform .06s,background .06s;}
+  .beat-dots .bd.on{background:var(--accent);transform:scale(1.45);}
+  .beat-dots .bd.accent.on{background:var(--teal);}
+  .bpm-display{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;}
+  .bpm-display small{font-size:1rem;color:var(--muted);font-weight:700;}
+  .slider{width:100%;-webkit-appearance:none;appearance:none;height:8px;border-radius:999px;background:var(--line);outline:none;}
+  .slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:var(--shadow-sm);}
+  .slider::-moz-range-thumb{width:22px;height:22px;border:none;border-radius:50%;background:var(--accent);cursor:pointer;}
+  .bpm-presets{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
+  .row-wrap{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;}
+
+  .stage{position:fixed;inset:0;z-index:300;background:linear-gradient(160deg,var(--bg0),var(--bg1));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;}
+  .stage .s-fig{width:min(60vw,340px);height:min(46vh,380px);display:grid;place-items:center;}
+  .stage .s-fig svg{height:100%;}
+  .stage .s-name{font-size:clamp(2rem,9vw,4.5rem);font-weight:800;line-height:1;}
+  .stage .s-zh{font-size:clamp(1rem,4vw,1.6rem);color:var(--muted);font-weight:700;}
+  .stage .s-next{font-size:.95rem;color:var(--muted);font-weight:700;}
+  .stage .s-count{font-size:clamp(4rem,20vw,10rem);font-weight:800;color:var(--accent);line-height:1;}
+  .stage .s-controls{position:absolute;bottom:28px;display:flex;gap:14px;}
+  .stage .s-exit{position:absolute;top:22px;right:22px;}
+  .stage .beat-dots{position:absolute;top:24px;}
+
+  /* 舞步库 */
+  .lib-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 6px;}
+  .search{flex:1;min-width:160px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 15px;}
+  .search input{border:none;background:transparent;color:var(--text);outline:none;width:100%;font-size:.9rem;}
+  .search input::placeholder{color:var(--muted);}
+  .deck-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0;}
+  .deck-bar select{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--text);font-weight:700;font-size:.8rem;}
+  .tool-btns{display:flex;gap:8px;flex-wrap:wrap;}
+  .section-label{font-size:.76rem;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:20px 4px 10px;display:flex;align-items:center;gap:8px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{background:var(--card);border:1px solid var(--card-line);border-radius:12px;padding:7px 13px;font-size:.82rem;font-weight:700;display:inline-flex;align-items:center;gap:7px;}
+  .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+  .chip.teal .dot{background:var(--teal);}
+  .storage-meter{font-size:.72rem;color:var(--muted);margin:6px 4px;}
+
+  /* modal */
+  .modal-mask{position:fixed;inset:0;z-index:200;background:rgba(6,9,18,.62);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;visibility:hidden;transition:.22s;}
+  .modal-mask.active{opacity:1;visibility:visible;}
+  .modal{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--card-line);border-radius:26px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);padding:22px 20px;transform:translateY(14px) scale(.98);transition:.22s;}
+  .modal-mask.active .modal{transform:none;}
+  .modal h3{font-size:1.16rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+  .modal .mhint{font-size:.76rem;color:var(--muted);margin-bottom:14px;}
+  .modal textarea,.modal input[type=text],.modal input[type=number],.modal select{width:100%;border:1px solid var(--line);background:var(--bg0);color:var(--text);border-radius:14px;padding:11px 13px;font-size:.9rem;outline:none;margin-bottom:12px;}
+  .modal textarea{resize:vertical;min-height:80px;line-height:1.6;}
+  .modal label.fld{display:block;font-size:.74rem;font-weight:800;color:var(--muted);margin:0 2px 5px;}
+  .modal .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px;flex-wrap:wrap;}
+  .modal-actions .left{margin-right:auto;}
+  .mbtn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 18px;font-weight:700;font-size:.85rem;color:var(--text);}
+  .mbtn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:var(--primary-text);border:none;}
+  .mbtn.danger{color:#ff8585;border-color:rgba(255,120,120,.4);background:transparent;}
+
+  .detail-fig{width:100%;height:220px;display:grid;place-items:center;background:color-mix(in srgb,var(--bg0) 55%,transparent);border-radius:20px;margin-bottom:10px;border:1px solid var(--line);position:relative;}
+  .detail-fig svg,.detail-fig img{height:100%;max-width:100%;object-fit:contain;border-radius:16px;}
+  .fig-toggle{position:absolute;top:8px;right:8px;display:flex;gap:4px;}
+  .fig-toggle button{border:1px solid var(--line);background:var(--card);border-radius:8px;font-size:.66rem;padding:4px 8px;font-weight:700;color:var(--muted);}
+  .fig-toggle button.on{color:var(--text);border-color:var(--accent);}
+  .detail-meta{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 10px;}
+  .tag{font-size:.7rem;font-weight:800;border-radius:999px;padding:4px 10px;}
+  .tag.count{color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);}
+  .tag.emph{color:var(--teal);background:rgba(86,198,192,.16);}
+  .tag.lvl{color:var(--rose);background:color-mix(in srgb,var(--rose) 16%,transparent);}
+  .tag.tg{color:var(--muted);background:var(--bg0);}
+  .detail-desc{font-size:.94rem;line-height:1.75;margin-bottom:8px;}
+  .detail-notes{font-size:.82rem;line-height:1.6;color:var(--muted);background:var(--bg0);border-radius:12px;padding:9px 12px;margin-bottom:8px;border:1px solid var(--line);}
+
+  .swatches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .swatch{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;}
+  .swatch.on{border-color:var(--text);}
+  .settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);}
+  .settings-row:last-child{border-bottom:none;}
+  .settings-row .lbl{font-size:.88rem;font-weight:700;}
+  .settings-row .desc{font-size:.7rem;color:var(--muted);}
+
+  .qr-wrap{display:grid;place-items:center;background:#fff;padding:16px;border-radius:16px;margin:0 auto 12px;width:fit-content;}
+  .qr-wrap canvas{image-rendering:pixelated;}
+  .share-code{width:100%;font-family:monospace;font-size:.7rem;word-break:break-all;background:var(--bg0);border:1px solid var(--line);border-radius:12px;padding:10px;max-height:120px;overflow:auto;color:var(--muted);}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:rgba(20,24,38,.96);color:#fff;border:1px solid rgba(255,255,255,.12);padding:11px 20px;border-radius:999px;font-size:.85rem;font-weight:700;opacity:0;visibility:hidden;transition:.25s;z-index:400;box-shadow:var(--shadow);}
+  .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  .snackbar{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--card2);color:var(--text);border:1px solid var(--line);padding:10px 14px 10px 18px;border-radius:14px;font-size:.84rem;font-weight:700;display:flex;align-items:center;gap:14px;opacity:0;visibility:hidden;transition:.25s;z-index:400;box-shadow:var(--shadow);}
+  .snackbar.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  .snackbar button{background:var(--accent);color:var(--primary-text);border:none;border-radius:10px;padding:6px 14px;font-weight:800;}
+
+  footer{text-align:center;font-size:.7rem;color:var(--muted);margin-top:28px;line-height:1.7;opacity:.85;}
+
+  /* 图形 */
+  .figure .limb{fill:none;stroke:var(--fig);stroke-width:8.5;stroke-linecap:round;stroke-linejoin:round;}
+  .figure .torso{fill:none;stroke:var(--fig);stroke-width:11;stroke-linecap:round;stroke-linejoin:round;}
+  .figure .bar{fill:none;stroke:var(--fig);stroke-width:9;stroke-linecap:round;}
+  .figure .head{fill:var(--fig);}
+  .figure .shadow{fill:rgba(0,0,0,.18);}
+  html[data-theme="light"] .figure .shadow{fill:rgba(40,30,10,.12);}
+  .figure .glow{fill:var(--fig-accent);opacity:.17;}
+  .figure .acc{fill:none;stroke:var(--fig-accent);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;}
+  .figure .acc-fill{fill:var(--fig-accent);}
+  .figure .acc-faint{fill:none;stroke:var(--fig-accent);stroke-width:3;stroke-linecap:round;opacity:.55;}
+  .foot-dia .fp{fill:var(--fig);opacity:.85;} .foot-dia .fp.r{opacity:.5;}
+  .foot-dia .fa{stroke:var(--fig-accent);stroke-width:3;fill:none;stroke-linecap:round;}
+  .foot-dia .fa-fill{fill:var(--fig-accent);}
+  .foot-dia text{fill:var(--muted);font-size:11px;font-weight:800;font-family:system-ui;}
+
+  @media print{
+    body{background:#fff;color:#000;}
+    .topbar,.tabs,#viewGen,#viewPractice,.lib-toolbar,.deck-bar,.section-label,#bodyChips,#rhythmChips,footer,.storage-meter,.toast,.snackbar{display:none!important;}
+    #printArea{display:block!important;}
+  }
+  #printArea{display:none;}
+  .print-card{border:1px solid #ccc;border-radius:12px;padding:10px;display:inline-block;width:31%;margin:1%;vertical-align:top;text-align:center;page-break-inside:avoid;}
+  .print-card svg{height:120px;} .print-card .pn{font-weight:800;} .print-card .pd{font-size:11px;color:#444;}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;}}
+  /* 简化后的生成控制 + 乐句/节拍条 */
+  .gen-controls{display:flex;align-items:center;gap:12px;margin:12px 0 2px;flex-wrap:wrap;}
+  .mstep{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:5px 8px;}
+  .mstep-lbl{font-size:.78rem;font-weight:700;color:var(--muted);}
+  .ms-btn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--card2);font-size:1.15rem;font-weight:700;display:grid;place-items:center;line-height:1;color:var(--text);transition:transform .12s;}
+  .ms-btn:active{transform:scale(.88);}
+  .ms-val{min-width:16px;text-align:center;font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums;}
+  .switch{color:var(--text);cursor:pointer;}
+  .phrase{width:100%;margin-top:14px;}
+  .phrase-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .pbtn{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--primary-text);font-size:.9rem;display:grid;place-items:center;flex:none;transition:transform .1s;}
+  .pbtn:active{transform:scale(.92);}
+  .pbtn.on{background:var(--teal);color:var(--teal-text);}
+  .phrase-label{font-size:.9rem;font-weight:700;color:var(--text);}
+  .phrase-label b{font-size:1.15rem;color:var(--accent);margin-right:2px;}
+  .phrase-bpm{margin-left:auto;font-size:.72rem;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:5px 10px;}
+  .tl-bar{position:relative;}
+  .tl-div{position:absolute;top:0;bottom:0;width:2px;background:color-mix(in srgb,var(--text) 28%,transparent);z-index:2;pointer-events:none;}
+  .playhead{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.55);border-radius:1px;z-index:4;pointer-events:none;}
+  .tl-c.one{color:var(--accent);font-weight:800;}
+  .phrase-bars.stacked{display:flex;flex-direction:column;gap:12px;}
+  .phrase-bars.stacked .tl-line{display:flex;align-items:flex-start;gap:8px;}
+  .phrase-bars.stacked .tl-line-no{flex:none;align-self:flex-start;width:14px;height:36px;display:grid;place-items:center;font-size:.74rem;font-weight:800;color:var(--muted);}
+  .phrase-bars.stacked .tl-body{flex:1;min-width:0;}
+  /* BPM 弹出滑块 */
+  .pop-mask{position:fixed;inset:0;z-index:120;}
+  .bpm-pop{position:fixed;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 18px 16px;box-shadow:var(--shadow);width:368px;max-width:94vw;animation:pop .16s ease both;}
+  .bpm-pop-val{text-align:center;font-size:1.02rem;font-weight:700;color:var(--muted);margin-bottom:12px;}
+  .bpm-pop-val b{font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .bpm-pop-row{display:flex;align-items:center;gap:12px;}
+  .bpm-slide-wrap{flex:1;position:relative;padding-bottom:20px;}
+  .bpm-slide-wrap .slider{width:100%;}
+  .bpm-ticks{position:absolute;left:0;right:0;bottom:0;height:16px;}
+  .bpm-tick{position:absolute;transform:translateX(-50%);font-size:.56rem;letter-spacing:-.3px;color:var(--muted);font-weight:700;cursor:pointer;padding:3px 1px 0;white-space:nowrap;}
+  .bpm-tick::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:2px;height:6px;background:var(--line);border-radius:1px;}
+  .bpm-tick.on{color:var(--accent);} .bpm-tick.on::before{background:var(--accent);}
+  .sbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:1.3rem;font-weight:700;display:grid;place-items:center;line-height:1;color:var(--text);flex:none;transition:transform .12s;}
+  .sbtn:active{transform:scale(.9);}
+  .modeseg-top{flex:none;}
+  @media (max-width:600px){ .brand .t2{display:none;} .modeseg-top button{padding:6px 13px;} }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-inner">
+  <div class="brand">
+    <div class="logo">🎷</div>
+    <div><div class="t1">蓝调灵感工坊 <span style="font-size:.7rem;color:var(--accent);">Pro</span></div>
+    <div class="t2" id="subt">Solo Blues · 离线练习室</div></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="modeseg modeseg-top" id="styleSeg" role="tablist" aria-label="style">
+    <button id="modeBlues" class="active">Blues</button>
+    <button id="modeJazz">Jazz</button>
+  </div>
+  <div class="spacer"></div>
+  <button class="icon-btn" id="helpBtn" title="帮助" aria-label="帮助">❓</button>
+  <button class="icon-btn" id="soundBtn" title="音效" aria-label="音效">🔊</button>
+  <button class="icon-btn" id="themeBtn" title="主题" aria-label="主题">🌙</button>
+  <button class="icon-btn" id="settingsBtn" title="设置" aria-label="设置">⚙️</button>
+</div></div>
+
+<div class="wrap">
+  <div class="tabs"><div class="seg" role="tablist">
+    <button id="tabGen" class="active" data-i18n="tab.gen">✨ 随机生成</button>
+    <button id="tabPractice" data-i18n="tab.practice">🥁 练习室</button>
+    <button id="tabLib" data-i18n="tab.lib">📚 舞步库</button>
+  </div></div>
+
+  <!-- ===== 随机生成 ===== -->
+  <section id="viewGen">
+    <div class="motd" id="motd" hidden></div>
+    <div class="gen-stack">
+      <div class="card">
+        <div class="card-head"><div class="ic">🎶</div><div>
+          <h2 data-i18n="gen.movesTitle">经典舞步 · 自由组合</h2>
+          <div class="sub" data-i18n="gen.movesSub">随机抽取动作，串成可跳的组合</div>
+        </div></div>
+
+        <div class="gen-controls">
+          <div class="mstep"><span class="mstep-lbl" data-i18n="gen.moves">动作数</span><button class="ms-btn" id="moveMinus" aria-label="-">−</button><span class="ms-val" id="moveCountVal">4</span><button class="ms-btn" id="movePlus" aria-label="+">+</button></div>
+          <button class="switch" id="knownToggle"><span class="toggle on" id="knownTog"></span><span data-i18n="gen.onlyKnown">只出我会的</span></button>
+          <button class="pill sm" id="selectMovesBtn">🎓 <span data-i18n="gen.selectMoves">选择动作</span></button>
+        </div>
+
+        <div class="result-area" id="danceResult"><div class="placeholder"><span class="big">✨</span><span data-i18n="gen.ph">点击下方按钮<br>抽取你的舞步组合</span></div></div>
+        <button class="btn btn-primary" id="danceBtn" data-i18n="gen.generate">🎲 随机舞步组合</button>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="ic teal">💃</div><div>
+          <h2 data-i18n="gen.grooveTitle">肢体律动</h2><div class="sub" data-i18n="gen.grooveSub">身体部位 × 节奏型</div>
+        </div></div>
+        <div class="result-area" id="rhythmResult"><div class="placeholder"><span class="big">💥</span><span data-i18n="gen.groovePh">身体 × 节奏<br>抽一个律动练习</span></div></div>
+        <button class="btn btn-teal" id="rhythmBtn" data-i18n="gen.groove">🥁 随机律动组合</button>
+      </div>
+    </div>
+
+    <div class="history card" style="margin-top:18px;">
+      <div class="history-head"><div class="ttl">📜 <span data-i18n="gen.history">最近记录</span></div><button class="pill sm" id="clearHistoryBtn" data-i18n="common.clear">清空</button></div>
+      <div class="history-records" id="historyRecords"></div>
+    </div>
+  </section>
+
+  <!-- ===== 练习室 ===== -->
+  <section id="viewPractice" hidden>
+    <div class="card">
+      <div class="card-head"><div class="ic">🥁</div><div><h2 data-i18n="practice.metroTitle">节拍器</h2><div class="sub" data-i18n="practice.metroSub">为慢蓝调找到稳定的拍子</div></div></div>
+      <div class="metro" style="margin-top:14px;">
+        <div class="beat-dots" id="beatDots"></div>
+        <div class="bpm-display"><span id="bpmVal">70</span> <small>BPM</small></div>
+        <input type="range" class="slider" id="bpmSlider" min="30" max="160" value="70">
+        <div class="bpm-presets" id="bpmPresets"></div>
+        <div class="row-wrap">
+          <button class="pill" id="tapBtn">👆 <span data-i18n="practice.tap">点击定速</span></button>
+          <button class="btn btn-primary" id="metroBtn" style="width:auto;padding:12px 28px;" data-i18n="practice.start">▶ 开始</button>
+          <div class="switch"><span class="toggle" id="metroVoiceTog"></span><span data-i18n="practice.accent">重音</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-head"><div class="ic teal">🌊</div><div><h2 data-i18n="practice.flowTitle">流动模式 · 免手</h2><div class="sub" data-i18n="practice.flowSub">自动循环出招，跟着练不用看屏幕</div></div></div>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px;">
+        <div class="controls-bar" style="justify-content:space-between;">
+          <div class="modeseg"><button id="flowByBars" class="active" data-i18n="practice.byBars">按节拍</button><button id="flowBySec" data-i18n="practice.bySec">按时间</button></div>
+          <div class="switch"><span class="toggle on" id="voiceTog"></span><span data-i18n="practice.voice">🔈 语音报招</span></div>
+        </div>
+        <div class="stepper-row" id="barsRow"><label data-i18n="practice.everyBars">每隔</label><div class="stepper"><button class="sbtn" id="barsMinus">−</button><span class="sval" id="barsVal">8</span><button class="sbtn" id="barsPlus">+</button></div><span class="smax" data-i18n="practice.counts">拍换招</span></div>
+        <div class="stepper-row" id="secRow" hidden><label data-i18n="practice.everySec">每隔</label><div class="stepper"><button class="sbtn" id="secMinus">−</button><span class="sval" id="secVal">6</span><button class="sbtn" id="secPlus">+</button></div><span class="smax" data-i18n="practice.seconds">秒换招</span></div>
+        <button class="btn btn-teal" id="flowBtn" data-i18n="practice.startFlow">🌊 进入流动模式</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 舞步库 ===== -->
+  <section id="viewLib" hidden>
+    <div class="deck-bar">
+      <span style="font-size:.78rem;font-weight:800;color:var(--muted);" data-i18n="lib.deck">合集</span>
+      <select id="deckSelect"></select>
+      <button class="pill sm" id="manageDeckBtn" data-i18n="lib.manageDeck">管理合集</button>
+    </div>
+    <div class="lib-toolbar">
+      <div class="search"><span>🔍</span><input type="text" id="searchInput" data-i18n-ph="lib.searchPh" placeholder="搜索舞步…" autocomplete="off"></div>
+      <div class="tool-btns">
+        <button class="pill accent" id="knownPickerBtn" data-i18n="lib.known">🎓 我会的</button>
+        <button class="pill" id="addMoveBtn" data-i18n="lib.add">＋ 添加</button>
+        <button class="pill" id="bulkAddBtn" data-i18n="lib.bulk">批量</button>
+        <button class="pill" id="shareBtn" data-i18n="lib.share">🔗 分享</button>
+        <button class="pill" id="printBtn" data-i18n="lib.print">🖨 打印</button>
+      </div>
+    </div>
+    <div class="filter-chips" id="libFilters"></div>
+    <div class="section-label">🕺 <span data-i18n="lib.moves">舞步动作</span> <span id="moveCountLabel" style="text-transform:none;font-weight:700;"></span></div>
+    <div class="move-grid" id="libGrid"></div>
+    <div class="section-label">🦵 <span data-i18n="lib.body">身体部位</span> <button class="pill sm" id="editBodyBtn" style="margin-left:auto;" data-i18n="common.edit">编辑</button></div>
+    <div class="chips" id="bodyChips"></div>
+    <div class="section-label">🎵 <span data-i18n="lib.rhythm">节奏型</span> <button class="pill sm" id="editRhythmBtn" style="margin-left:auto;" data-i18n="common.edit">编辑</button></div>
+    <div class="chips" id="rhythmChips"></div>
+    <div class="storage-meter" id="storageMeter"></div>
+  </section>
+
+  <footer>
+    🎵 <span data-i18n="footer">全部数据保存在本机 · 无需联网 · 可导出 / 分享 / 打印</span>
+  </footer>
+</div>
+
+<div id="printArea"></div>
+
+<!-- 详情 -->
+<div class="modal-mask" id="detailModal"><div class="modal" id="detailBody"></div></div>
+<!-- 编辑舞步 -->
+<div class="modal-mask" id="editMoveModal"><div class="modal">
+  <h3 id="editMoveTitle">＋ 添加舞步</h3>
+  <div class="mhint" data-i18n="edit.hint">填写信息，系统按姿势模板生成图示；也可上传你的参考图。</div>
+  <label class="fld" data-i18n="edit.name">动作名称</label><input type="text" id="emName" placeholder="Camel Walk">
+  <label class="fld" data-i18n="edit.zh">中文小标题</label><input type="text" id="emZh" placeholder="骆驼步">
+  <label class="fld" data-i18n="edit.desc">动作说明</label><textarea id="emDesc"></textarea>
+  <label class="fld" data-i18n="edit.notes">个人备注（可选）</label><textarea id="emNotes" style="min-height:50px;"></textarea>
+  <div class="row2">
+    <div><label class="fld" data-i18n="edit.count">拍子文字</label><input type="text" id="emCount" placeholder="慢 · 4拍"></div>
+    <div><label class="fld" data-i18n="edit.beats">拍数(数字)</label><input type="number" id="emBeats" min="1" max="32" value="4"></div>
+  </div>
+  <div class="row2">
+    <div><label class="fld" data-i18n="edit.emph">强调部位</label><input type="text" id="emEmph" placeholder="胯 · 重心"></div>
+    <div><label class="fld" data-i18n="edit.level">难度</label><select id="emLevel"><option value="1">轻松</option><option value="2" selected>中等</option><option value="3">进阶</option></select></div>
+  </div>
+  <div class="row2">
+    <div><label class="fld" data-i18n="edit.travel">移动方向</label><select id="emTravel"><option value="-">原地</option><option value="F">向前</option><option value="B">向后</option><option value="S">侧向</option></select></div>
+    <div><label class="fld" data-i18n="edit.pose">姿势模板</label><select id="emPose"></select></div>
+  </div>
+  <label class="fld" data-i18n="edit.tags">标签（逗号分隔）</label><input type="text" id="emTags" placeholder="脚法, 行进">
+  <label class="fld" data-i18n="edit.img">参考图片（存本机）</label>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+    <button class="mbtn" id="emImgBtn" type="button">📷 <span data-i18n="edit.pick">选择图片</span></button>
+    <button class="mbtn danger" id="emImgClear" type="button" hidden data-i18n="edit.removeImg">移除</button>
+    <span id="emImgName" style="font-size:.74rem;color:var(--muted);"></span>
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn danger left" id="emDelete" hidden data-i18n="common.delete">删除</button>
+    <button class="mbtn" id="emCancel" data-i18n="common.cancel">取消</button>
+    <button class="mbtn primary" id="emSave" data-i18n="common.save">保存</button>
+  </div>
+</div></div>
+
+<!-- 列表编辑 -->
+<div class="modal-mask" id="listModal"><div class="modal">
+  <h3 id="listTitle">编辑</h3><div class="mhint" data-i18n="list.hint">每行一个选项。</div>
+  <textarea id="listTextarea" rows="6"></textarea>
+  <div class="modal-actions"><button class="mbtn" id="listCancel" data-i18n="common.cancel">取消</button><button class="mbtn primary" id="listSave" data-i18n="common.save">保存</button></div>
+</div></div>
+
+<!-- 批量添加 -->
+<div class="modal-mask" id="bulkModal"><div class="modal">
+  <h3>📋 <span data-i18n="bulk.title">批量添加舞步</span></h3><div class="mhint" data-i18n="bulk.hint">每行一个名称，自动生成姿势。</div>
+  <textarea id="bulkTextarea" rows="6" placeholder="Boogie Forward&#10;Spank the Baby&#10;Shorty George"></textarea>
+  <div class="modal-actions"><button class="mbtn" id="bulkCancel" data-i18n="common.cancel">取消</button><button class="mbtn primary" id="bulkSave" data-i18n="bulk.add">添加</button></div>
+</div></div>
+
+<!-- 合集管理 -->
+<div class="modal-mask" id="deckModal"><div class="modal" id="deckBody"></div></div>
+<!-- 我会的动作 -->
+<div class="modal-mask" id="knownModal"><div class="modal" id="knownBody"></div></div>
+
+<!-- 分享 -->
+<div class="modal-mask" id="shareModal"><div class="modal" id="shareBody"></div></div>
+
+<!-- 设置 -->
+<div class="modal-mask" id="settingsModal"><div class="modal" id="settingsBody"></div></div>
+
+<!-- 帮助 -->
+<div class="modal-mask" id="helpModal"><div class="modal">
+  <h3>👋 <span data-i18n="help.title">欢迎来到蓝调灵感工坊 Pro</span></h3>
+  <div style="font-size:.9rem;line-height:1.8;color:var(--text);" id="helpBody"></div>
+  <div class="modal-actions"><button class="mbtn primary" id="helpClose" data-i18n="help.start">开始使用</button></div>
+</div></div>
+
+<!-- 确认 -->
+<div class="modal-mask" id="confirmModal"><div class="modal" style="max-width:380px;">
+  <h3 id="confirmTitle">确认</h3><div class="mhint" id="confirmMsg"></div>
+  <div class="modal-actions"><button class="mbtn" id="confirmCancel" data-i18n="common.cancel">取消</button><button class="mbtn primary" id="confirmOk" data-i18n="common.confirm">确定</button></div>
+</div></div>
+
+<!-- 舞台 -->
+<div class="stage" id="stage" hidden></div>
+
+<input type="file" id="imgFileInput" accept="image/*" hidden>
+<input type="file" id="importFileInput" accept="application/json,.json" hidden>
+<div class="pop-mask" id="bpmPopMask" hidden>
+  <div class="bpm-pop" id="bpmPop">
+    <div class="bpm-pop-val"><b id="bpmPopVal">70</b> BPM</div>
+    <div class="bpm-pop-row">
+      <button class="sbtn" id="bpmMinus" aria-label="-">−</button>
+      <div class="bpm-slide-wrap"><input type="range" class="slider" id="bpmRange" min="30" max="160" step="1" value="70"><div class="bpm-ticks" id="bpmTicks"></div></div>
+      <button class="sbtn" id="bpmPlus" aria-label="+">+</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="snackbar" id="snackbar"><span id="snackText"></span><button id="snackUndo" data-i18n="common.undo">撤销</button></div>
+
+<script>
+"use strict";
+/* ===================================================================== */
+const $=id=>document.getElementById(id);
+const R=Math.PI/180, f=n=>Math.round(n*10)/10;
+const end=(x,y,a,l)=>[x+l*Math.sin(a*R),y+l*Math.cos(a*R)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clone=o=>JSON.parse(JSON.stringify(o));
+const rand=a=>a[Math.floor(Math.random()*a.length)];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ===================== i18n ===================== */
+const STRINGS={
+  zh:{'t2.blues':'Solo Blues · 离线练习室','t2.jazz':'Solo Jazz · 离线练习室','tab.gen':'✨ 随机生成','tab.practice':'🥁 练习室','tab.lib':'📚 舞步库',
+    'gen.movesTitle':'经典舞步 · 自由组合','gen.movesSub':'随机抽取动作，串成可跳的组合','gen.onlyKnown':'只出我会的','gen.selectMoves':'选择动作','gen.moves':'动作数',
+    'gen.ph':'点击下方按钮<br>抽取你的舞步组合','gen.generate':'🎲 随机舞步组合',
+    'gen.grooveTitle':'肢体律动','gen.grooveSub':'身体部位 × 节奏型','gen.groovePh':'身体 × 节奏<br>抽一个律动练习','gen.groove':'🥁 随机律动组合','gen.history':'最近记录',
+    'practice.metroTitle':'节拍器','practice.metroSub':'为慢蓝调找到稳定的拍子','practice.tap':'点击定速','practice.start':'▶ 开始','practice.stop':'⏹ 停止','practice.accent':'重音',
+    'practice.flowTitle':'流动模式 · 免手','practice.flowSub':'自动循环出招，跟着练不用看屏幕','practice.byBars':'按节拍','practice.bySec':'按时间','practice.voice':'🔈 语音报招',
+    'practice.everyBars':'每隔','practice.counts':'拍换招','practice.everySec':'每隔','practice.seconds':'秒换招','practice.startFlow':'🌊 进入流动模式','practice.ready':'准备',
+    'lib.deck':'合集','lib.manageDeck':'管理合集','lib.add':'＋ 添加','lib.bulk':'批量','lib.known':'🎓 我会的','lib.share':'🔗 分享','lib.print':'🖨 打印','lib.moves':'舞步动作','lib.body':'身体部位','lib.rhythm':'节奏型','lib.searchPh':'搜索舞步…',
+    'common.clear':'清空','common.edit':'编辑','common.save':'保存','common.cancel':'取消','common.delete':'删除','common.close':'完成','common.done':'完成','common.undo':'撤销','common.confirm':'确定',
+    'edit.hint':'填写信息，系统按姿势模板生成图示；也可上传你的参考图。','edit.name':'动作名称','edit.zh':'中文小标题','edit.desc':'动作说明','edit.notes':'个人备注（可选）','edit.count':'拍子文字','edit.beats':'拍数(数字)','edit.emph':'强调部位','edit.level':'难度','edit.travel':'移动方向','edit.pose':'姿势模板','edit.tags':'标签（逗号分隔）','edit.img':'参考图片（存本机）','edit.pick':'选择图片','edit.removeImg':'移除',
+    'list.hint':'每行一个选项。','bulk.title':'批量添加舞步','bulk.hint':'每行一个名称，自动生成姿势。','bulk.add':'添加',
+    'help.title':'欢迎来到蓝调灵感工坊 Pro','help.start':'开始使用',
+    'toast.storageFull':'存储空间不足','toast.fillBodyRhythm':'请完善身体/节奏','toast.fillName':'请填写名称','toast.dupName':'已存在同名动作','toast.keepOne':'至少保留一个','toast.saved':'已保存','toast.added':'已添加 {n} 个','toast.audioNA':'音频不可用','toast.noMoves':'没有可用动作','toast.exported':'已导出 JSON','toast.imported':'导入成功','toast.badFile':'文件格式不正确','toast.gotCombo':'已收到组合，可在历史查看','toast.rendering':'生成图片中…','toast.imgSaved':'图片已保存','toast.undone':'已撤销','toast.copied':'已复制','toast.copyFail':'复制失败','toast.imgBig':'图片过大','toast.imgFail':'图片读取失败',
+    'footer':'全部数据保存在本机 · 无需联网 · 可导出 / 分享 / 打印'},
+  en:{'t2.blues':'Solo Blues · Offline practice room','t2.jazz':'Solo Jazz · Offline practice room','tab.gen':'✨ Generate','tab.practice':'🥁 Practice','tab.lib':'📚 Library',
+    'gen.movesTitle':'Classic Moves · Free Combo','gen.movesSub':'Draw moves and string a danceable combo','gen.onlyKnown':'Only moves I know','gen.selectMoves':'Select moves','gen.moves':'Moves',
+    'gen.ph':'Tap the button below<br>to draw your combo','gen.generate':'🎲 Random Combo',
+    'gen.grooveTitle':'Body Groove','gen.grooveSub':'Body part × rhythm','gen.groovePh':'Body × Rhythm<br>draw a groove drill','gen.groove':'🥁 Random Groove','gen.history':'Recent',
+    'practice.metroTitle':'Metronome','practice.metroSub':'Lock a steady slow-blues tempo','practice.tap':'Tap tempo','practice.start':'▶ Start','practice.stop':'⏹ Stop','practice.accent':'Accent',
+    'practice.flowTitle':'Flow Mode · Hands-free','practice.flowSub':'Auto-cycles moves so you can keep dancing','practice.byBars':'By beats','practice.bySec':'By time','practice.voice':'🔈 Call moves',
+    'practice.everyBars':'Every','practice.counts':'counts','practice.everySec':'Every','practice.seconds':'sec','practice.startFlow':'🌊 Enter Flow Mode','practice.ready':'Ready',
+    'lib.deck':'Deck','lib.manageDeck':'Manage','lib.add':'＋ Add','lib.bulk':'Bulk','lib.known':'🎓 I know','lib.share':'🔗 Share','lib.print':'🖨 Print','lib.moves':'Moves','lib.body':'Body parts','lib.rhythm':'Rhythms','lib.searchPh':'Search moves…',
+    'common.clear':'Clear','common.edit':'Edit','common.save':'Save','common.cancel':'Cancel','common.delete':'Delete','common.close':'Done','common.done':'Done','common.undo':'Undo','common.confirm':'OK',
+    'edit.hint':'Fill in the info; a figure is drawn from a pose template. You can also attach your own photo.','edit.name':'Move name','edit.zh':'Subtitle','edit.desc':'How to','edit.notes':'Personal notes (optional)','edit.count':'Count text','edit.beats':'Beats (number)','edit.emph':'Emphasis','edit.level':'Level','edit.travel':'Travel','edit.pose':'Pose template','edit.tags':'Tags (comma-separated)','edit.img':'Reference photo (local)','edit.pick':'Pick image','edit.removeImg':'Remove',
+    'list.hint':'One option per line.','bulk.title':'Bulk add moves','bulk.hint':'One name per line; poses auto-generated.','bulk.add':'Add',
+    'help.title':'Welcome to Blues Groove Lab Pro','help.start':'Get started',
+    'toast.storageFull':'Storage full','toast.fillBodyRhythm':'Pick a body part + rhythm','toast.fillName':'Enter a name','toast.dupName':'That name already exists','toast.keepOne':'Keep at least one','toast.saved':'Saved','toast.added':'Added {n}','toast.audioNA':'Audio unavailable','toast.noMoves':'No moves available','toast.exported':'Exported JSON','toast.imported':'Imported','toast.badFile':'Invalid file format','toast.gotCombo':'Combo saved — see History','toast.rendering':'Rendering image…','toast.imgSaved':'Image saved','toast.undone':'Undone','toast.copied':'Copied','toast.copyFail':'Copy failed','toast.imgBig':'Image too large','toast.imgFail':"Couldn't read image",
+    'footer':'All data stays on your device · offline · export / share / print'}
+};
+function t(k){const l=state.settings.lang||'zh';return (STRINGS[l]&&STRINGS[l][k])||STRINGS.zh[k]||k;}
+function applyLang(){
+  document.documentElement.lang=state.settings.lang==='en'?'en':'zh-CN';
+  document.querySelectorAll('[data-i18n]').forEach(e=>{e.innerHTML=t(e.getAttribute('data-i18n'));});
+  document.querySelectorAll('[data-i18n-ph]').forEach(e=>{e.placeholder=t(e.getAttribute('data-i18n-ph'));});
+}
+
+/* ===================== 图形构建（正面 / 侧面 / 动画） ===================== */
+const FIG={HIPX:75,HIPY:108,HIP:9,TORSO:46,SHO:13,HEADL:18,HEADR:11,AUP:20,AFORE:17,THIGH:28,SHIN:28,FOOT:13};
+const DEF_POSE={lean:0,armL:[-32,-16],armR:[32,16],legL:[-9,-3],legR:[9,3],footL:-92,footR:92,highlight:null,deco:[]};
+function limbPath(x,y,a1,l1,a2,l2){const k=end(x,y,a1,l1);const e=end(k[0],k[1],a2,l2);return{d:`M${f(x)},${f(y)} L${f(k[0])},${f(k[1])} L${f(e[0])},${f(e[1])}`,knee:k,end:e};}
+function arrowLine(x1,y1,x2,y2,cls){cls=cls||'acc';const a=Math.atan2(y2-y1,x2-x1),h=7;const p1=[x2-h*Math.cos(a-0.5),y2-h*Math.sin(a-0.5)],p2=[x2-h*Math.cos(a+0.5),y2-h*Math.sin(a+0.5)];return`<path class="${cls}" d="M${f(x1)},${f(y1)} L${f(x2)},${f(y2)}"/><path class="${cls}-fill" d="M${f(x2)},${f(y2)} L${f(p1[0])},${f(p1[1])} L${f(p2[0])},${f(p2[1])} Z"/>`;}
+function glowShape(key,hc,p){p=p||{};const hx=p.hipDX||0,hy=p.hipDY||0,sx=p.shDX||0,sy=p.shDY||0;switch(key){
+  case'shoulders':return`<ellipse class="glow" cx="${f(75+sx)}" cy="${f(64+sy)}" rx="23" ry="14"/>`;
+  case'chest':return`<ellipse class="glow" cx="${f(75+sx)}" cy="${f(80+sy)}" rx="18" ry="17"/>`;
+  case'hips':return`<ellipse class="glow" cx="${f(75+hx)}" cy="${f(110+hy)}" rx="21" ry="14"/>`;
+  case'knees':return`<ellipse class="glow" cx="${f(75+hx*0.6)}" cy="142" rx="29" ry="13"/>`;
+  case'legs':return`<ellipse class="glow" cx="75" cy="140" rx="31" ry="24"/>`;
+  case'feet':return`<ellipse class="glow" cx="75" cy="165" rx="35" ry="11"/>`;
+  case'head':return`<circle class="glow" cx="${f(hc[0])}" cy="${f(hc[1])}" r="16"/>`;
+  case'whole':return`<ellipse class="glow" cx="75" cy="114" rx="41" ry="66"/>`;default:return'';}}
+function renderDeco(name){switch(true){
+  case name==='arrow:right':return arrowLine(104,150,138,150);
+  case name==='arrow:left':return arrowLine(46,150,12,150);
+  case name==='arrow:down':return arrowLine(126,114,126,150);
+  case name==='arrow:up':return arrowLine(126,150,126,114);
+  case name==='sideways':return arrowLine(72,182,30,182)+arrowLine(78,182,120,182);
+  case name==='footprints':return`<ellipse class="acc-faint" cx="44" cy="176" rx="6" ry="3"/><ellipse class="acc-faint" cx="66" cy="180" rx="6" ry="3"/><ellipse class="acc-faint" cx="90" cy="176" rx="6" ry="3"/>`;
+  case name==='wave':return`<path class="acc" d="M98,68 q7,-9 13,0 t13,0 t13,0"/>`;
+  case name==='rock':return arrowLine(44,58,30,74)+arrowLine(106,58,120,74);
+  case name==='point':return`<circle class="acc-fill" cx="120" cy="30" r="3.4"/><path class="acc" d="M120,40 L120,52"/><path class="acc-faint" d="M112,33 L107,30 M128,33 L133,30"/>`;
+  case name==='inout':return arrowLine(60,150,72,150)+arrowLine(90,150,78,150);
+  case name==='shuffle':return`<path class="acc-faint" d="M58,176 l10,-6 M70,178 l10,-6 M82,176 l10,-6"/>`;
+  case name==='dip':return`<path class="acc" d="M110,118 l9,9 l9,-9"/>`;
+  case name==='ticks':return`<path class="acc-faint" d="M60,170 l0,11 M70,172 l0,11 M82,172 l0,11 M92,170 l0,11"/>`;
+  case name==='cross':return`<path class="acc" d="M58,150 L94,178 M94,150 L58,178"/>`;
+  case name==='shimmy':return`<path class="acc-faint" d="M40,56 l9,4 M40,62 l9,4 M40,68 l9,4 M110,56 l-9,4 M110,62 l-9,4 M110,68 l-9,4"/>`;
+  case name==='kick':return arrowLine(98,150,126,138)+`<path class="acc-faint" d="M96,156 l-9,3 M99,162 l-9,4"/>`;
+  case name==='loop':return`<ellipse class="acc" cx="75" cy="112" rx="23" ry="12"/><path class="acc-fill" d="M97,108 l5,5 l-6,3 Z"/>`;
+  case /^dots:/.test(name):{const n=parseInt(name.split(':')[1],10)||3;let s='';const sx=75-(n-1)*7;for(let i=0;i<n;i++)s+=`<circle class="acc-fill" cx="${sx+i*14}" cy="178" r="${i===n-1?3:4.5}"/>`;return s;}
+  case name==='spin':return`<path class="acc" d="M106,64 A42 42 0 1 1 64,56"/><path class="acc-fill" d="M64,56 l-4,-11 l12,3 Z"/>`;
+  case name==='tilt':return arrowLine(49,122,49,104)+arrowLine(101,104,101,122);
+  default:return'';}}
+function figureFront(poseIn){
+  const p=Object.assign({},DEF_POSE,poseIn||{}),F=FIG;
+  const hx=F.HIPX+(p.hipDX||0), hy=F.HIPY+(p.hipDY||0), tilt=p.hipTilt||0;   // 胯部隔离
+  const shA=180-p.lean, scb=end(F.HIPX,F.HIPY,shA,F.TORSO);                   // 肩部由基准胯算，与胯解耦
+  const sc=[scb[0]+(p.shDX||0), scb[1]+(p.shDY||0)];                          // 胸/上身隔离
+  const hcb=end(sc[0],sc[1],shA,F.HEADL), hc=[hcb[0]+(p.headDX||0),hcb[1]+(p.headDY||0)];
+  const lhip=[hx-F.HIP,hy-tilt],rhip=[hx+F.HIP,hy+tilt];
+  const lsh=[sc[0]-F.SHO,sc[1]],rsh=[sc[0]+F.SHO,sc[1]];
+  const legL=limbPath(lhip[0],lhip[1],p.legL[0],F.THIGH,p.legL[1],F.SHIN);
+  const legR=limbPath(rhip[0],rhip[1],p.legR[0],F.THIGH,p.legR[1],F.SHIN);
+  const armL=limbPath(lsh[0],lsh[1],p.armL[0],F.AUP,p.armL[1],F.AFORE);
+  const armR=limbPath(rsh[0],rsh[1],p.armR[0],F.AUP,p.armR[1],F.AFORE);
+  const footL=end(legL.end[0],legL.end[1],p.footL,F.FOOT),footR=end(legR.end[0],legR.end[1],p.footR,F.FOOT);
+  const feetY=Math.max(legL.end[1],legR.end[1]);
+  let s=`<svg class="figure" viewBox="0 0 150 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+  s+=`<ellipse class="shadow" cx="75" cy="${f(feetY+8)}" rx="34" ry="7"/>`;
+  s+=`<g transform="${p._tf||''}">`;
+  if(p.highlight)s+=glowShape(p.highlight,hc,p);
+  s+=`<path class="limb" d="${legL.d}"/><path class="limb" d="${legR.d}"/>`;
+  s+=`<path class="limb" d="M${f(legL.end[0])},${f(legL.end[1])} L${f(footL[0])},${f(footL[1])}"/><path class="limb" d="M${f(legR.end[0])},${f(legR.end[1])} L${f(footR[0])},${f(footR[1])}"/>`;
+  s+=`<path class="bar" d="M${f(lhip[0])},${f(lhip[1])} L${f(rhip[0])},${f(rhip[1])}"/>`;
+  s+=`<path class="torso" d="M${f(hx)},${f(hy)} L${f(sc[0])},${f(sc[1])}"/>`;
+  s+=`<path class="bar" d="M${f(lsh[0])},${f(lsh[1])} L${f(rsh[0])},${f(rsh[1])}"/>`;
+  s+=`<path class="limb" d="${armL.d}"/><path class="limb" d="${armR.d}"/>`;
+  s+=`<path class="limb" d="M${f(sc[0])},${f(sc[1])} L${f(hc[0])},${f(hc[1])}"/>`;
+  s+=`<circle class="head" cx="${f(hc[0])}" cy="${f(hc[1])}" r="${F.HEADR}"/>`;
+  s+=`</g>`;
+  (p.deco||[]).forEach(d=>{s+=renderDeco(d);});
+  s+=`</svg>`;return s;
+}
+/* 侧面（示意） */
+function figureSide(poseIn){
+  const p=Object.assign({},DEF_POSE,poseIn||{}),F=FIG;
+  const lean=p.lean*0.6, shA=180-lean, hipx=75, hipy=108;
+  const sc=end(hipx,hipy,shA,F.TORSO);
+  const hc=end(sc[0],sc[1],shA,F.HEADL);
+  const aA=(p.armR[0]+p.armL[0])/2+20, aB=(p.armR[1]+p.armL[1])/2;
+  const arm=limbPath(sc[0],sc[1],aA,F.AUP,aB,F.AFORE);
+  const lgA=(p.legR[0]-p.legL[0])/2+8, lgB=(p.legR[1]-p.legL[1])/2;
+  const legA=limbPath(hipx+3,hipy,lgA+10,F.THIGH,lgB+4,F.SHIN);
+  const legB=limbPath(hipx-3,hipy,-lgA-2,F.THIGH,-lgB,F.SHIN);
+  const footA=end(legA.end[0],legA.end[1],95,F.FOOT+3),footB=end(legB.end[0],legB.end[1],95,F.FOOT+3);
+  const feetY=Math.max(legA.end[1],legB.end[1]);
+  let s=`<svg class="figure" viewBox="0 0 150 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+  s+=`<ellipse class="shadow" cx="${f(hipx)}" cy="${f(feetY+8)}" rx="30" ry="7"/>`;
+  s+=`<g transform="${p._tf||''}">`;
+  if(p.highlight)s+=glowShape(p.highlight,hc,p);
+  s+=`<path class="limb" d="${legB.d}" style="opacity:.6"/><path class="limb" d="M${f(legB.end[0])},${f(legB.end[1])} L${f(footB[0])},${f(footB[1])}" style="opacity:.6"/>`;
+  s+=`<path class="torso" d="M${f(hipx)},${f(hipy)} L${f(sc[0])},${f(sc[1])}"/>`;
+  s+=`<path class="limb" d="${legA.d}"/><path class="limb" d="M${f(legA.end[0])},${f(legA.end[1])} L${f(footA[0])},${f(footA[1])}"/>`;
+  s+=`<path class="limb" d="${arm.d}"/>`;
+  s+=`<path class="limb" d="M${f(sc[0])},${f(sc[1])} L${f(hc[0])},${f(hc[1])}"/>`;
+  s+=`<circle class="head" cx="${f(hc[0])}" cy="${f(hc[1])}" r="${F.HEADR}"/>`;
+  s+=`<circle class="head" cx="${f(hc[0]+9)}" cy="${f(hc[1])}" r="3.2"/>`;
+  s+=`</g></svg>`;return s;
+}
+function figureSVG(pose,side){return side?figureSide(pose):figureFront(pose);}
+
+/* ====== 动画引擎：每个动作有独立的 anim 描述（运动各不相同） ======
+ anim 可选字段：freq 速度 | bob 整体下沉 | sway 整体左右 | drift 行进漂移
+ hipX/hipY 胯画圆(配 hipPhase) | hipLin 胯左右 | hipTilt 胯倾斜
+ chestX/chestY 胸隔离(配 chestPhase) | head 头部左右
+ arm 手臂对摆 | armAlt 手臂前后交替(抖肩) | knee 双膝下蹲 | legAlt 左右腿交替
+ kickR/kickL 单腿前踢 | scissor 双腿开合 | lean 躯干摆 | turn 转身压缩 | sharp 顿挫 */
+const DEFAULT_ANIM={freq:1,bob:3.5,knee:5,arm:6,sway:2,lean:3};
+function deriveAnim(m){
+  const h=((m.pose&&m.pose.highlight)||'')+','+((m.tags||[]).join(','))+','+(m.emph||'');
+  if(/胯|hip/.test(h))return{freq:1,hipX:9,hipY:5,knee:3,arm:3,bob:1};
+  if(/胸|chest|肋/.test(h))return{freq:1,chestX:8,chestY:5,head:-2,arm:4,bob:1};
+  if(/肩|shoulder|抖|shimmy|shake/.test(h))return{freq:2.2,armAlt:14,bob:1,knee:1};
+  if(/脚|feet|footwork|脚法/.test(h))return{freq:1.3,knee:9,legAlt:6,arm:5,bob:4};
+  if(/低位|low|下沉|drop/.test(h))return{freq:1,bob:7,knee:9,arm:4};
+  if(/转|turn/.test(h))return{freq:0.8,turn:1,arm:6,bob:2};
+  return DEFAULT_ANIM;
+}
+function animFor(m){return (m&&m.anim)||deriveAnim(m||{});}
+function perturbPose(base,A,ph){
+  A=A||DEFAULT_ANIM;const p=clone(base);
+  const t=ph*(A.freq||1);
+  const s=Math.sin(t),as=Math.abs(s);
+  const sh=A.sharp?Math.sign(s)*Math.pow(as,0.4):s;
+  const half=Math.max(0,s);
+  const bL=base.armL||[-32,-16],bR=base.armR||[32,16],lL=base.legL||[-9,-3],lR=base.legR||[9,3];
+  const aSw=(A.arm||0)*s, aL=(A.armAlt||0)*s, aR=(A.armAlt||0)*Math.sin(t+Math.PI);
+  p.armL=[bL[0]+aSw+aL, bL[1]+aSw*0.6+aL*0.5];
+  p.armR=[bR[0]-aSw+aR, bR[1]-aSw*0.6+aR*0.5];
+  const kp=(A.knee||0)*as, laL=(A.legAlt||0)*s, laR=(A.legAlt||0)*Math.sin(t+Math.PI), sci=(A.scissor||0)*s;
+  p.legL=[lL[0]+laL*0.3+sci, lL[1]+kp+laL];
+  p.legR=[lR[0]+laR*0.3-sci, lR[1]+kp+laR];
+  if(A.kickR)p.legR=[lR[0]+A.kickR*half, lR[1]+A.kickR*half*0.7];
+  if(A.kickL)p.legL=[lL[0]-A.kickL*half, lL[1]-A.kickL*half*0.7];
+  p.lean=(base.lean||0)+(A.lean||0)*sh;
+  p.hipDX=(A.hipX||0)*Math.cos(t+(A.hipPhase||0))+(A.hipLin||0)*sh;
+  p.hipDY=(A.hipY||0)*Math.sin(t+(A.hipPhase||0));
+  p.hipTilt=(A.hipTilt||0)*sh;
+  p.shDX=(A.chestX||0)*Math.cos(t+(A.chestPhase||0));
+  p.shDY=(A.chestY||0)*Math.sin(t+(A.chestPhase||0));
+  p.headDX=(A.head||0)*s-(p.shDX||0)*0.4-(p.hipDX||0)*0.12;
+  const ty=(A.bob||0)*as, tx=(A.sway||0)*s+(A.drift||0)*Math.sin(t*0.5);
+  let tf=`translate(${f(tx)} ${f(ty)})`;
+  if(A.turn){const sx=Math.max(0.18,Math.abs(Math.cos(t)));tf+=` translate(75 0) scale(${f(sx)} 1) translate(-75 0)`;}
+  p._tf=tf;
+  return p;
+}
+let animTargets=[], animPhase=0, animRunning=false;
+function startAnim(){if(animRunning)return;animRunning=true;requestAnimationFrame(animStep);}
+function animStep(){
+  if(!state.settings.anim||!animTargets.length){animRunning=false;return;}
+  animPhase+=0.13;
+  animTargets.forEach(tg=>{
+    if(!tg.el.isConnected)return;
+    const pp=perturbPose(tg.base,tg.an,animPhase*(tg.speed||1));
+    tg.el.innerHTML=figureSVG(pp,tg.side);
+  });
+  requestAnimationFrame(animStep);
+}
+function setAnimTargets(list){animTargets=list||[];if(state.settings.anim&&animTargets.length)startAnim();}
+function clearAnim(){animTargets=[];}
+
+/* 节奏可视化 */
+function beatsSVG(rhythm){
+  const r=String(rhythm||'').toLowerCase();let pattern;const W=200;
+  function even(n){const a=[];for(let i=0;i<n;i++)a.push({x:20+i*((W-40)/(n-1)),big:i%2===0});return a;}
+  if(/三连|triplet|triple/.test(r)){pattern=[];for(let g=0;g<2;g++)for(let i=0;i<3;i++)pattern.push({x:30+g*95+i*26,big:i===0});}
+  else if(/shuffle|摇摆/.test(r)){pattern=[];for(let i=0;i<4;i++){pattern.push({x:24+i*46,big:true});pattern.push({x:24+i*46+24,big:false});}}
+  else if(/切分|syncop/.test(r)){pattern=[{x:24,big:false},{x:70,big:true},{x:116,big:false},{x:162,big:true}];}
+  else if(/停顿|hold/.test(r)){pattern=[{x:100,big:true,bar:true}];}
+  else pattern=even(4);
+  let s=`<svg viewBox="0 0 200 34" width="180" height="30" xmlns="http://www.w3.org/2000/svg"><line x1="14" y1="17" x2="186" y2="17" stroke="var(--line)" stroke-width="2"/>`;
+  pattern.forEach(p=>{if(p.bar)s+=`<rect x="60" y="9" width="80" height="16" rx="8" fill="var(--teal)"/>`;else s+=`<circle cx="${f(p.x)}" cy="17" r="${p.big?7:4}" fill="${p.big?'var(--teal)':'var(--muted)'}"/>`;});
+  return s+`</svg>`;
+}
+function countStripSVG(beats){
+  beats=Math.max(1,Math.min(32,beats||4));const W=Math.min(260,beats*26+20);let s=`<svg viewBox="0 0 ${W} 30" width="${Math.min(260,W)}" height="26" xmlns="http://www.w3.org/2000/svg">`;
+  for(let i=0;i<beats;i++){const x=14+i*((W-24)/Math.max(1,beats-1||1));const big=i%4===0;s+=`<circle cx="${f(x)}" cy="13" r="${big?6:3.5}" fill="${big?'var(--accent)':'var(--muted)'}"/><text x="${f(x)}" y="27" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="system-ui">${i+1}</text>`;}
+  return s+`</svg>`;
+}
+/* 脚步图 */
+function footworkSVG(m){
+  const travel=m.travel||'-';let s=`<svg class="foot-dia" viewBox="0 0 200 110" width="200" height="110" xmlns="http://www.w3.org/2000/svg">`;
+  function foot(x,y,lbl,r){return`<ellipse class="fp${r?' r':''}" cx="${x}" cy="${y}" rx="9" ry="15"/><text x="${x}" y="${y+4}" text-anchor="middle">${lbl}</text>`;}
+  s+=foot(70,60,'L')+foot(130,75,'R',1);
+  if(travel==='F')s+=arrowLine(100,95,100,20,'fa');
+  else if(travel==='B')s+=arrowLine(100,20,100,95,'fa');
+  else if(travel==='S')s+=arrowLine(150,55,190,55,'fa');
+  else s+=`<circle class="fa" cx="100" cy="55" r="22"/><path class="fa-fill" d="M120,49 l6,6 l-7,3 Z"/>`;
+  return s+`</svg>`;
+}
+const TRAVEL_IC={'F':'↑','B':'↓','S':'↔','-':'•','L':'←','R':'→'};
+
+/* ===================== 默认数据 ===================== */
+const DEFAULT_MOVES=[
+  /* ===== 胯部隔离 ===== */
+  {name:"Hip Circle",zh:"转胯 / hip rotation",desc:"胯部水平画圆，上身不动。",count:"慢 · 4拍",beats:4,emph:"胯 · 隔离",level:2,travel:"-",tags:["胯","隔离","基础","重音"],known:true,pose:{lean:3,armL:[-58,-28],armR:[58,28],highlight:'hips',deco:['loop']},anim:{freq:1,hipX:10,hipY:6,knee:2,arm:2}},
+  {name:"Hip Swing",zh:"胯部摆动",desc:"胯左右摆动。",count:"慢 · 4拍",beats:4,emph:"胯 · 横向",level:1,travel:"-",tags:["胯","隔离","摇摆","基础"],known:true,pose:{armL:[-50,-22],armR:[50,22],highlight:'hips',deco:['sideways']},anim:{freq:0.9,hipLin:11,knee:2,lean:-2}},
+  {name:"Hip Tilt",zh:"胯部提沉",desc:"骨盆一侧上提，像跷跷板。",count:"2拍",beats:2,emph:"胯 · 提沉",level:1,travel:"-",tags:["胯","隔离","重音","基础"],known:true,pose:{armL:[-46,-20],armR:[46,20],highlight:'hips',deco:['tilt']},anim:{freq:1,hipTilt:8,sharp:true,knee:2}},
+  {name:"C-Hip",zh:"C 形胯",desc:"胯沿 C 形弧线舀动。",count:"2拍",beats:2,emph:"胯 · 弧线",level:2,travel:"-",tags:["胯","隔离","重音"],known:true,pose:{lean:3,armL:[-54,-26],armR:[58,28],highlight:'hips',deco:['loop']},anim:{freq:0.9,hipX:9,hipY:7,hipPhase:1.4,knee:3}},
+  {name:"Fishtail",zh:"鱼尾",desc:"胯画 8 字，像鱼尾摆。",count:"持续",beats:4,emph:"胯 · 8字",level:2,travel:"S",tags:["胯","隔离","摇摆","重音"],known:true,pose:{legL:[-14,-2],legR:[14,2],armL:[-48,-22],armR:[48,22],highlight:'hips',deco:['loop','footprints']},anim:{freq:1,hipX:9,hipY:5,hipPhase:1,legAlt:4,drift:1.5}},
+  {name:"Funky Butt",zh:"放克臀",desc:"屈膝压低，臀部画圈碾磨。",count:"慢 · 持续",beats:4,emph:"胯 · 低位",level:2,travel:"-",tags:["胯","隔离","下沉","重音"],known:true,pose:{lean:-6,legL:[-16,-2],legR:[16,2],armL:[-40,-18],armR:[40,18],highlight:'hips',deco:['loop']},anim:{freq:0.8,hipX:9,hipY:6,hipPhase:0.5,knee:6,bob:3}},
+  /* ===== 上身隔离 ===== */
+  {name:"Chest Circle",zh:"转胸",desc:"胸廓水平画圆，胯头不动。",count:"慢 · 4拍",beats:4,emph:"胸 · 隔离",level:2,travel:"-",tags:["胸","隔离","基础","重音"],known:true,pose:{armL:[-58,-30],armR:[58,30],highlight:'chest',deco:['wave']},anim:{freq:1,chestX:9,chestY:6,head:-3,knee:1}},
+  {name:"Shoulder Rolls",zh:"转肩",desc:"双肩画圈。",count:"持续",beats:4,emph:"肩 · 隔离",level:1,travel:"-",tags:["肩","隔离","基础","重音"],known:true,pose:{armL:[-40,-30],armR:[40,30],highlight:'shoulders',deco:['shimmy']},anim:{freq:1.1,armAlt:8,chestY:4}},
+  {name:"Shimmy",zh:"抖肩 / shimmy shimmy",desc:"双肩快速前后抖动。",count:"持续",beats:4,emph:"肩 · 抖动",level:2,travel:"-",tags:["肩","抖动","隔离","重音"],known:true,pose:{armL:[-44,-20],armR:[44,20],highlight:'shoulders',deco:['shimmy']},anim:{freq:2.4,armAlt:16,bob:1,knee:1}},
+  {name:"Body Separation",zh:"上下半身分离",desc:"上身与胯反向运动。",count:"持续",beats:4,emph:"胸 × 胯",level:3,travel:"-",tags:["隔离","胸","胯","进阶"],known:true,pose:{armL:[-56,-28],armR:[56,28],highlight:'whole',deco:['loop','wave']},anim:{freq:1,chestX:8,chestPhase:0,hipX:8,hipPhase:3.14,knee:2}},
+  /* ===== 弹动 / 下沉 ===== */
+  {name:"Low Down",zh:"低位律动",desc:"全身下沉，深屈膝。",count:"慢 · 2-4拍",beats:4,emph:"全身 · 低位",level:2,travel:"-",tags:["下沉","膝","胯","基础"],known:true,pose:{legL:[-24,-4],legR:[24,4],armL:[-50,-14],armR:[50,14],highlight:'whole',deco:['arrow:down']},anim:{freq:0.7,bob:7,knee:9,hipX:3,arm:3}},
+  {name:"Shunt",zh:"shunt · 沉拍",desc:"每拍向地面压一下再回弹。",count:"每拍",beats:2,emph:"膝 · 弹动",level:1,travel:"-",tags:["弹动","膝","胯","基础"],known:true,pose:{legL:[-12,-3],legR:[12,3],armL:[-30,-16],armR:[30,16],highlight:'knees',deco:['arrow:down']},anim:{freq:1.2,bob:6,knee:8,hipX:2}},
+  {name:"骑竹马",zh:"shunt 变体",desc:"双脚并拢的弹跳版 shunt。",count:"每拍",beats:4,emph:"全身 · 弹跳",level:2,travel:"F",tags:["弹动","膝","行进","基础"],known:true,pose:{legL:[-8,-3],legR:[8,3],armL:[40,24],armR:[-40,-24],highlight:'whole',deco:['arrow:up']},anim:{freq:1.4,bob:6,knee:7,drift:2,arm:4}},
+  {name:"Knee Rock",zh:"膝摆",desc:"双膝开合相碰，手交叉拍。",count:"每拍",beats:2,emph:"膝 · 开合",level:1,travel:"-",tags:["膝","查尔斯顿","弹动","隔离"],known:true,pose:{legL:[10,2],legR:[-10,-2],armL:[44,58],armR:[-44,-58],highlight:'knees',deco:['inout']},anim:{freq:1,scissor:9,knee:2,bob:2}},
+  /* ===== 走步 / 行进 ===== */
+  {name:"Camel Walk",zh:"骆驼步",desc:"滑步前进，身体前后涌动。",count:"慢 · 4拍",beats:4,emph:"全身 · 波浪",level:2,travel:"F",tags:["行进","胯","脚法","基础"],known:true,pose:{lean:-6,armL:[-46,-26],armR:[50,26],legL:[20,26],legR:[-14,-6],footR:78,highlight:'chest',deco:['wave','arrow:right']},anim:{freq:0.9,chestY:5,chestX:4,hipLin:5,knee:4,arm:6,drift:2}},
+  {name:"Mooche",zh:"穆奇步",desc:"慵懒低姿，滚胯滑行。",count:"慢 · 4拍",beats:4,emph:"全身 · 慵懒",level:2,travel:"F",tags:["行进","胯","重音","摇摆"],known:true,pose:{lean:4,legL:[-18,4],legR:[14,-2],footL:-64,armL:[-30,-16],armR:[30,16],highlight:'hips',deco:['arrow:right']},anim:{freq:0.6,hipLin:6,knee:4,lean:4,drift:2,bob:2}},
+  {name:"Pimp Walk",zh:"痞子步",desc:"大摇大摆侧迈，后脚拖。",count:"慢 · 4拍",beats:4,emph:"放克 · 行进",level:2,travel:"F",tags:["放克","行进","胯","重音"],known:true,pose:{lean:6,legL:[-6,16],legR:[18,-4],armL:[-12,-10],armR:[22,14],highlight:'hips',deco:['dip','arrow:right']},anim:{freq:0.8,hipLin:6,lean:6,knee:5,drift:3,arm:4}},
+  {name:"James Brown",zh:"James Brown",desc:"擦滑脚，反拍上抽胯。",count:"快 · 切分",beats:4,emph:"放克 · 脚法",level:3,travel:"B",tags:["放克","脚法","膝","进阶"],known:true,pose:{legL:[-6,8],legR:[18,-10],armL:[-24,-30],armR:[40,20],footR:60,highlight:'feet',deco:['ticks','arrow:left']},anim:{freq:1.8,knee:8,legAlt:8,hipLin:4,arm:5,sharp:true,drift:-3}},
+  {name:"Slide",zh:"滑步",desc:"单脚贴地滑行，另脚拖。",count:"慢",beats:4,emph:"脚 · 滑行",level:1,travel:"S",tags:["脚法","行进","基础","下沉"],known:true,pose:{legL:[-22,-8],legR:[16,2],armL:[-34,-14],armR:[34,14],footL:-60,highlight:'feet',deco:['sideways']},anim:{freq:0.7,drift:6,sway:5,knee:3,legAlt:4}},
+  {name:"Grapevine",zh:"葡萄藤步",desc:"旁—后交叉—旁—点，横向。",count:"4拍",beats:4,emph:"脚 · 横向",level:1,travel:"S",tags:["脚法","行进","基础"],known:true,pose:{legL:[-22,-10],legR:[24,-18],armL:[-34,-12],armR:[34,12],footR:60,highlight:'feet',deco:['sideways','footprints']},anim:{freq:1,legAlt:8,sway:4,drift:4,knee:3}},
+  {name:"Choo Choo",zh:"火车步",desc:"双脚像活塞，向前 chug。",count:"倍速",beats:4,emph:"脚 · 活塞",level:2,travel:"F",tags:["脚法","行进","弹动","重音"],known:true,pose:{legL:[-10,-6],legR:[10,6],armL:[40,30],armR:[-40,-30],highlight:'feet',deco:['ticks','arrow:right']},anim:{freq:2,knee:8,legAlt:8,arm:8,drift:3}},
+  {name:"Box",zh:"方步",desc:"脚走方框四角。",count:"半拍 · 8拍",beats:8,emph:"脚 · 方框",level:1,travel:"-",tags:["脚法","基础"],known:true,pose:{legL:[-12,-4],legR:[12,4],armL:[-30,-16],armR:[30,16],highlight:'feet',deco:['footprints']},anim:{freq:1,legAlt:6,knee:4,sway:3,bob:2}},
+  /* ===== 脚法 / 踢 ===== */
+  {name:"Triple Step",zh:"三步",desc:"快快慢，两拍三步。",count:"三连 · 1&2",beats:2,emph:"脚 · QQS",level:2,travel:"-",tags:["脚法","弹动","基础","摇摆"],known:true,pose:{legL:[16,9],legR:[-13,-3],armL:[-24,-16],armR:[24,16],highlight:'feet',deco:['dots:3']},anim:{freq:1.6,knee:7,legAlt:5,sway:3,bob:3}},
+  {name:"Kick Ball Change",zh:"踢球换",desc:"踢—换重心—弹回。",count:"1&2",beats:2,emph:"脚 · 踢换",level:2,travel:"-",tags:["脚法","踢腿","重音","基础"],known:true,pose:{legR:[38,46],legL:[-6,-2],armL:[24,16],armR:[-24,-16],footR:50,highlight:'feet',deco:['kick']},anim:{freq:1.2,kickR:16,knee:3,arm:5,bob:2}},
+  {name:"Scissor Kick",zh:"剪刀踢",desc:"双腿交叉过中线，像剪刀。",count:"1&2",beats:2,emph:"脚 · 交叉",level:3,travel:"-",tags:["脚法","踢腿","查尔斯顿","进阶"],known:true,pose:{legL:[30,30],legR:[-24,-26],armL:[-30,-18],armR:[30,18],highlight:'legs',deco:['cross']},anim:{freq:1.3,scissor:16,knee:3,bob:2}},
+  {name:"Stomp",zh:"跺步",desc:"重拍上整脚跺下。",count:"单个重拍",beats:1,emph:"脚 · 重音",level:1,travel:"-",tags:["脚法","重音","基础"],known:true,pose:{legL:[-8,-2],legR:[10,2],armL:[-28,-14],armR:[28,14],highlight:'feet',deco:['arrow:down']},anim:{freq:0.7,kickR:10,knee:6,bob:5,sharp:true}},
+  {name:"Tic-Toc",zh:"tic-toc",desc:"胯像钟摆左右 pop。",count:"1-2-1-2",beats:2,emph:"胯 · 钟摆",level:2,travel:"-",tags:["胯","隔离","重音","抖动"],known:true,pose:{armL:[-46,-20],armR:[46,20],highlight:'hips',deco:['sideways']},anim:{freq:1,hipLin:10,sharp:true,head:3}},
+  /* ===== 转身 ===== */
+  {name:"Paddle Turn",zh:"桨转",desc:"单脚为轴，另脚划水转。",count:"每拍一步",beats:4,emph:"转身 · 划",level:2,travel:"-",tags:["转身","脚法","基础"],known:true,pose:{legL:[-8,-3],legR:[18,6],armL:[-40,-20],armR:[40,20],highlight:'feet',deco:['spin']},anim:{freq:1.2,turn:1,knee:3,arm:4}},
+  {name:"Lock Turn",zh:"锁转",desc:"锁腿蓄力，解扭转身。",count:"1-2 进转",beats:2,emph:"转身 · 锁",level:2,travel:"-",tags:["转身","脚法","隔离"],known:true,pose:{legL:[18,12],legR:[-16,-6],armL:[30,20],armR:[-30,-20],highlight:'legs',deco:['spin']},anim:{freq:0.8,turn:1,scissor:6,arm:5}},
+  {name:"Through Turn",zh:"穿步转",desc:"自由脚穿过，继续转。",count:"1-2",beats:2,emph:"转身 · 穿",level:2,travel:"-",tags:["转身","脚法"],known:true,pose:{legL:[8,16],legR:[-10,-4],armL:[-30,-18],armR:[30,18],highlight:'feet',deco:['spin']},anim:{freq:0.9,turn:1,legAlt:5,arm:4}},
+  {name:"Shake & Bake",zh:"shake & bake",desc:"先抖，再猛地定住或下砸。",count:"抖→砸",beats:2,emph:"放克 · 抖+砸",level:2,travel:"-",tags:["放克","抖动","重音"],known:true,pose:{armL:[-50,-24],armR:[50,24],highlight:'whole',deco:['shimmy']},anim:{freq:2.2,armAlt:12,hipLin:5,bob:2,sharp:true}},
+  /* ===== 探索：尚未标记为「我会」的额外动作 ===== */
+  {name:"Suzie Q",zh:"苏西Q",desc:"交叉拧膝，向侧行进。",count:"Shuffle · 8拍",beats:8,emph:"脚 · 拧转",level:2,travel:"S",tags:["脚法","行进","查尔斯顿"],known:false,pose:{armL:[44,26],armR:[58,26],legL:[22,12],legR:[-26,-10],footL:-70,footR:70,highlight:'feet',deco:['sideways','footprints']},anim:{freq:1.2,legAlt:7,sway:4,drift:3,knee:3}},
+  {name:"Slow Drag",zh:"慢拖步",desc:"沉重缓慢地拖脚。",count:"慢 · 2拍",beats:2,emph:"重心 · 全身",level:1,travel:"F",tags:["行进","下沉","基础"],known:false,pose:{lean:-3,armL:[-14,-8],armR:[14,8],legL:[-6,-2],legR:[8,2],highlight:'whole',deco:['arrow:right']},anim:{freq:0.6,drift:3,knee:3,bob:2,hipLin:3}},
+  {name:"Shorty George",zh:"矮子乔治",desc:"屈膝并膝摆动前行，手指地。",count:"4拍",beats:4,emph:"膝 · 胯",level:2,travel:"F",tags:["行进","膝","查尔斯顿"],known:false,pose:{legL:[10,2],legR:[-10,-2],armL:[-10,12],armR:[10,-12],highlight:'knees',deco:['arrow:down','arrow:right']},anim:{freq:1.1,scissor:7,knee:5,drift:2,bob:2}},
+  {name:"Boogie Drop",zh:"下沉",desc:"重拍上突然屈膝下砸。",count:"单拍 · 重音",beats:1,emph:"重心",level:2,travel:"-",tags:["下沉","重音"],known:false,pose:{legL:[-26,2],legR:[26,-2],armL:[-66,-18],armR:[66,18],highlight:'whole',deco:['arrow:down']},anim:{freq:0.9,bob:8,knee:9,sharp:true,arm:4}},
+  {name:"Fall off the Log",zh:"滚木",desc:"失衡左右摇摆，侧向找平衡。",count:"摇摆 · 4拍",beats:4,emph:"全身 · 平衡",level:3,travel:"S",tags:["摇摆","进阶"],known:false,pose:{lean:10,legL:[24,16],legR:[-12,-4],armL:[-78,-12],armR:[78,12],highlight:'whole',deco:['rock']},anim:{freq:0.9,sway:7,lean:8,legAlt:5,arm:6}},
+  {name:"Truckin'",zh:"拖步",desc:"碎步前蹭，食指上指点动。",count:"Shuffle · 4拍",beats:4,emph:"脚 · 手",level:1,travel:"F",tags:["脚法","行进","查尔斯顿"],known:false,pose:{armR:[128,150],armL:[-20,-30],legL:[10,4],legR:[-8,12],footR:60,highlight:'feet',deco:['point','arrow:right']},anim:{freq:1.3,knee:6,legAlt:6,drift:2,bob:3}},
+  {name:"Apple Jack",zh:"苹果杰克",desc:"脚跟拧转，双膝开合弹动。",count:"三连 · 弹跳",beats:4,emph:"脚 · 膝",level:3,travel:"-",tags:["脚法","膝","进阶"],known:false,pose:{legL:[-18,-2],legR:[18,2],armL:[-30,-50],armR:[30,50],highlight:'knees',deco:['inout']},anim:{freq:1.5,scissor:10,knee:5,bob:3}},
+  {name:"Texas Shuffle",zh:"德州曳步",desc:"摇摆曳步向前。",count:"Shuffle · 8拍",beats:8,emph:"脚",level:2,travel:"F",tags:["脚法","摇摆"],known:false,pose:{legL:[16,10],legR:[-12,-6],armL:[-26,-16],armR:[26,16],highlight:'feet',deco:['shuffle','arrow:right']},anim:{freq:1.3,knee:7,legAlt:6,drift:2,bob:3}},
+  {name:"Struttin'",zh:"阔步",desc:"挺胸阔步，骄傲前行。",count:"4拍",beats:4,emph:"胸 · 姿态",level:1,travel:"F",tags:["行进","重音"],known:false,pose:{lean:-8,legL:[26,18],legR:[-16,-8],armL:[34,24],armR:[-26,-18],highlight:'chest',deco:['arrow:right']},anim:{freq:1,knee:4,legAlt:6,arm:8,drift:2,lean:3}},
+  {name:"Happy Feet",zh:"快乐脚",desc:"原地快速松散抖脚。",count:"快 · 持续",beats:4,emph:"脚",level:2,travel:"-",tags:["脚法","抖动"],known:false,pose:{legL:[-12,-6],legR:[12,6],armL:[-30,-18],armR:[30,18],highlight:'feet',deco:['ticks']},anim:{freq:2.4,knee:6,legAlt:8,bob:2}},
+  {name:"Boogie Back",zh:"后退步",desc:"弹动后退，双臂前后摆。",count:"4拍",beats:4,emph:"全身",level:2,travel:"B",tags:["行进","弹动"],known:false,pose:{lean:-4,legL:[-14,-8],legR:[14,8],armL:[48,28],armR:[-48,-28],highlight:'whole',deco:['arrow:left','footprints']},anim:{freq:1.2,knee:6,legAlt:7,drift:-3,arm:6,bob:3}}
+];
+/* ===================== Solo Jazz 默认动作（来源：lindycollection 权威清单；运动：lurklurk ✓ / 研究 ◐） ===================== */
+const DEFAULT_JAZZ_MOVES=[
+  {name:"Suzie Q",zh:"苏西Q",desc:"脚掌拧转、交叉横移的招牌脚法。",descEn:"Crossing, swiveling knees traveling sideways.",count:"8拍",beats:8,emph:"脚 · 拧转",level:2,travel:"S",tags:["脚法","行进","查尔斯顿"],known:true,pose:{armL:[44,26],armR:[58,26],legL:[22,12],legR:[-26,-10],footL:-70,footR:70,highlight:'feet',deco:['sideways','footprints']},anim:{freq:1.2,legAlt:7,sway:4,drift:3,knee:3}},
+  {name:"Shorty George",zh:"矮子乔治",desc:"屈膝压低、双膝并拢左右摆着向前走。",descEn:"Low bent-knee waddle, hands pointing down.",count:"4拍",beats:4,emph:"膝 · 行进",level:2,travel:"F",tags:["行进","膝","查尔斯顿"],known:true,pose:{legL:[10,2],legR:[-10,-2],armL:[-10,12],armR:[10,-12],highlight:'knees',deco:['arrow:down','arrow:right']},anim:{freq:1.1,scissor:7,knee:5,drift:2,bob:2}},
+  {name:"Apple Jacks",zh:"苹果杰克",desc:"脚跟拧转、双膝开合，原地弹动。",descEn:"In-place knee twists with heel pivots.",count:"2拍",beats:2,emph:"脚 · 膝",level:3,travel:"-",tags:["脚法","膝","查尔斯顿","进阶"],known:true,pose:{legL:[-18,-2],legR:[18,2],armL:[-30,-50],armR:[30,50],highlight:'knees',deco:['inout']},anim:{freq:1.5,scissor:10,knee:5,bob:3}},
+  {name:"Fall off the Log",zh:"滚木",desc:"像踩在圆木上左右失衡，又稳稳找回。",descEn:"Lean off-balance, then catch it sideways.",count:"8拍",beats:8,emph:"全身 · 平衡",level:3,travel:"S",tags:["摇摆","行进","进阶"],known:true,pose:{lean:10,legL:[24,16],legR:[-12,-4],armL:[-78,-12],armR:[78,12],highlight:'whole',deco:['rock']},anim:{freq:0.9,sway:7,lean:8,legAlt:5,arm:6}},
+  {name:"Boogie Back",zh:"布基后退",desc:"前踢拍手、ball-change 一路向后退。",descEn:"Kick-and-clap, then shuffle backward.",count:"8拍",beats:8,emph:"脚 · 弹动",level:2,travel:"B",tags:["脚法","行进","弹动"],known:true,pose:{lean:-4,legL:[-14,-8],legR:[14,8],armL:[48,28],armR:[-48,-28],highlight:'feet',deco:['arrow:left','footprints']},anim:{freq:1.2,kickR:10,knee:5,legAlt:5,drift:-3,arm:6,bob:2}},
+  {name:"Boogie Forward",zh:"布基前进",desc:"脚画半圆向前迈，胯顺势顶出。",descEn:"Semicircle foot sweeps forward, hips push out.",count:"4拍",beats:4,emph:"脚 · 胯",level:2,travel:"F",tags:["脚法","胯","行进"],known:true,pose:{legL:[-10,-4],legR:[22,10],armL:[-30,-16],armR:[30,16],footR:55,highlight:'hips',deco:['arrow:right']},anim:{freq:1,legAlt:7,hipLin:5,drift:3,knee:4,arm:4}},
+  {name:"Scissor Kicks",zh:"剪刀踢",desc:"双腿交叉、像剪刀开合地侧踢。",descEn:"Side kicks crossing like scissors.",count:"4拍",beats:4,emph:"脚 · 交叉",level:3,travel:"-",tags:["脚法","踢腿","查尔斯顿","进阶"],known:true,pose:{legL:[30,30],legR:[-24,-26],armL:[-30,-18],armR:[30,18],highlight:'legs',deco:['cross']},anim:{freq:1.3,scissor:16,knee:3,bob:2}},
+  {name:"Eagle Slide",zh:"雄鹰滑步",desc:"碎步后向前长滑，提膝、双手上扬。",descEn:"Tap-shuffle then slide forward, knee up, arms raised.",count:"4拍",beats:4,emph:"脚 · 滑行",level:2,travel:"F",tags:["滑步","姿态","行进"],known:true,pose:{lean:-4,legL:[20,26],legR:[-30,-40],armL:[-58,-30],armR:[58,30],footL:60,highlight:'feet',deco:['arrow:right']},anim:{freq:0.9,drift:5,knee:4,arm:5,bob:3}},
+  {name:"Scarecrow",zh:"稻草人",desc:"直腿踢几下，定成歪斜的稻草人造型。",descEn:"Straight kicks, then freeze in a crooked pose.",count:"6拍",beats:6,emph:"踢腿 · 造型",level:2,travel:"S",tags:["踢腿","造型","行进"],known:true,pose:{lean:8,legL:[-18,4],legR:[18,-4],armL:[-80,40],armR:[80,-40],highlight:'whole',deco:['rock']},anim:{freq:0.7,legAlt:6,sway:5,lean:5,drift:3,arm:3}},
+  {name:"Skate",zh:"滑冰步",desc:"低低地左右蹬地，像滑冰般顺滑前进。",descEn:"Smooth low gliding push-offs forward.",count:"8拍",beats:8,emph:"脚 · 滑行",level:1,travel:"F",tags:["滑步","行进","基础"],known:true,pose:{lean:-2,legL:[-20,-6],legR:[20,6],armL:[-40,-16],armR:[40,16],highlight:'feet',deco:['arrow:right']},anim:{freq:1,drift:5,sway:5,legAlt:7,knee:4,bob:2}},
+  {name:"Frankie's Chase",zh:"追逐步",desc:"踢步带动，连续转身一路追着走。",descEn:"Kick-step turning around, chasing.",count:"8拍",beats:8,emph:"转身 · 行进",level:2,travel:"-",tags:["转身","行进","脚法"],known:true,pose:{legL:[-8,-3],legR:[24,20],armL:[-34,-18],armR:[34,18],footR:55,highlight:'feet',deco:['spin']},anim:{freq:0.9,turn:1,kickR:8,legAlt:4,arm:4}},
+  {name:"Fishtails",zh:"鱼尾踢",desc:"沉坐到后屈腿、另一腿斜伸，向后游。",descEn:"Sink back on a bent leg, other leg shoots out, traveling back.",count:"2拍",beats:2,emph:"脚 · 屈伸",level:2,travel:"B",tags:["脚法","弹动","行进"],known:true,pose:{lean:-4,legL:[-30,-20],legR:[24,30],armL:[-30,-16],armR:[30,16],footR:60,highlight:'legs',deco:['arrow:left']},anim:{freq:1.1,legAlt:10,knee:4,drift:-2,lean:3}},
+  {name:"Stomp Off",zh:"跺步起",desc:"并脚、向前跺一下，手随之扬起。",descEn:"Close, then stomp forward with an arm lift.",count:"2拍",beats:2,emph:"脚 · 重音",level:1,travel:"-",tags:["脚法","重音","基础"],known:true,pose:{legL:[-6,-2],legR:[12,4],armL:[-24,-14],armR:[60,30],highlight:'feet',deco:['arrow:down']},anim:{freq:0.8,kickR:9,knee:5,bob:5,arm:5,sharp:true}},
+  /* ===== 查尔斯顿家族 ===== */
+  {name:"20s Charleston Basic",zh:"查尔斯顿基础",desc:"前后摇摆、扭膝外撇，踢腿摆臂。",descEn:"Twisting bent-knee kicks, swivel heels, arms pumping.",count:"8拍",beats:8,emph:"脚 · 踢摆",level:2,travel:"-",tags:["查尔斯顿","踢腿","基础","摇摆"],known:true,pose:{legL:[-10,-4],legR:[34,40],armL:[40,24],armR:[-30,-18],footR:50,highlight:'feet',deco:['kick']},anim:{freq:1.1,kickR:14,knee:5,arm:7,bob:3,legAlt:3}},
+  {name:"Jump Charleston",zh:"跳跃查尔斯顿",desc:"带小跳的查尔斯顿，轻盈弹跳踢腿。",descEn:"Bouncing, airborne Charleston with a spring.",count:"8拍",beats:8,emph:"脚 · 弹跳",level:2,travel:"-",tags:["查尔斯顿","踢腿","弹动"],known:true,pose:{legL:[-12,-4],legR:[32,38],armL:[44,26],armR:[-34,-20],footR:50,highlight:'feet',deco:['kick','arrow:up']},anim:{freq:1.2,kickR:14,knee:6,bob:7,arm:7,sharp:true}},
+  {name:"Squat Charleston",zh:"蹲式查尔斯顿",desc:"压低身子、侧向跳着踢腿。",descEn:"Low sideways squat-jumps with leg hitched behind.",count:"8拍",beats:8,emph:"全身 · 下沉",level:3,travel:"S",tags:["查尔斯顿","踢腿","下沉","进阶"],known:true,pose:{legL:[-22,-6],legR:[26,8],armL:[-50,-16],armR:[50,16],highlight:'whole',deco:['sideways']},anim:{freq:1,bob:6,knee:8,legAlt:8,sway:5,drift:3}},
+  {name:"Kansas City Charleston",zh:"堪萨斯查尔斯顿",desc:"成排同步、跟着口令变化的查尔斯顿。",descEn:"Synchronized line-Charleston led by a caller.",count:"8拍",beats:8,emph:"脚 · 踢摆",level:2,travel:"-",tags:["查尔斯顿","踢腿","基础"],known:true,pose:{legL:[-10,-4],legR:[30,36],armL:[38,22],armR:[-28,-16],footR:50,highlight:'feet',deco:['kick']},anim:{freq:1,kickR:13,knee:5,arm:6,bob:3}},
+  {name:"Knee Slaps",zh:"拍膝",desc:"抬膝、用手拍打，左右交替。",descEn:"Lift knee, hand slaps it, alternate.",count:"4拍",beats:4,emph:"膝 · 拍打",level:1,travel:"-",tags:["膝","查尔斯顿","基础"],known:true,pose:{legL:[8,2],legR:[-8,-2],armL:[40,56],armR:[-40,-56],highlight:'knees',deco:['inout']},anim:{freq:1,scissor:10,arm:8,bob:3,knee:2}},
+  /* ===== 走步 / 行进 ===== */
+  {name:"Camel Walk",zh:"骆驼步",desc:"屈膝内扣、脚交叉后撤，滑行般前移。",descEn:"Crouched, knock-kneed sliding camel sway.",count:"8拍",beats:8,emph:"膝 · 行进",level:2,travel:"F",tags:["行进","膝","脚法"],known:true,pose:{lean:-3,legL:[6,2],legR:[-6,-2],armL:[-30,-16],armR:[30,16],highlight:'knees',deco:['wave','arrow:right']},anim:{freq:0.9,knee:6,scissor:6,legAlt:4,drift:3,hipLin:4,bob:2}},
+  {name:"Truckin'",zh:"货车步",desc:"小碎步前蹭，食指朝天点动。",descEn:"Shuffling forward, finger wagging skyward.",count:"持续",beats:8,emph:"脚 · 手",level:1,travel:"F",tags:["脚法","行进","查尔斯顿"],known:true,pose:{armR:[128,150],armL:[-20,-30],legL:[10,4],legR:[-8,12],footR:60,highlight:'feet',deco:['point','arrow:right']},anim:{freq:1.3,knee:6,legAlt:6,drift:2,bob:3}},
+  {name:"Grapevine",zh:"葡萄藤步",desc:"旁迈—后交叉—旁迈，横向行进。",descEn:"Side, behind, side — crossing sideways travel.",count:"4拍",beats:4,emph:"脚 · 横向",level:1,travel:"S",tags:["脚法","行进","基础"],known:true,pose:{legL:[-22,-10],legR:[24,-18],armL:[-34,-12],armR:[34,12],footR:60,highlight:'feet',deco:['sideways','footprints']},anim:{freq:1,legAlt:8,sway:4,drift:4,knee:3}},
+  {name:"Box Step",zh:"方步",desc:"脚踩四个角，走出一个方框。",descEn:"Four steps tracing a square on the floor.",count:"4拍",beats:4,emph:"脚 · 方框",level:1,travel:"-",tags:["脚法","基础"],known:true,pose:{legL:[-12,-4],legR:[12,4],armL:[-30,-16],armR:[30,16],highlight:'feet',deco:['footprints']},anim:{freq:1,legAlt:6,knee:4,sway:3,bob:2}},
+  {name:"Crazy Legs",zh:"疯腿",desc:"前脚掌着地、双膝橡皮般开合。",descEn:"Rubber-legged knees flapping open and shut.",count:"持续",beats:4,emph:"膝 · 开合",level:2,travel:"-",tags:["膝","脚法","抖动"],known:true,pose:{legL:[-16,-2],legR:[16,2],armL:[-34,-18],armR:[34,18],highlight:'knees',deco:['inout']},anim:{freq:2,scissor:13,knee:4,bob:2,sharp:true}},
+  {name:"Cakewalk",zh:"蛋糕步",desc:"挺胸后仰、高抬腿骄傲地走。",descEn:"Chest back, high-kicking proud prance.",count:"8拍",beats:8,emph:"胸 · 高踢",level:2,travel:"F",tags:["行进","踢腿","姿态"],known:true,pose:{lean:-12,legL:[40,44],legR:[-16,-8],armL:[50,30],armR:[-40,-24],footR:40,highlight:'chest',deco:['kick','arrow:right']},anim:{freq:0.9,kickR:16,lean:5,arm:8,knee:3,drift:2}},
+  {name:"Struttin'",zh:"阔步",desc:"高抬膝、酷劲十足地摇摆前行。",descEn:"Cool high-kneed swaggering walk.",count:"4拍",beats:4,emph:"姿态 · 行进",level:1,travel:"F",tags:["行进","姿态"],known:true,pose:{lean:-8,legL:[26,18],legR:[-16,-8],armL:[34,24],armR:[-26,-18],highlight:'chest',deco:['arrow:right']},anim:{freq:1,knee:6,legAlt:6,arm:8,drift:2,lean:3}},
+  /* ===== 踢腿 ===== */
+  {name:"Sailor Kicks",zh:"水手踢",desc:"醉汉式后交叉曳步，配一个外甩踢。",descEn:"Drunken-sailor cross-shuffle with a flicking kick.",count:"2拍",beats:2,emph:"脚 · 踢",level:2,travel:"-",tags:["踢腿","脚法","摇摆"],known:true,pose:{legL:[-18,-6],legR:[28,30],armL:[-30,-16],armR:[30,16],footR:55,highlight:'feet',deco:['kick','sideways']},anim:{freq:1.1,kickR:12,legAlt:5,sway:4,knee:4}},
+  {name:"Savoy Kicks",zh:"萨伏伊踢",desc:"前后交替的查尔斯顿式低踢。",descEn:"Alternating forward-and-back Charleston kicks.",count:"8拍",beats:8,emph:"脚 · 踢",level:2,travel:"-",tags:["踢腿","查尔斯顿"],known:true,pose:{legL:[-8,-2],legR:[34,40],armL:[38,22],armR:[-30,-18],footR:50,highlight:'feet',deco:['kick']},anim:{freq:1.2,kickR:14,legAlt:4,knee:4,arm:6,bob:3}},
+  {name:"Tackie Annie",zh:"后踢安妮",desc:"脚尖反复向后点，最后跺步收。",descEn:"Toe-touches reaching back, then stomp off.",count:"8拍",beats:8,emph:"脚 · 后点",level:2,travel:"B",tags:["踢腿","行进"],known:true,pose:{legL:[-8,-2],legR:[10,2],armL:[-28,-14],armR:[28,14],highlight:'feet',deco:['arrow:left','footprints']},anim:{freq:1.1,legAlt:9,knee:4,drift:-2,bob:2,sharp:true}},
+  {name:"Tick Tocks",zh:"钟摆步",desc:"并脚拧转，身体像钟摆左右荡。",descEn:"Pendulum twist, feet and arms swinging opposite.",count:"2拍",beats:2,emph:"全身 · 钟摆",level:2,travel:"-",tags:["脚法","隔离","摇摆"],known:true,pose:{legL:[-6,-2],legR:[6,2],armL:[-40,-18],armR:[40,18],highlight:'hips',deco:['sideways']},anim:{freq:1,sway:6,arm:8,hipLin:6,sharp:true,head:2}},
+  /* ===== 脚法 ===== */
+  {name:"Heel Digs",zh:"跟点",desc:"脚跟向前戳地，左右交替弹动。",descEn:"Heel jabbed forward to the floor, alternating.",count:"2拍",beats:2,emph:"脚 · 跟",level:1,travel:"-",tags:["脚法","基础"],known:true,pose:{legL:[-6,-2],legR:[20,8],armL:[-30,-16],armR:[30,16],footR:130,highlight:'feet',deco:['ticks']},anim:{freq:1.3,legAlt:8,knee:4,bob:3,hipLin:3,sharp:true}},
+  {name:"Rocks",zh:"摇摆步",desc:"重心在两脚间前后摇荡。",descEn:"Weight rocking between two planted feet.",count:"2拍",beats:2,emph:"脚 · 摇摆",level:1,travel:"-",tags:["脚法","摇摆","基础"],known:true,pose:{legL:[-12,-4],legR:[14,4],armL:[-28,-14],armR:[28,14],highlight:'feet',deco:['sideways']},anim:{freq:1,sway:6,lean:3,knee:3,bob:2}},
+  /* ===== 隔离 / 点缀 / 低位 ===== */
+  {name:"Mess Around",zh:"绕胯",desc:"双手叉腰，胯部不停画圈。",descEn:"Hands on hips, pelvis circling around.",count:"8拍",beats:8,emph:"胯 · 隔离",level:2,travel:"-",tags:["胯","隔离"],known:true,pose:{legL:[-12,-3],legR:[12,3],armL:[36,70],armR:[-36,-70],highlight:'hips',deco:['loop']},anim:{freq:1,hipX:11,hipY:7,knee:3,bob:1}},
+  {name:"Mooch",zh:"穆奇步",desc:"胯先走、脚跟着蹭，低低地滑行。",descEn:"Hips lead, feet shuffle after, low and sliding.",count:"4拍",beats:4,emph:"胯 · 行进",level:2,travel:"F",tags:["行进","胯","脚法"],known:true,pose:{lean:2,legL:[-14,-2],legR:[12,2],armL:[-28,-14],armR:[28,14],highlight:'hips',deco:['arrow:right']},anim:{freq:0.8,hipLin:7,knee:5,drift:3,bob:2,legAlt:3}},
+  {name:"Lowdown",zh:"低位",desc:"深蹲压低，贴着地面碾磨律动。",descEn:"Sunk low, grinding close to the ground.",count:"4拍",beats:4,emph:"全身 · 低位",level:2,travel:"-",tags:["下沉","胯","低位"],known:true,pose:{lean:-4,legL:[-22,-4],legR:[22,4],armL:[-44,-16],armR:[44,16],highlight:'whole',deco:['arrow:down']},anim:{freq:0.8,bob:7,knee:9,hipX:5,hipY:4}},
+  {name:"Shimmy",zh:"抖肩",desc:"双肩快速反向抖动，胸口发颤。",descEn:"Fast alternating shoulder shake, chest shivering.",count:"持续",beats:4,emph:"肩 · 抖动",level:2,travel:"-",tags:["肩","抖动","隔离"],known:true,pose:{lean:-3,armL:[-44,-20],armR:[44,20],highlight:'shoulders',deco:['shimmy']},anim:{freq:2.4,armAlt:16,bob:1,knee:1}},
+  {name:"Black Bottom",zh:"黑臀舞",desc:"拍臀、扭胯、屈身——经典臀部组合。",descEn:"Hip-swiveling slaps and bends, hand on the rear.",count:"8拍",beats:8,emph:"胯 · 弹动",level:2,travel:"-",tags:["胯","弹动","查尔斯顿"],known:true,pose:{lean:6,legL:[-14,-2],legR:[14,2],armL:[20,60],armR:[-30,-18],highlight:'hips',deco:['loop']},anim:{freq:1,hipLin:7,hipX:5,knee:5,arm:5,bob:3,sharp:true}},
+  {name:"Spank the Baby",zh:"拍拍臀",desc:"一手向后拍打，胯顶过去迎合。",descEn:"Hand patting back by the hip, bouncing.",count:"4拍",beats:4,emph:"胯 · 弹动",level:1,travel:"-",tags:["胯","弹动"],known:true,pose:{lean:4,legL:[-12,-3],legR:[12,3],armL:[-26,-14],armR:[50,40],highlight:'hips',deco:['loop']},anim:{freq:1.2,hipLin:5,arm:6,knee:4,bob:3,sharp:true}},
+  {name:"Itches",zh:"抓痒",desc:"双手到处抓痒，身体随之扭动。",descEn:"Hands scratching itches all over the body.",count:"持续",beats:4,emph:"上身 · 抖动",level:1,travel:"-",tags:["上身","弹动"],known:true,pose:{legL:[-10,-3],legR:[10,3],armL:[-70,-50],armR:[70,50],highlight:'whole',deco:['shimmy']},anim:{freq:1.6,armAlt:10,bob:3,knee:3,chestX:3}},
+  {name:"Pecks",zh:"啄步",desc:"头像小鸡一样前后啄动。",descEn:"Chicken-like head jutting forward and back.",count:"4拍",beats:4,emph:"头 · 隔离",level:1,travel:"-",tags:["上身","隔离"],known:true,pose:{legL:[-10,-3],legR:[10,3],armL:[-30,-16],armR:[30,16],highlight:'head',deco:[]},anim:{freq:1.6,head:6,chestX:4,knee:3,bob:2,arm:3,sharp:true}},
+  {name:"Shoe Shine",zh:"擦鞋",desc:"脚下小快步，双手在低处来回擦鞋。",descEn:"Low galloping feet, hands buffing an imaginary shoe.",count:"持续",beats:4,emph:"脚 · 弹动",level:2,travel:"-",tags:["脚法","弹动"],known:true,pose:{lean:-6,legL:[-12,-6],legR:[12,6],armL:[-10,40],armR:[10,40],highlight:'feet',deco:['ticks']},anim:{freq:2,knee:7,legAlt:7,arm:5,bob:3}},
+  {name:"Hitchhiker",zh:"搭车手",desc:"拇指朝肩后甩，左右摆胯。",descEn:"Thumbs jerking over the shoulder, swaying side to side.",count:"4拍",beats:4,emph:"上身 · 摇摆",level:1,travel:"-",tags:["上身","摇摆"],known:true,pose:{legL:[-10,-3],legR:[10,3],armL:[-40,-80],armR:[40,80],highlight:'shoulders',deco:[]},anim:{freq:1.2,armAlt:12,sway:5,hipLin:4,sharp:true}}
+];
+const DEFAULT_BODY=["肩 / 胸","胯","脚","膝","头","全身"];
+const DEFAULT_RHYTHM=["整数拍","Shuffle 摇摆","Triplet 三连音","切分音","停顿 Hold"];
+const MODE_DEFAULTS={blues:DEFAULT_MOVES,jazz:DEFAULT_JAZZ_MOVES};
+const POSE_TEMPLATES=DEFAULT_MOVES.concat(DEFAULT_JAZZ_MOVES).map(m=>({name:m.name,zh:m.zh,pose:m.pose}));
+/* 蓝调动作的英文提醒（短句），按名称补到 descEn */
+const BLUES_DESC_EN={"Hip Circle":"Hips circle flat, torso stays still.","Hip Swing":"Hips swing side to side.","Hip Tilt":"Pelvis tilts up one side, like a seesaw.","C-Hip":"Hip scoops along a C-shaped arc.","Fishtail":"Hips swish a figure-8, fishtail.","Funky Butt":"Low bent knees, hips grind in circles.","Chest Circle":"Ribcage circles flat, hips and head still.","Shoulder Rolls":"Shoulders roll in circles.","Shimmy":"Fast alternating shoulder shake.","Body Separation":"Upper body and hips move opposite.","Low Down":"Sink the whole body low, knees deep.","Shunt":"Press into the floor each beat, rebound.","骑竹马":"Bouncy hopping shunt, feet together.","Knee Rock":"Knees open and knock, hands cross-slap.","Camel Walk":"Gliding walk with a forward body wave.","Mooche":"Lazy, low, hip-rolling slinky strut.","Pimp Walk":"Swaggering side strut, foot drags after.","James Brown":"Funky foot scoot, hips snap on the offbeat.","Slide":"Glide on one foot, the other drags.","Grapevine":"Side, behind, side, cross — sideways.","Choo Choo":"Piston feet chugging forward.","Box":"Feet trace the four corners of a box.","Triple Step":"Quick-quick-slow, three steps in two beats.","Kick Ball Change":"Kick, ball-change weight, snap back.","Scissor Kick":"Legs cross the midline like scissors.","Stomp":"Stamp the whole foot on the downbeat.","Tic-Toc":"Hips pop side to side like a clock.","Paddle Turn":"Pivot on one foot, the other paddles.","Lock Turn":"Lock a leg across, wind up, unwind to turn.","Through Turn":"Free foot passes through, body keeps turning.","Shake & Bake":"Loose shake, then snap settle or drop.","Suzie Q":"Crossing, swiveling knees traveling sideways.","Slow Drag":"Heavy, slow foot drag along the floor.","Shorty George":"Low bent-knee waddle, hands pointing down.","Boogie Drop":"Sudden bent-knee drop on an accent.","Fall off the Log":"Lean off-balance, catch it sideways.","Truckin'":"Shuffle forward, finger wagging skyward.","Apple Jack":"Heel pivots, knees open and shut, springy.","Texas Shuffle":"Swung shuffle traveling forward.","Struttin'":"Chest up, proud exaggerated strut.","Happy Feet":"Fast loose feet shuffling in place.","Boogie Back":"Bouncing backward, arms pumping."};
+/* 动作的"乐句"特征（研究所得）：c=长度类别 accent/short/medium/long, d=合理拍长选项, p=起于反拍(pickup &) */
+const MOVE_META={
+  "Hip Circle":{c:'long',d:[2,4,8,16]},"Hip Swing":{c:'medium',d:[2,4,8]},"Hip Tilt":{c:'short',d:[2,4]},"C-Hip":{c:'medium',d:[2,4,8]},
+  "Fishtail":{c:'long',d:[2,4,8,16]},"Funky Butt":{c:'medium',d:[4,8]},"Chest Circle":{c:'long',d:[2,4,8,16]},"Shoulder Rolls":{c:'medium',d:[2,4,8]},
+  "Shimmy":{c:'long',d:[2,4,8,16]},"Body Separation":{c:'medium',d:[4,8]},"Low Down":{c:'long',d:[4,8,16]},"Lowdown":{c:'long',d:[4,8,16]},
+  "Shunt":{c:'short',d:[2,4]},"骑竹马":{c:'short',d:[2,4]},"Knee Rock":{c:'medium',d:[2,4,8]},
+  "Camel Walk":{c:'long',d:[4,8,16]},"Mooche":{c:'medium',d:[4,8]},"Mooch":{c:'medium',d:[4,8]},"Pimp Walk":{c:'long',d:[4,8,16]},
+  "James Brown":{c:'medium',d:[2,4,8]},"Slide":{c:'short',d:[2,4]},"Grapevine":{c:'long',d:[4,8,16]},"Choo Choo":{c:'long',d:[4,8,16]},
+  "Box":{c:'long',d:[8,16]},"Box Step":{c:'long',d:[8,16]},
+  "Triple Step":{c:'short',d:[2,4,8]},"Kick Ball Change":{c:'short',d:[2,4,8],p:1},"Scissor Kick":{c:'short',d:[2,4,8],p:1},"Scissor Kicks":{c:'short',d:[2,4,8],p:1},
+  "Stomp":{c:'accent',d:[1,2]},"Stomp Off":{c:'accent',d:[1,2]},"Tic-Toc":{c:'short',d:[2,4,8]},"Tick Tocks":{c:'short',d:[2,4,8]},
+  "Paddle Turn":{c:'medium',d:[4,8]},"Lock Turn":{c:'short',d:[2,4]},"Through Turn":{c:'accent',d:[2],p:1},"Shake & Bake":{c:'medium',d:[4,8]},
+  "Suzie Q":{c:'long',d:[8,16]},"Slow Drag":{c:'long',d:[8,16,32]},"Shorty George":{c:'long',d:[8,16],p:1},
+  "Boogie Drop":{c:'medium',d:[4,8]},"Fall off the Log":{c:'long',d:[8,16],p:1},"Truckin'":{c:'long',d:[8,16]},
+  "Apple Jack":{c:'long',d:[8,16]},"Apple Jacks":{c:'long',d:[8,16]},"Texas Shuffle":{c:'long',d:[4,8,16]},"Struttin'":{c:'long',d:[4,8,16]},
+  "Happy Feet":{c:'medium',d:[4,8,16]},"Boogie Back":{c:'medium',d:[4,8],p:1},
+  "Boogie Forward":{c:'long',d:[8,16],p:1},"Eagle Slide":{c:'medium',d:[4,8]},"Scarecrow":{c:'long',d:[8,16]},"Skate":{c:'medium',d:[4,8]},
+  "Frankie's Chase":{c:'long',d:[8,16]},"Fishtails":{c:'long',d:[4,8,16]},"20s Charleston Basic":{c:'long',d:[8,16,32]},"Jump Charleston":{c:'long',d:[8,16]},
+  "Squat Charleston":{c:'long',d:[8,16]},"Kansas City Charleston":{c:'long',d:[8,16]},"Knee Slaps":{c:'short',d:[2,4,8]},"Crazy Legs":{c:'long',d:[4,8,16]},
+  "Cakewalk":{c:'long',d:[8,16]},"Sailor Kicks":{c:'medium',d:[4,8],p:1},"Savoy Kicks":{c:'long',d:[8,16],p:1},"Tackie Annie":{c:'long',d:[8,16]},
+  "Heel Digs":{c:'short',d:[2,4,8]},"Rocks":{c:'short',d:[2,4,8]},"Mess Around":{c:'long',d:[8,16]},"Black Bottom":{c:'long',d:[8,16]},
+  "Spank the Baby":{c:'medium',d:[4,8]},"Itches":{c:'medium',d:[4,8]},"Pecks":{c:'short',d:[2,4,8]},"Shoe Shine":{c:'medium',d:[4,8]},"Hitchhiker":{c:'medium',d:[4,8]}
+};
+const ACCENTS={amber:['#f4b352','#e2893b'],teal:['#56c6c0','#2f9b95'],rose:['#e08aa6','#c25f7e'],violet:['#b48ae0','#7e5fc2'],green:['#86c98a','#4f9b56']};
+
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+function autoPoseFor(name){return clone(POSE_TEMPLATES[hashStr(name||'x')%POSE_TEMPLATES.length].pose);}
+function bodyHighlight(p){p=String(p||'');if(/肩|胸|shoulder|chest/i.test(p))return'shoulders';if(/胯|hip/i.test(p))return'hips';if(/膝|knee/i.test(p))return'knees';if(/头|head/i.test(p))return'head';if(/脚|foot|feet/i.test(p))return'feet';return'whole';}
+function bodyDeco(p){const h=bodyHighlight(p);if(h==='shoulders')return['shimmy'];if(h==='hips')return['loop'];if(h==='feet')return['ticks'];if(h==='knees')return['inout'];return[];}
+
+/* ===================== IndexedDB（图片） ===================== */
+let idb=null;const imgCache=new Map();
+function idbOpen(){return new Promise(res=>{try{const r=indexedDB.open('bglpro',1);r.onupgradeneeded=()=>{r.result.createObjectStore('images',{keyPath:'id'});};r.onsuccess=()=>{idb=r.result;res(idb);};r.onerror=()=>res(null);}catch(e){res(null);}});}
+function idbSet(id,data){return new Promise(res=>{if(!idb)return res();try{const tx=idb.transaction('images','readwrite');tx.objectStore('images').put({id,data});tx.oncomplete=()=>res();tx.onerror=()=>res();}catch(e){res();}});}
+function idbDel(id){return new Promise(res=>{if(!idb)return res();try{const tx=idb.transaction('images','readwrite');tx.objectStore('images').delete(id);tx.oncomplete=()=>res();tx.onerror=()=>res();}catch(e){res();}});}
+function idbAll(){return new Promise(res=>{if(!idb)return res([]);try{const tx=idb.transaction('images','readonly');const rq=tx.objectStore('images').getAll();rq.onsuccess=()=>res(rq.result||[]);rq.onerror=()=>res([]);}catch(e){res([]);}});}
+function compressImage(file){return new Promise((res,rej)=>{const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const max=720;let{width:w,height:h}=img;if(w>h&&w>max){h=h*max/w;w=max;}else if(h>max){w=w*max/h;h=max;}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.82));};img.onerror=rej;img.src=e.target.result;};reader.onerror=rej;reader.readAsDataURL(file);});}
+
+/* ===================== 状态 ===================== */
+const STORE_KEY='bglpro_state';
+function newLib(d){return{moves:clone(d),decks:[],activeDeck:'',history:[]};}
+let state={schema:3,mode:'blues',libs:{blues:newLib(DEFAULT_MOVES),jazz:newLib(DEFAULT_JAZZ_MOVES)},
+  moves:[],bodyParts:clone(DEFAULT_BODY),rhythms:clone(DEFAULT_RHYTHM),
+  decks:[],activeDeck:'',history:[],seed:0,
+  settings:{theme:'dark',accent:'amber',sound:true,voice:true,volume:0.6,bpm:70,fontScale:1,lang:'zh',anim:true,smart:true,vibrate:true,metroAccent:true,onlyKnown:true,moveCount:4},
+  firstRun:true};
+function curLib(){return state.libs[state.mode]||state.libs.blues;}
+function syncActive(){const k=state._activeKey||state.mode;const L=state.libs[k]||state.libs.blues;L.moves=state.moves;L.decks=state.decks;L.activeDeck=state.activeDeck;L.history=state.history;}
+function hydrateActive(){const L=curLib();state._activeKey=state.mode;state.moves=L.moves;state.decks=L.decks;state.activeDeck=L.activeDeck;state.history=L.history;}
+function ensureIds(){['blues','jazz'].forEach(k=>{(state.libs[k].moves||[]).forEach(m=>{if(!m.id)m.id='m'+hashStr(m.name+Math.random()).toString(36);if(!m.beats)m.beats=4;if(!m.tags)m.tags=[];if(!m.level)m.level=2;if(!m.travel)m.travel='-';if(m.known===undefined)m.known=true;if(!m.descEn&&BLUES_DESC_EN[m.name])m.descEn=BLUES_DESC_EN[m.name];if(m.minBeats==null)m.minBeats=m.beats||4;if(m.stepBeats==null)m.stepBeats=m.beats||4;const mm=MOVE_META[m.name];if(mm){m.lenCat=mm.c;m.durations=clone(mm.d);if(mm.p)m.pickup=true;}});});}
+const SEED=3;
+const RENAMES={'hip roll':'Hip Circle'};
+function seedInto(moves,defaults){
+  moves.forEach(m=>{const r=RENAMES[(m.name||'').toLowerCase()];if(r)m.name=r;});
+  const byName=new Map(moves.map(m=>[m.name.toLowerCase(),m]));
+  defaults.forEach(d=>{const ex=byName.get(d.name.toLowerCase());
+    if(!ex){moves.push(clone(d));}
+    else if((state.seed||0)<SEED){Object.assign(ex,{desc:d.desc,descEn:d.descEn,count:d.count,beats:d.beats,emph:d.emph,level:d.level,travel:d.travel,tags:clone(d.tags),pose:clone(d.pose),anim:clone(d.anim)});if(ex.known===undefined)ex.known=d.known;if(!ex.zh)ex.zh=d.zh;}});
+}
+function seedDefaults(){seedInto(state.libs.blues.moves,DEFAULT_MOVES);seedInto(state.libs.jazz.moves,DEFAULT_JAZZ_MOVES);state.seed=SEED;}
+function save(){try{syncActive();const o={schema:3,mode:state.mode,libs:state.libs,bodyParts:state.bodyParts,rhythms:state.rhythms,seed:state.seed,bars:state.bars,sec:state.sec,settings:state.settings,firstRun:state.firstRun};localStorage.setItem(STORE_KEY,JSON.stringify(o));}catch(e){toast(t('toast.storageFull'));}}
+function load(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(raw){const s=JSON.parse(raw);
+      state.settings=Object.assign(state.settings,s.settings||{});
+      if(Array.isArray(s.bodyParts)&&s.bodyParts.length)state.bodyParts=s.bodyParts;
+      if(Array.isArray(s.rhythms)&&s.rhythms.length)state.rhythms=s.rhythms;
+      state.seed=s.seed||0;
+      if(s.firstRun!==undefined)state.firstRun=s.firstRun;
+      state.mode=s.mode==='jazz'?'jazz':'blues';
+      if(s.bars)state.bars=s.bars;if(s.sec)state.sec=s.sec;
+      if(s.libs){
+        if(s.libs.blues&&Array.isArray(s.libs.blues.moves))state.libs.blues=Object.assign(newLib(DEFAULT_MOVES),s.libs.blues);
+        if(s.libs.jazz&&Array.isArray(s.libs.jazz.moves))state.libs.jazz=Object.assign(newLib(DEFAULT_JAZZ_MOVES),s.libs.jazz);
+      } else if(Array.isArray(s.moves)){ // 旧扁平 Pro 格式 → 包进 blues，jazz 由 seed 填充
+        state.libs.blues={moves:s.moves,decks:s.decks||[],activeDeck:s.activeDeck||'',history:Array.isArray(s.history)?s.history:[]};
+        state.libs.jazz=newLib([]);state.firstRun=(s.firstRun!==undefined?s.firstRun:false);
+      }
+    } else { // 从 v1 迁移
+      const v1=localStorage.getItem('bgl_state_v1');
+      if(v1){const s=JSON.parse(v1);
+        const mv=(Array.isArray(s.moves)&&s.moves.length)?s.moves.map(m=>{const d=DEFAULT_MOVES.find(x=>x.name===m.name);return Object.assign({beats:4,tags:[],level:2,travel:'-'},d?{beats:d.beats,tags:clone(d.tags),level:d.level,travel:d.travel}:{},m);}):clone(DEFAULT_MOVES);
+        state.libs.blues={moves:mv,decks:[],activeDeck:'',history:Array.isArray(s.history)?s.history:[]};
+        if(Array.isArray(s.bodyParts)&&s.bodyParts.length)state.bodyParts=s.bodyParts;
+        if(Array.isArray(s.rhythms)&&s.rhythms.length)state.rhythms=s.rhythms;
+        state.libs.jazz=newLib([]);state.firstRun=false;
+      }
+    }
+  }catch(e){}
+  if(!state.libs)state.libs={blues:newLib(DEFAULT_MOVES),jazz:newLib(DEFAULT_JAZZ_MOVES)};
+  if(!state.libs.blues||!Array.isArray(state.libs.blues.moves)||!state.libs.blues.moves.length)state.libs.blues=newLib(DEFAULT_MOVES);
+  if(!state.libs.jazz||!Array.isArray(state.libs.jazz.moves))state.libs.jazz=newLib([]);
+  if(!state.bodyParts||!state.bodyParts.length)state.bodyParts=clone(DEFAULT_BODY);
+  if(!state.rhythms||!state.rhythms.length)state.rhythms=clone(DEFAULT_RHYTHM);
+  seedDefaults();ensureIds();hydrateActive();
+}
+async function migrateImages(){
+  // v1 内联图片 + 当前内联图片 → IndexedDB
+  let moved=false;
+  for(const m of state.moves){if(m.img&&typeof m.img==='string'&&m.img.startsWith('data:')){await idbSet(m.id,m.img);imgCache.set(m.id,m.img);m.hasImg=true;delete m.img;moved=true;}}
+  if(moved)save();
+}
+function moveImg(m){return m.hasImg?imgCache.get(m.id):null;}
+function moveFigure(m,side){const im=moveImg(m);if(im)return`<img src="${im}" alt="${esc(m.name)}">`;return figureSVG(m.pose||autoPoseFor(m.name),side);}
+/* ===================== 动作文本的中英显示 ===================== */
+const TAG_EN={'胯':'Hips','隔离':'Isolation','基础':'Basic','重音':'Accent','摇摆':'Swing','胸':'Chest','肩':'Shoulders','抖动':'Shake','进阶':'Adv','弹动':'Bounce','膝':'Knees','查尔斯顿':'Charleston','行进':'Travel','脚法':'Footwork','下沉':'Drop','低位':'Low','放克':'Funk','踢腿':'Kicks','转身':'Turn','滑步':'Slide','姿态':'Posture','平衡':'Balance','造型':'Pose','上身':'Upper','头':'Head','钟摆':'Pendulum','原地':'In place'};
+function isEN(){return state.settings.lang==='en';}
+function moveDesc(m){return isEN()?(m.descEn||m.desc||''):(m.desc||'');}
+function moveSub(m){return isEN()?(m.descEn||''):(m.zh||'');}
+function tagLabel(tg){return isEN()?(TAG_EN[tg]||tg):tg;}
+function countLabel(m){return isEN()?((m.beats||4)+' ct'):(m.count||((m.beats||4)+'拍'));}
+function levelLabel(l){return (isEN()?['','Easy','Med','Adv']:['','轻松','中等','进阶'])[l||2];}
+function travelLabel(tv){return isEN()?({'F':'Forward','B':'Back','S':'Side','-':'In place','L':'Left','R':'Right'}[tv]||'In place'):({'F':'向前','B':'向后','S':'侧向','-':'原地','L':'向左','R':'向右'}[tv]||'原地');}
+
+/* ===================== 渲染：生成页 ===================== */
+let activeFilters={tags:new Set(),levels:new Set()};
+let libKnownOnly=false;
+function poolMoves(){
+  let list=state.moves.filter(m=>!state.settings.onlyKnown||m.known!==false);
+  if(state.activeDeck){const d=state.decks.find(x=>x.id===state.activeDeck);if(d)list=list.filter(m=>d.moveIds.includes(m.id));}
+  if(activeFilters.tags.size)list=list.filter(m=>(m.tags||[]).some(t=>activeFilters.tags.has(t)));
+  if(activeFilters.levels.size)list=list.filter(m=>activeFilters.levels.has(m.level));
+  return list;
+}
+function allTags(){const s=new Set();state.moves.forEach(m=>(m.tags||[]).forEach(t=>s.add(t)));return[...s];}
+
+let currentCombo=[],currentGroove=null;
+function moveCardHTML(m,i,opts){opts=opts||{};
+  return`<div class="move-card" data-id="${m.id}" data-name="${esc(m.name)}">
+    ${opts.slot?`<span class="slot">${i+1}</span>`:''}
+    <div class="figbox">${moveFigure(m)}</div>
+    <div class="mname">${esc(m.name)}</div>
+    ${moveSub(m)?`<div class="mzh">${esc(moveSub(m))}</div>`:''}
+    <span class="travel-ic">${TRAVEL_IC[m.travel]||'•'}</span>
+  </div>`;
+}
+function renderDanceResult(combo){
+  const box=$('danceResult');
+  if(!combo||!combo.length){box.innerHTML=`<div class="placeholder"><span class="big">✨</span>${t('gen.ph')}</div>`;return;}
+  const cards=combo.map((m,i)=>moveCardHTML(m,i,{slot:true})).join('');
+  const text=combo.map(m=>m.name).join(' + ');
+  box.innerHTML=`<div style="width:100%">
+    <div class="move-grid">${cards}</div>
+    ${renderTimeline(combo)}
+    <div class="combo-line">
+      <div class="combo-text">🎶 <b>${esc(text)}</b></div>
+      <button class="pill sm" id="copyComboBtn">📋</button>
+      <button class="pill sm" id="shareComboBtn">🔗</button>
+      <button class="pill sm" id="imgComboBtn">🖼</button>
+    </div></div>`;
+  box.querySelectorAll('.move-card').forEach(c=>{
+    c.addEventListener('click',()=>{const m=state.moves.find(x=>x.id===c.dataset.id)||combo.find(x=>x.id===c.dataset.id);if(m)openDetail(m);});
+  });
+  $('copyComboBtn').onclick=()=>copyText(text);
+  $('shareComboBtn').onclick=()=>openShare('combo',combo);
+  $('imgComboBtn').onclick=()=>exportComboImage(combo);
+  const pp=$('phrasePlay');if(pp)pp.onclick=togglePhrasePlay;
+  const pb=$('phraseBpm');if(pb)pb.onclick=openBpmPop;
+}
+let phrasePlaying=false,playheadRAF=null,phraseRows=[];
+function tlSeg(m,i,w,contL,contR){const pal=['var(--accent)','var(--teal)','var(--rose)','#b48ae0','#86c98a'];return `<div class="tl-seg${contL?' cont-l':''}${contR?' cont-r':''}" style="width:${w}%;background:${pal[i%5]}" title="${i+1}. ${esc(m.name)} · ${m.beats}拍">${contL?'<span class="tl-cont" title="续上行">›</span>':''}<span class="tl-num">${i+1}</span><span class="tl-name">${esc(m.name)}</span>${contR?'<span class="tl-cont" title="续下行">›</span>':''}</div>`;}
+function renderTimeline(combo){
+  const total=comboBeats(combo);if(!total)return'';
+  const eights=Math.max(1,Math.round(total/8));
+  const availBar=Math.min(window.innerWidth-96,920);
+  const perRowMax=Math.max(1,Math.min(eights,Math.floor(availBar/150)));  // 每行最多放几个 8 拍
+  const nRows=Math.ceil(eights/perRowMax);
+  const eightsPerRow=Math.ceil(eights/nRows);                              // 平均分配
+  phraseRows=[];let rs=0;for(let r=0;r<nRows;r++){const re=Math.min(rs+eightsPerRow*8,total);phraseRows.push({start:rs,beats:re-rs});rs=re;}
+  let pos=0;const items=combo.map((m,i)=>{const it={m,i,start:pos,len:m.beats||4};pos+=it.len;return it;});
+  const multi=nRows>1;
+  const head=`<div class="phrase-head">
+      <button class="pbtn ${phrasePlaying?'on':''}" id="phrasePlay" aria-label="play">${phrasePlaying?'⏸':'▶'}</button>
+      <span class="phrase-label"><b>${eights}</b> ${isEN()?(eights>1?'eight-counts':'eight-count'):'个八拍'}</span>
+      <button class="phrase-bpm" id="phraseBpm" title="${isEN()?'tap tempo':'点击定速'}">${state.settings.bpm} BPM</button>
+    </div>`;
+  let rowsHTML='';
+  phraseRows.forEach((row,ri)=>{
+    const rEnd=row.start+row.beats;let segs='';
+    items.forEach(it=>{const s=Math.max(it.start,row.start),en=Math.min(it.start+it.len,rEnd);if(en>s)segs+=tlSeg(it.m,it.i,(en-s)/row.beats*100,it.start<row.start,it.start+it.len>rEnd);});
+    let divs='';for(let b=8;b<row.beats;b+=8)divs+=`<div class="tl-div" style="left:${b/row.beats*100}%"></div>`;
+    let counts='';for(let b=0;b<row.beats;b++)counts+=`<div class="tl-c ${(row.start+b)%8===0?'one':''}" style="width:${100/row.beats}%">${((row.start+b)%8)+1}</div>`;
+    const body=`<div class="tl-body"><div class="tl-bar">${segs}${divs}<div class="playhead" hidden></div></div><div class="tl-counts">${counts}</div></div>`;
+    rowsHTML+=`<div class="tl-line">${multi?`<span class="tl-line-no">${ri+1}</span>`:''}${body}</div>`;
+  });
+  return `<div class="phrase">${head}<div class="phrase-bars ${multi?'stacked':'single'}">${rowsHTML}</div></div>`;
+}
+function setPlayheadsHidden(h){document.querySelectorAll('#danceResult .playhead').forEach(p=>p.hidden=h);}
+function togglePhrasePlay(){
+  if(phrasePlaying){stopPhrasePlay();return;}
+  const ctx=ac();if(!ctx){toast(isEN()?'Audio unavailable':'音频不可用');return;}
+  if(!currentCombo||!currentCombo.length)return;
+  phrasePlaying=true;
+  if(!metro.on)startMetro();else metro.start=metro.next-((metro.beat)*(60/state.settings.bpm));
+  setPlayheadsHidden(false);
+  const btn=$('phrasePlay');if(btn){btn.textContent='⏸';btn.classList.add('on');}
+  playheadRAF=requestAnimationFrame(playheadLoop);
+}
+function stopPhrasePlay(){
+  phrasePlaying=false;if(playheadRAF)cancelAnimationFrame(playheadRAF);playheadRAF=null;
+  if(metro.on&&$('viewPractice').hidden&&!flow.on)stopMetro();
+  setPlayheadsHidden(true);
+  const btn=$('phrasePlay');if(btn){btn.textContent='▶';btn.classList.remove('on');}
+}
+function playheadLoop(){
+  if(!phrasePlaying)return;
+  const ctx=audioCtx,heads=document.querySelectorAll('#danceResult .playhead');
+  if(!ctx||!heads.length||!phraseRows.length){playheadRAF=requestAnimationFrame(playheadLoop);return;}
+  const total=comboBeats(currentCombo)||8;
+  const beatFloat=(ctx.currentTime-(metro.start||ctx.currentTime))/(60/state.settings.bpm);
+  const bip=(((beatFloat%total)+total)%total);
+  let ri=phraseRows.length-1;for(let r=0;r<phraseRows.length;r++){if(bip<phraseRows[r].start+phraseRows[r].beats){ri=r;break;}}
+  ri=Math.min(ri,heads.length-1);const row=phraseRows[ri];
+  heads.forEach((ph,i)=>{if(i===ri){ph.hidden=false;ph.style.left=((bip-row.start)/row.beats*100)+'%';}else ph.hidden=true;});
+  playheadRAF=requestAnimationFrame(playheadLoop);
+}
+function relayoutPhrase(){
+  if(!currentCombo||!currentCombo.length)return;
+  const box=$('danceResult');if(!box)return;const old=box.querySelector('.phrase');if(!old)return;
+  const tmp=document.createElement('div');tmp.innerHTML=renderTimeline(currentCombo);
+  if(tmp.firstElementChild){old.replaceWith(tmp.firstElementChild);
+    const pp=$('phrasePlay');if(pp)pp.onclick=togglePhrasePlay;
+    const pb=$('phraseBpm');if(pb)pb.onclick=openBpmPop;}
+}
+
+/* 智能/乐句生成 */
+function compat(prev,next){let s=1;
+  if(prev.travel&&next.travel){if(prev.travel===next.travel)s+=0.6;else if((prev.travel==='F'&&next.travel==='B')||(prev.travel==='B'&&next.travel==='F'))s+=0.4;else if(prev.travel==='-'||next.travel==='-')s+=0.2;}
+  if(Math.abs((prev.level||2)-(next.level||2))<=1)s+=0.3;
+  const sharedTag=(prev.tags||[]).some(x=>(next.tags||[]).includes(x));if(sharedTag)s+=0.25;
+  return s;
+}
+function weightOf(m){let w=1;if(m.fav)w*=2.2;if(m.practice)w*=1.8;return w;}
+function weightedPick(list,weights){let tot=weights.reduce((a,b)=>a+b,0),r=Math.random()*tot;for(let i=0;i<list.length;i++){r-=weights[i];if(r<=0)return i;}return list.length-1;}
+function pickSmart(pool,n,keep){
+  const chosen=keep?keep.filter(Boolean):[];const used=new Set(chosen.map(m=>m.id));
+  while(chosen.length<n){
+    const avail=pool.filter(m=>!used.has(m.id));if(!avail.length)break;
+    const prev=chosen[chosen.length-1];
+    const weights=avail.map(m=>weightOf(m)*(state.settings.smart&&prev?compat(prev,m):1));
+    const m=avail[weightedPick(avail,weights)];chosen.push(m);used.add(m.id);
+  }
+  return chosen;
+}
+/* 每个动作合理的拍长选项 + 长度类别（research 元数据 m.durations/m.lenCat 优先，否则按 beats 推导） */
+function moveDurations(m){if(Array.isArray(m.durations)&&m.durations.length)return m.durations;const min=m.minBeats||m.beats||4,step=m.stepBeats||min,out=[];for(let L=min;L<=16&&out.length<6;L+=step)out.push(L);return out.length?out:[min];}
+function moveCat(m){if(m.lenCat)return m.lenCat;const b=m.beats||4;return b<=1?'accent':b<=2?'short':b<=4?'medium':'long';}
+function maxDur(m){return Math.max.apply(null,moveDurations(m));}
+function moveCountMax(){return Math.max(2,Math.min(8,poolMoves().length||8));}
+function setMoveCount(n){state.settings.moveCount=Math.max(2,Math.min(moveCountMax(),n));const e=$('moveCountVal');if(e)e.textContent=state.settings.moveCount;save();generateDance(true);}
+function comboBeats(combo){return (combo||[]).reduce((s,m)=>s+(m.beats||4),0);}
+/* 由"动作数"驱动 → 乐句铺排。研究要点：8 拍为基本单位（多数动作占满一个 8 拍），
+   长 groove 可骑 16；short=4、accent=2 作点缀/break；连续快动作不超过 2 个；乐句长度由此推导。 */
+function orderForPhrasing(moves){
+  if(moves.length>=3&&moveCat(moves[0])==='accent'){const j=moves.findIndex(m=>moveCat(m)!=='accent');if(j>0){const t=moves[0];moves[0]=moves[j];moves[j]=t;}}
+}
+function assignDurations(moves){
+  const N=moves.length;
+  moves.forEach(m=>{const c=moveCat(m);m.beats=c==='accent'?2:c==='short'?4:8;});   // long/medium 各占一个 8 拍
+  if(N>=5){const longs=moves.filter(m=>moveCat(m)==='long'&&moveDurations(m).indexOf(16)>=0);if(longs.length)rand(longs).beats=16;}  // 一个长 groove 骑 16
+  for(let i=0;i+2<moves.length;i++){if(moves[i].beats<=4&&moves[i+1].beats<=4&&moves[i+2].beats<=4){const m=moves[i+1];if(moveDurations(m).some(d=>d>=8))m.beats=8;}}  // 打断 3+ 连续快动作
+  let total=comboBeats(moves),need=Math.ceil(total/8)*8-total;  // 补齐到整数个 8 拍
+  if(need>0){const order=moves.slice().sort((a,b)=>maxDur(b)-maxDur(a));let g=0;while(need>0&&g++<40){let prog=false;for(const m of order){if(need<=0)break;const ds=moveDurations(m),cur=m.beats,nx=ds.find(d=>d>cur&&d-cur<=need);if(nx){need-=nx-cur;m.beats=nx;prog=true;}}if(!prog)break;}if(need>0)order[0].beats+=need;}
+}
+function buildPhrase(pool){
+  if(!pool||!pool.length)return null;
+  const N=Math.max(2,Math.min(pool.length,8,state.settings.moveCount||4));
+  let moves=pickSmart(pool,N).map(m=>Object.assign(Object.create(Object.getPrototypeOf(m)),m));
+  if(moves.length<2)return null;
+  orderForPhrasing(moves);assignDurations(moves);
+  return moves;
+}
+function generateDance(silent){
+  const pool=poolMoves();
+  if(!pool.length){if(!silent)toast(isEN()?'No moves selected — tap Select moves':'没有可用动作，点「选择动作」');renderDanceResult(null);return;}
+  if(!silent){sound('dance');vibrate(12);}
+  const combo=buildPhrase(pool);
+  if(!combo){renderDanceResult(null);return;}
+  currentCombo=combo;renderDanceResult(combo);
+  if(!silent)addHistory(combo.map(m=>m.name).join(' + '),'dance');
+}
+
+function renderRhythmResult(part,rhythm){
+  const box=$('rhythmResult');
+  if(!part){box.innerHTML=`<div class="placeholder"><span class="big">💥</span>${t('gen.groovePh')}</div>`;clearAnim();return;}
+  box.innerHTML=`<div class="groove-show">
+    <div class="groove-figbox" id="grooveFig"></div>
+    <div class="groove-pair"><span class="groove-chip">${esc(part)}</span><span class="groove-x">×</span><span class="groove-chip">${esc(rhythm)}</span></div>
+    ${beatsSVG(rhythm)}
+    <div class="groove-prompt">${state.settings.lang==='en'?`Groove «${esc(part)}» in «${esc(rhythm)}»`:`用「${esc(part)}」打出「${esc(rhythm)}」的律动`}</div></div>`;
+  const base={highlight:bodyHighlight(part),deco:bodyDeco(part),armL:[-44,-18],armR:[44,18]};
+  $('grooveFig').innerHTML=figureSVG(base);
+  setAnimTargets([{el:$('grooveFig'),base,an:animFor({pose:base,tags:[part],emph:part}),side:false,speed:1}]);
+}
+function generateRhythm(){if(!state.bodyParts.length||!state.rhythms.length){toast(t('toast.fillBodyRhythm'));return;}sound('rhythm');vibrate(12);const part=rand(state.bodyParts),rhythm=rand(state.rhythms);currentGroove={part,rhythm};renderRhythmResult(part,rhythm);addHistory(`${part} × ${rhythm}`,'rhythm');}
+
+function renderHistory(){const box=$('historyRecords');if(!state.history.length){box.innerHTML=`<span class="history-empty">${state.settings.lang==='en'?'No records yet 🎲':'暂无记录，去抽一个吧 🎲'}</span>`;return;}box.innerHTML=state.history.map(r=>`<div class="history-badge ${r.mode==='rhythm'?'r':''}">${r.mode==='dance'?'🎶':'💫'} ${esc(r.text)}</div>`).join('');}
+function addHistory(text,mode){state.history.unshift({text,mode});if(state.history.length>20)state.history.pop();save();renderHistory();}
+
+function renderMotd(){
+  const day=Math.floor(Date.now()/864e5);const m=state.moves[day%state.moves.length];if(!m){$('motd').hidden=true;return;}
+  $('motd').hidden=false;
+  $('motd').innerHTML=`<div class="mf">${moveFigure(m)}</div><div style="min-width:0"><div class="mt">${isEN()?'MOVE OF THE DAY':'每日一招'}</div><div class="mn">${esc(m.name)} <span style="font-size:.7rem;color:var(--muted)">${isEN()?'':esc(m.zh||'')}</span></div><div class="md">${esc(moveDesc(m))}</div></div>`;
+  $('motd').onclick=()=>openDetail(m);
+}
+
+/* ===================== 舞步库 ===================== */
+function renderLibrary(filter){
+  filter=(filter||'').trim().toLowerCase();
+  const grid=$('libGrid');let list=state.moves;
+  if(state.activeDeck){const d=state.decks.find(x=>x.id===state.activeDeck);if(d)list=list.filter(m=>d.moveIds.includes(m.id));}
+  if(activeFilters.tags.size)list=list.filter(m=>(m.tags||[]).some(tg=>activeFilters.tags.has(tg)));
+  if(activeFilters.levels.size)list=list.filter(m=>activeFilters.levels.has(m.level));
+  if(filter)list=list.filter(m=>m.name.toLowerCase().includes(filter)||(m.zh||'').toLowerCase().includes(filter)||(m.desc||'').toLowerCase().includes(filter)||(m.tags||[]).join(',').toLowerCase().includes(filter));
+  if(libKnownOnly)list=list.filter(m=>m.known!==false);
+  const knownN=state.moves.filter(m=>m.known!==false).length;
+  $('moveCountLabel').textContent=`(${list.length}/${state.moves.length} · ${state.settings.lang==='en'?'know':'会'} ${knownN})`;
+  if(!list.length){grid.innerHTML=`<div class="placeholder" style="grid-column:1/-1;padding:30px;">${state.settings.lang==='en'?'No matches':'没有匹配的舞步'}</div>`;}
+  else grid.innerHTML=list.map(m=>`<div class="move-card ${m.known===false?'dim':''}" data-id="${m.id}" draggable="true">
+      <div class="corner"><button class="cbtn ${m.fav?'on':''}" data-act="fav" title="收藏">${m.fav?'★':'☆'}</button><button class="cbtn ${m.known!==false?'on':''}" data-act="known" title="我会这个">${m.known!==false?'✓':'○'}</button></div>
+      <div class="figbox">${moveFigure(m)}</div>
+      <div class="mname">${esc(m.name)}</div>${moveSub(m)?`<div class="mzh">${esc(moveSub(m))}</div>`:''}<div class="mcount">${esc(countLabel(m))}</div>
+      <span class="travel-ic">${TRAVEL_IC[m.travel]||'•'}</span>
+    </div>`).join('');
+  let dragId=null;
+  grid.querySelectorAll('.move-card').forEach(c=>{
+    c.addEventListener('click',e=>{const act=e.target.closest('[data-act]');const m=state.moves.find(x=>x.id===c.dataset.id);if(!m)return;
+      if(act){e.stopPropagation();if(act.dataset.act==='fav')toggleFav(m.id);else if(act.dataset.act==='known')toggleKnown(m.id);renderLibrary($('searchInput').value);return;}
+      openDetail(m);});
+    c.addEventListener('dragstart',e=>{dragId=c.dataset.id;c.style.opacity='.4';});
+    c.addEventListener('dragend',()=>{c.style.opacity='';});
+    c.addEventListener('dragover',e=>e.preventDefault());
+    c.addEventListener('drop',e=>{e.preventDefault();const tid=c.dataset.id;if(!dragId||dragId===tid)return;
+      const from=state.moves.findIndex(m=>m.id===dragId),to=state.moves.findIndex(m=>m.id===tid);
+      if(from<0||to<0)return;const[mv]=state.moves.splice(from,1);state.moves.splice(to,0,mv);dragId=null;save();renderLibrary($('searchInput').value);renderMotd();});
+  });
+  $('bodyChips').innerHTML=state.bodyParts.map(b=>`<span class="chip"><span class="dot"></span>${esc(b)}</span>`).join('');
+  $('rhythmChips').innerHTML=state.rhythms.map(b=>`<span class="chip teal"><span class="dot"></span>${esc(b)}</span>`).join('');
+  renderLibFilters();renderStorageMeter();
+}
+function renderLibFilters(){
+  const box=$('libFilters');let h='';
+  h+=`<button class="fchip ${libKnownOnly?'on':''}" id="filtKnown">✓ ${state.settings.lang==='en'?'I know':'我会的'}</button>`;
+  [1,2,3].forEach(l=>{h+=`<button class="fchip ${activeFilters.levels.has(l)?'on':''}" data-lv="${l}">${levelLabel(l)}</button>`;});
+  allTags().forEach(tg=>{h+=`<button class="fchip ${activeFilters.tags.has(tg)?'on':''}" data-tag="${esc(tg)}">${esc(tagLabel(tg))}</button>`;});
+  box.innerHTML=h;
+  box.querySelector('#filtKnown').onclick=()=>{libKnownOnly=!libKnownOnly;renderLibrary($('searchInput').value);};
+  box.querySelectorAll('[data-lv]').forEach(b=>b.onclick=()=>{const l=+b.dataset.lv;activeFilters.levels.has(l)?activeFilters.levels.delete(l):activeFilters.levels.add(l);renderLibrary($('searchInput').value);});
+  box.querySelectorAll('[data-tag]').forEach(b=>b.onclick=()=>{const tg=b.dataset.tag;activeFilters.tags.has(tg)?activeFilters.tags.delete(tg):activeFilters.tags.add(tg);renderLibrary($('searchInput').value);});
+}
+function renderDeckSelect(){
+  const sel=$('deckSelect');
+  sel.innerHTML=`<option value="">${state.settings.lang==='en'?'All moves':'全部舞步'}</option>`+state.decks.map(d=>`<option value="${d.id}" ${state.activeDeck===d.id?'selected':''}>${esc(d.name)} (${d.moveIds.length})</option>`).join('');
+}
+function toggleFav(id){const m=state.moves.find(x=>x.id===id);if(m){m.fav=!m.fav;save();}}
+function toggleKnown(id){const m=state.moves.find(x=>x.id===id);if(m){m.known=m.known===false?true:false;save();}}
+function openKnownPicker(){
+  const en=state.settings.lang==='en';
+  const rows=state.moves.map(m=>`<label style="display:flex;align-items:center;gap:9px;font-size:.86rem;padding:3px 2px;"><input type="checkbox" data-kid="${m.id}" ${m.known!==false?'checked':''}> <span style="font-weight:700">${esc(m.name)}</span> <span style="color:var(--muted)">${esc(m.zh||'')}</span></label>`).join('');
+  $('knownBody').innerHTML=`<h3>🎓 ${en?'Which moves do you know?':'我会哪些动作？'}</h3>
+    <div class="mhint">${en?'Check the moves you know; with “Only moves I know” on, the generator draws only these.':'勾选你已经学会的动作；生成器开启「只出我会的」时只会抽这些。'}</div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;"><button class="mbtn" id="kAll">${en?'All':'全选'}</button><button class="mbtn" id="kNone">${en?'None':'全不选'}</button><span style="margin-left:auto;font-size:.78rem;color:var(--muted);" id="kCount"></span></div>
+    <div style="max-height:48vh;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:8px 10px;">${rows}</div>
+    <div class="modal-actions"><button class="mbtn primary" id="kDone">${en?'Done':'完成'}</button></div>`;
+  openModal('knownModal');
+  const upd=()=>{$('kCount').textContent=(en?'know ':'会 ')+state.moves.filter(m=>m.known!==false).length+' / '+state.moves.length;};
+  $('knownBody').querySelectorAll('input[data-kid]').forEach(cb=>cb.onchange=()=>{const m=state.moves.find(x=>x.id===cb.dataset.kid);if(m){m.known=cb.checked;save();upd();}});
+  $('kAll').onclick=()=>{state.moves.forEach(m=>m.known=true);save();openKnownPicker();};
+  $('kNone').onclick=()=>{state.moves.forEach(m=>m.known=false);save();openKnownPicker();};
+  $('kDone').onclick=()=>{closeModal('knownModal');generateDance(true);refreshAll();};
+  upd();
+}
+function renderStorageMeter(){
+  let ls=0;try{ls=(localStorage.getItem(STORE_KEY)||'').length;}catch(e){}
+  const imgN=state.moves.filter(m=>m.hasImg).length;
+  $('storageMeter').textContent=`${state.settings.lang==='en'?'Storage':'已用存储'}: ${(ls/1024).toFixed(1)} KB · ${state.moves.length} ${state.settings.lang==='en'?'moves':'个动作'} · ${imgN} ${state.settings.lang==='en'?'photos':'张图片'}`;
+}
+
+/* ===================== 详情 ===================== */
+let detailSide=false,detailFoot=false;
+function openDetail(m){
+  detailSide=false;detailFoot=false;
+  $('detailBody').innerHTML=detailHTML(m);bindDetail(m);openModal('detailModal');
+}
+function detailFigInner(m){if(detailFoot)return footworkSVG(m);return moveFigure(m,detailSide);}
+function detailHTML(m){
+  const en=isEN();
+  return`<div class="detail-fig" id="detailFig">${detailFigInner(m)}
+    <div class="fig-toggle">
+      <button data-v="front" class="${!detailSide&&!detailFoot?'on':''}">${en?'Front':'正面'}</button>
+      <button data-v="side" class="${detailSide&&!detailFoot?'on':''}">${en?'Side':'侧面'}</button>
+      <button data-v="foot" class="${detailFoot?'on':''}">${en?'Feet':'脚步'}</button>
+    </div></div>
+    <div style="display:flex;justify-content:center;margin-bottom:8px;">${countStripSVG(m.beats)}</div>
+    <h3>${esc(m.name)} ${moveSub(m)?`<span style="font-size:.8rem;color:var(--muted);font-weight:700;">${esc(moveSub(m))}</span>`:''} ${m.fav?'<span style="color:var(--accent)">★</span>':''}</h3>
+    <div class="detail-meta">
+      <span class="tag count">🕒 ${esc(countLabel(m))}</span>
+      <span class="tag lvl">⚡ ${levelLabel(m.level)}</span>
+      <span class="tag tg">${TRAVEL_IC[m.travel]||'•'} ${travelLabel(m.travel)}</span>
+      ${(m.tags||[]).map(tg=>`<span class="tag tg">#${esc(tagLabel(tg))}</span>`).join('')}
+    </div>
+    <div class="detail-desc">${esc(moveDesc(m)||(en?'(no note)':'（暂无说明）'))}</div>
+    ${m.notes?`<div class="detail-notes">📝 ${esc(m.notes)}</div>`:''}
+    <div class="modal-actions" style="margin-top:14px;">
+      <button class="mbtn left" id="dFav">${m.fav?(en?'★ Saved':'★ 已收藏'):(en?'☆ Save':'☆ 收藏')}</button>
+      <button class="mbtn" id="dKnown">${m.known!==false?(en?'✓ I know':'✓ 我会'):(en?'○ Learning':'○ 学习中')}</button>
+      <button class="mbtn" id="dEdit">${en?'✏️ Edit':'✏️ 编辑'}</button>
+      <button class="mbtn primary" id="dClose">${en?'Done':'完成'}</button>
+    </div>`;
+}
+function bindDetail(m){
+  const fig=$('detailFig');
+  $('detailBody').querySelectorAll('.fig-toggle button').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.v;detailSide=(v==='side');detailFoot=(v==='foot');
+    fig.querySelectorAll('.fig-toggle button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+    const cont=document.createElement('div');// re-render inner figure only
+    fig.innerHTML=detailFigInner(m)+fig.querySelector('.fig-toggle').outerHTML;
+    bindDetail(m);
+    if(!detailFoot&&state.settings.anim){const base=m.pose||autoPoseFor(m.name);if(!moveImg(m))setAnimTargets([{el:fig,base,an:animFor(m),side:detailSide,speed:1}]);}
+    else clearAnim();
+  });
+  $('dEdit').onclick=()=>{closeModal('detailModal');clearAnim();openMoveEditor(m);};
+  $('dClose').onclick=()=>{closeModal('detailModal');clearAnim();};
+  $('dFav').onclick=()=>{toggleFav(m.id);$('detailBody').innerHTML=detailHTML(m);bindDetail(m);refreshAll();};
+  $('dKnown').onclick=()=>{toggleKnown(m.id);$('detailBody').innerHTML=detailHTML(m);bindDetail(m);refreshAll();};
+  if(!detailFoot&&!moveImg(m)&&state.settings.anim){const base=m.pose||autoPoseFor(m.name);setAnimTargets([{el:fig,base,an:animFor(m),side:detailSide,speed:1}]);}
+}
+
+/* ===================== 编辑舞步 ===================== */
+let editingMove=null,editingImg=null,editingImgChanged=false;
+function fillPoseSelect(sel){const s=$('emPose');s.innerHTML=`<option value="__auto">${isEN()?'Auto (match by name)':'自动（按名称匹配）'}</option>`+POSE_TEMPLATES.map((t,i)=>`<option value="${i}">${esc(t.name)}${t.zh?' · '+esc(t.zh):''}</option>`).join('');s.value=sel==null?'__auto':sel;}
+function openMoveEditor(m){
+  editingMove=m||null;editingImg=m?(moveImg(m)||null):null;editingImgChanged=false;
+  $('editMoveTitle').textContent=m?(isEN()?'✏️ Edit move':'✏️ 编辑舞步'):(isEN()?'＋ Add move':'＋ 添加舞步');
+  $('emName').value=m?m.name:'';$('emZh').value=m?(m.zh||''):'';$('emDesc').value=m?(m.desc||''):'';$('emNotes').value=m?(m.notes||''):'';
+  $('emCount').value=m?(m.count||''):'';$('emBeats').value=m?(m.beats||4):4;$('emEmph').value=m?(m.emph||''):'';
+  $('emLevel').value=m?(m.level||2):2;$('emTravel').value=m?(m.travel||'-'):'-';$('emTags').value=m?((m.tags||[]).join(', ')):'';
+  let pi='__auto';if(m&&m.pose){const idx=POSE_TEMPLATES.findIndex(t=>JSON.stringify(t.pose)===JSON.stringify(m.pose));if(idx>=0)pi=idx;}
+  fillPoseSelect(pi);$('emDelete').hidden=!m;updateImgUI();openModal('editMoveModal');
+}
+function updateImgUI(){$('emImgName').textContent=editingImg?(isEN()?'Image selected':'已选择图片'):'';$('emImgClear').hidden=!editingImg;}
+async function saveMove(){
+  const name=$('emName').value.trim();if(!name){toast(t('toast.fillName'));return;}
+  const poseVal=$('emPose').value;const pose=poseVal==='__auto'?autoPoseFor(name):clone(POSE_TEMPLATES[+poseVal].pose);
+  const data={id:editingMove?editingMove.id:('m'+hashStr(name+Date.now()).toString(36)),name,zh:$('emZh').value.trim(),desc:$('emDesc').value.trim(),notes:$('emNotes').value.trim(),count:$('emCount').value.trim(),beats:Math.max(1,Math.min(32,+$('emBeats').value||4)),emph:$('emEmph').value.trim(),level:+$('emLevel').value,travel:$('emTravel').value,tags:$('emTags').value.split(',').map(s=>s.trim()).filter(Boolean),pose,fav:editingMove?editingMove.fav:false,pool:editingMove?editingMove.pool:true,hasImg:false};
+  if(editingMove){const i=state.moves.indexOf(editingMove);if(i>=0)state.moves[i]=data;}
+  else{if(state.moves.some(x=>x.name.toLowerCase()===name.toLowerCase())){toast(t('toast.dupName'));return;}state.moves.push(data);}
+  // 图片处理
+  if(editingImgChanged){if(editingImg){await idbSet(data.id,editingImg);imgCache.set(data.id,editingImg);data.hasImg=true;}else{await idbDel(data.id);imgCache.delete(data.id);data.hasImg=false;}}
+  else if(editingMove&&editingMove.hasImg){data.hasImg=true;}
+  save();closeModal('editMoveModal');refreshAll();toast(editingMove?(isEN()?'Updated':'已更新'):(isEN()?'Added':'已添加'));
+}
+function deleteMove(){
+  if(!editingMove)return;const snap=clone(state.moves);const m=editingMove;
+  const i=state.moves.indexOf(m);if(i>=0)state.moves.splice(i,1);
+  if(m.hasImg){idbDel(m.id);imgCache.delete(m.id);}
+  save();closeModal('editMoveModal');refreshAll();
+  pushUndo(`${isEN()?'Deleted':'已删除'} ${m.name}`,()=>{state.moves=snap;ensureIds();save();refreshAll();});
+}
+
+/* ===================== 列表 / 批量 / 合集 ===================== */
+let editingListKey=null;
+function openListEditor(key){editingListKey=key;$('listTitle').textContent=key==='bodyParts'?(isEN()?'🦵 Edit body parts':'🦵 编辑身体部位'):(isEN()?'🎵 Edit rhythms':'🎵 编辑节奏型');$('listTextarea').value=state[key].join('\n');openModal('listModal');}
+function saveList(){const lines=$('listTextarea').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);if(!lines.length){toast(t('toast.keepOne'));return;}state[editingListKey]=lines;save();closeModal('listModal');refreshAll();toast(t('toast.saved'));}
+function saveBulk(){const lines=$('bulkTextarea').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);if(!lines.length){closeModal('bulkModal');return;}let added=0;lines.forEach(name=>{if(state.moves.some(x=>x.name.toLowerCase()===name.toLowerCase()))return;state.moves.push({id:'m'+hashStr(name+Date.now()+added).toString(36),name,zh:'',desc:'',notes:'',count:'',beats:4,emph:'',level:2,travel:'-',tags:[],pose:autoPoseFor(name),fav:false,pool:true,hasImg:false});added++;});$('bulkTextarea').value='';save();closeModal('bulkModal');refreshAll();toast(t('toast.added').replace('{n}',added));}
+function openDeckManager(){
+  const en=isEN();
+  let h=`<h3>🗂 ${en?'Collections':'合集管理'}</h3><div class="mhint">${en?'Collections set the random pool. Check the moves to include in this collection.':'合集决定随机池范围。勾选要纳入当前合集的动作。'}</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;"><input type="text" id="newDeckName" placeholder="${en?'New collection name':'新合集名称'}" style="margin:0;"><button class="mbtn primary" id="newDeckBtn">${en?'Create':'新建'}</button></div>`;
+  if(state.decks.length){h+=`<label class="fld">${en?'Collection':'选择合集'}</label><select id="deckEditSel" style="margin-bottom:10px;">${state.decks.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select>
+    <div style="display:flex;gap:8px;margin-bottom:12px;"><button class="mbtn" id="renameDeckBtn">${en?'Rename':'重命名'}</button><button class="mbtn danger" id="delDeckBtn">${en?'Delete collection':'删除此合集'}</button></div>
+    <label class="fld">${en?`Members (${state.moves.length})`:`成员（${state.moves.length} 个动作）`}</label><div id="deckMembers" style="max-height:240px;overflow:auto;display:flex;flex-direction:column;gap:4px;"></div>`;}
+  else h+=`<div class="mhint">${en?'No collections yet — create one first.':'还没有合集，先新建一个。'}</div>`;
+  h+=`<div class="modal-actions"><button class="mbtn primary" id="deckClose">${en?'Done':'完成'}</button></div>`;
+  $('deckBody').innerHTML=h;openModal('deckModal');
+  $('newDeckBtn').onclick=()=>{const n=$('newDeckName').value.trim();if(!n)return;state.decks.push({id:'d'+hashStr(n+Date.now()).toString(36),name:n,moveIds:[]});save();openDeckManager();renderDeckSelect();};
+  $('deckClose').onclick=()=>closeModal('deckModal');
+  if(state.decks.length){
+    const sel=$('deckEditSel');const renderMembers=()=>{const d=state.decks.find(x=>x.id===sel.value);if(!d)return;$('deckMembers').innerHTML=state.moves.map(m=>`<label style="display:flex;align-items:center;gap:8px;font-size:.84rem;"><input type="checkbox" data-mid="${m.id}" ${d.moveIds.includes(m.id)?'checked':''}> ${esc(m.name)} <span style="color:var(--muted)">${esc(m.zh||'')}</span></label>`).join('');$('deckMembers').querySelectorAll('input').forEach(cb=>cb.onchange=()=>{const id=cb.dataset.mid;if(cb.checked){if(!d.moveIds.includes(id))d.moveIds.push(id);}else d.moveIds=d.moveIds.filter(x=>x!==id);save();renderDeckSelect();});};
+    sel.onchange=renderMembers;renderMembers();
+    $('renameDeckBtn').onclick=()=>{const d=state.decks.find(x=>x.id===sel.value);const n=prompt(en?'New name':'新名称',d.name);if(n){d.name=n.trim()||d.name;save();openDeckManager();renderDeckSelect();}};
+    $('delDeckBtn').onclick=()=>{const d=state.decks.find(x=>x.id===sel.value);state.decks=state.decks.filter(x=>x.id!==d.id);if(state.activeDeck===d.id)state.activeDeck='';save();openDeckManager();renderDeckSelect();renderLibrary($('searchInput').value);};
+  }
+}
+
+/* ===================== 节拍器 ===================== */
+let audioCtx=null;
+function ac(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC();}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();return audioCtx;}
+function sound(type){if(!state.settings.sound)return;const ctx=ac();if(!ctx)return;const now=ctx.currentTime;const tones=type==='rhythm'?[[523,0],[784,.08]]:type==='dance'?[[880,0],[1320,.06]]:[[660,0]];tones.forEach(([fr,dt])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type==='rhythm'?'triangle':'sine';o.frequency.value=fr;o.connect(g);g.connect(ctx.destination);o.start(now+dt);g.gain.setValueAtTime(.0001,now+dt);g.gain.exponentialRampToValueAtTime(.22*state.settings.volume,now+dt+.01);g.gain.exponentialRampToValueAtTime(.0001,now+dt+.22);o.stop(now+dt+.24);});}
+function click(accent){const ctx=ac();if(!ctx)return;const now=ctx.currentTime;const o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=accent?1500:1000;o.connect(g);g.connect(ctx.destination);o.start(now);g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime((accent?.5:.3)*state.settings.volume,now+.002);g.gain.exponentialRampToValueAtTime(.0001,now+.05);o.stop(now+.06);}
+
+let metro={on:false,beat:0,next:0,timer:null,onBeat:null};
+function metroSchedule(){
+  const ctx=ac();if(!ctx)return;const spb=60/state.settings.bpm;
+  while(metro.next<ctx.currentTime+0.1){
+    const accent=state.settings.metroAccent&&(metro.beat%4===0);
+    click(accent);
+    const b=metro.beat,when=metro.next;
+    setTimeout(()=>flashBeat(b%4,accent),Math.max(0,(when-ctx.currentTime)*1000));
+    if(metro.onBeat)metro.onBeat(b,when);
+    metro.beat++;metro.next+=spb;
+  }
+}
+function startMetro(silentVisualOnly){
+  const ctx=ac();if(!ctx){toast(t('toast.audioNA'));return;}
+  metro.on=true;metro.beat=0;metro.next=ctx.currentTime+0.06;metro.start=metro.next;
+  metro.timer=setInterval(metroSchedule,25);
+  $('metroBtn').textContent=t('practice.stop');$('metroBtn').classList.remove('btn-primary');$('metroBtn').style.background='var(--card2)';$('metroBtn').style.color='var(--text)';
+}
+function stopMetro(){metro.on=false;clearInterval(metro.timer);metro.timer=null;metro.onBeat=null;$('metroBtn').textContent=t('practice.start');$('metroBtn').classList.add('btn-primary');$('metroBtn').style.background='';$('metroBtn').style.color='';document.querySelectorAll('#beatDots .bd').forEach(d=>d.classList.remove('on'));}
+function flashBeat(idx,accent){const dots=document.querySelectorAll('#beatDots .bd');dots.forEach((d,i)=>d.classList.toggle('on',i===idx));const sdots=document.querySelectorAll('#stage .bd');sdots.forEach((d,i)=>d.classList.toggle('on',i===idx));}
+function renderBeatDots(){$('beatDots').innerHTML=[0,1,2,3].map(i=>`<div class="bd ${i===0?'accent':''}"></div>`).join('');}
+const COMMON_BPM=[50,60,70,80,90,100,110,120];
+function snapBpm(v){for(const c of COMMON_BPM){if(Math.abs(v-c)<=1)return c;}return v;}
+function updateBpmUI(){const b=state.settings.bpm;['bpmVal','bpmPopVal'].forEach(id=>{const e=$(id);if(e)e.textContent=b;});['bpmSlider','bpmRange'].forEach(id=>{const e=$(id);if(e&&+e.value!==b)e.value=b;});const pb=$('phraseBpm');if(pb)pb.textContent=b+' BPM';}
+function setBpm(v){state.settings.bpm=Math.max(30,Math.min(160,Math.round(v)));updateBpmUI();save();}
+function renderBpmTicks(){const min=30,max=160,box=$('bpmTicks');if(!box)return;box.innerHTML=COMMON_BPM.map(b=>`<span class="bpm-tick ${b===state.settings.bpm?'on':''}" data-bpm="${b}" style="left:${(b-min)/(max-min)*100}%">${b}</span>`).join('');box.querySelectorAll('.bpm-tick').forEach(t=>t.onclick=()=>{setBpm(+t.dataset.bpm);renderBpmTicks();});}
+function openBpmPop(){const btn=$('phraseBpm'),mask=$('bpmPopMask'),pop=$('bpmPop');if(!mask||!pop)return;mask.hidden=false;renderBpmTicks();$('bpmRange').value=state.settings.bpm;$('bpmPopVal').textContent=state.settings.bpm;const pw=pop.offsetWidth,ph=pop.offsetHeight;let left,top;if(btn){const r=btn.getBoundingClientRect();left=r.left+r.width/2-pw/2;top=r.top-ph-10;if(top<8)top=r.bottom+10;}else{left=innerWidth/2-pw/2;top=innerHeight/2-ph/2;}pop.style.left=Math.max(8,Math.min(left,innerWidth-pw-8))+'px';pop.style.top=Math.max(8,top)+'px';}
+function closeBpmPop(){const m=$('bpmPopMask');if(m)m.hidden=true;}
+let tapTimes=[];
+function tapTempo(){const now=performance.now();tapTimes.push(now);tapTimes=tapTimes.filter(t=>now-t<2500);if(tapTimes.length>=2){const diffs=[];for(let i=1;i<tapTimes.length;i++)diffs.push(tapTimes[i]-tapTimes[i-1]);const avg=diffs.reduce((a,b)=>a+b,0)/diffs.length;setBpm(60000/avg);}click(true);}
+
+/* ===================== 流动模式 + 语音 + 舞台 ===================== */
+function speak(text){if(!state.settings.voice||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=/[一-鿿]/.test(text)?'zh-CN':'en-US';u.rate=1;u.volume=Math.min(1,state.settings.volume+0.3);speechSynthesis.speak(u);}catch(e){}}
+let flow={on:false,move:null,next:null,secTimer:null,countdown:0};
+function flowPickNext(){const pool=poolMoves();if(!pool.length)return null;const avail=pool.filter(m=>!flow.move||m.id!==flow.move.id);return rand(avail.length?avail:pool);}
+function flowAdvance(){
+  flow.move=flow.next||flowPickNext();flow.next=flowPickNext();
+  renderStage();speak(flow.move.name);vibrate(20);
+  addHistory(flow.move.name,'dance');
+}
+function enterFlow(){
+  const pool=poolMoves();if(!pool.length){toast(t('toast.noMoves'));return;}
+  flow.on=true;flow.move=null;flow.next=flowPickNext();
+  $('stage').hidden=false;document.body.style.overflow='hidden';
+  renderStage();
+  // 倒数准备
+  let pre=4;flow.countdown=pre;renderStage();flowSetCountText(pre);
+  if(flowMode==='bars'){
+    if(!metro.on)startMetro();
+    metro.onBeat=(b)=>{
+      if(flow.countdown>0){return;} // 由下面处理
+    };
+    // 用节拍推进
+    let beatAcc=0;const phrase=state.bars;
+    metro.onBeat=(b,when)=>{
+      if(flow.countdown>0){const left=flow.countdown;flowSetCountText(left);flow.countdown--;if(flow.countdown===0){flowAdvance();}return;}
+      beatAcc++;if(beatAcc%phrase===0)flowAdvance();
+    };
+  } else {
+    // 时间模式：用 flow.countdown 统一倒数
+    const cd=setInterval(()=>{
+      flow.countdown--;
+      if(flow.countdown>0)flowSetCountText(flow.countdown);
+      else{clearInterval(cd);flowAdvance();flow.secTimer=setInterval(flowAdvance,state.sec*1000);}
+    },800);
+  }
+  try{$('stage').requestFullscreen&&$('stage').requestFullscreen().catch(()=>{});}catch(e){}
+}
+function exitFlow(){flow.on=false;clearInterval(flow.secTimer);flow.secTimer=null;if(metro.on)metro.onBeat=null;$('stage').hidden=true;document.body.style.overflow='';clearAnim();try{document.fullscreenElement&&document.exitFullscreen();}catch(e){}}
+function flowSetCountText(n){const el=$('stageCount');if(el)el.textContent=n>0?n:'';}
+function renderStage(){
+  const m=flow.move;
+  $('stage').innerHTML=`
+    <button class="icon-btn s-exit" id="stageExit">✕</button>
+    <div class="beat-dots">${[0,1,2,3].map(i=>`<div class="bd ${i===0?'accent':''}"></div>`).join('')}</div>
+    ${flow.countdown>0||!m?`<div class="s-count" id="stageCount"></div><div class="s-zh">${t('practice.ready')}…</div>`:`
+      <div class="s-fig" id="stageFig">${moveFigure(m)}</div>
+      <div class="s-name">${esc(m.name)}</div>
+      <div class="s-zh">${esc(m.zh||'')} · ${esc(m.count||'')}</div>
+      <div class="s-next">${state.settings.lang==='en'?'Next':'下一个'}: ${esc(flow.next?flow.next.name:'…')}</div>`}
+    <div class="s-controls">
+      <button class="pill" id="stageSkip">⏭ ${state.settings.lang==='en'?'Skip':'换招'}</button>
+      <button class="pill" id="stagePause">⏸</button>
+    </div>`;
+  $('stageExit').onclick=exitFlow;
+  $('stageSkip').onclick=()=>flowAdvance();
+  if(m&&!moveImg(m)&&state.settings.anim&&flow.countdown<=0){const base=m.pose||autoPoseFor(m.name);setAnimTargets([{el:$('stageFig'),base,an:animFor(m),side:false,speed:1.2}]);}
+}
+
+/* ===================== 分享 / 导出 / 打印 / QR ===================== */
+function b64encode(str){return btoa(unescape(encodeURIComponent(str)));}
+function b64decode(str){return decodeURIComponent(escape(atob(str)));}
+function exportData(){const data={app:'blues-groove-lab',version:2,moves:state.moves.map(m=>{const c=Object.assign({},m);delete c.hasImg;return c;}),bodyParts:state.bodyParts,rhythms:state.rhythms,decks:state.decks};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='blues-groove-lab.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast(t('toast.exported'));}
+function importData(file){const reader=new FileReader();reader.onload=e=>{try{const d=JSON.parse(e.target.result);applyImport(d);toast(t('toast.imported'));}catch(err){toast(t('toast.badFile'));}};reader.readAsText(file);}
+function applyImport(d){
+  if(Array.isArray(d.moves)&&d.moves.length)state.moves=d.moves.map(m=>Object.assign({id:'m'+hashStr((m.name||'')+Math.random()).toString(36),beats:4,tags:[],level:2,travel:'-',pose:autoPoseFor(m.name||'')},m,{hasImg:false}));
+  if(Array.isArray(d.bodyParts)&&d.bodyParts.length)state.bodyParts=d.bodyParts;
+  if(Array.isArray(d.rhythms)&&d.rhythms.length)state.rhythms=d.rhythms;
+  if(Array.isArray(d.decks))state.decks=d.decks;
+  ensureIds();save();refreshAll();
+}
+function makeShareCode(kind,payload){
+  let obj;if(kind==='combo')obj={t:'combo',m:payload.map(m=>m.name)};
+  else obj={t:'lib',moves:state.moves.map(m=>{const c=Object.assign({},m);delete c.hasImg;delete c.pose;return c;}),body:state.bodyParts,rhythm:state.rhythms};
+  return b64encode(JSON.stringify(obj));
+}
+function openShare(kind,payload){
+  const en=isEN();
+  const code=makeShareCode(kind,payload);
+  const shareTxt=kind==='combo'?('🎶 '+payload.map(m=>m.name).join(' + ')):((en?'Blues move library · ':'蓝调舞步库 · ')+state.moves.length+(en?' moves':' 个动作'));
+  let h=`<h3>🔗 ${kind==='combo'?(en?'Share combo':'分享组合'):(en?'Share library':'分享舞步库')}</h3><div class="mhint">${kind==='combo'?(en?'Send this combo to a friend.':'把这个组合发给朋友。'):(en?'The share code has no images. Copy the text or scan to import.':'分享码不含图片。可复制文本或扫码导入。')}</div>`;
+  h+=`<div class="qr-wrap" id="qrWrap"></div>`;
+  h+=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;"><button class="mbtn" id="copyShareTxt">📋 ${en?'Copy text':'复制文本'}</button><button class="mbtn" id="copyShareCode">🔗 ${en?'Copy link':'复制分享码'}</button>${kind!=='combo'?`<button class="mbtn" id="exportJsonBtn">⬇️ ${en?'Export file':'导出文件'}</button><button class="mbtn" id="importJsonBtn">⬆️ ${en?'Import file':'导入文件'}</button>`:''}</div>`;
+  h+=`<details><summary style="font-size:.78rem;color:var(--muted);cursor:pointer;">${en?'Show share code':'查看分享码'}</summary><div class="share-code">${esc(code)}</div></details>`;
+  h+=`<div class="modal-actions"><button class="mbtn primary" id="shareClose">${en?'Done':'完成'}</button></div>`;
+  $('shareBody').innerHTML=h;openModal('shareModal');
+  // QR
+  const qrData=kind==='combo'?(payload?payload.map(m=>m.name).join(' + '):shareTxt):(code.length<1200?('BGL:'+code):'');
+  if(qrData){try{drawQR($('qrWrap'),qrData);}catch(e){$('qrWrap').innerHTML='<span style="color:#900;font-size:.7rem;">'+(en?'QR generation failed':'二维码生成失败')+'</span>';}}
+  else $('qrWrap').innerHTML='<span style="color:#555;font-size:.72rem;padding:8px;">'+(en?'Data too large for a QR — use the export file':'数据较大，二维码不可用，请用导出文件')+'</span>';
+  $('copyShareTxt').onclick=()=>copyText(shareTxt);
+  $('copyShareCode').onclick=()=>copyText((location.href.split('#')[0])+'#s='+code);
+  $('shareClose').onclick=()=>closeModal('shareModal');
+  if($('exportJsonBtn'))$('exportJsonBtn').onclick=exportData;
+  if($('importJsonBtn'))$('importJsonBtn').onclick=()=>$('importFileInput').click();
+}
+function tryImportFromHash(){
+  if(location.hash.startsWith('#s=')){
+    const code=location.hash.slice(3);
+    try{const obj=JSON.parse(b64decode(code));const en=isEN();
+      showConfirm(en?'Import shared data?':'导入分享数据？',obj.t==='combo'?((en?'Combo: ':'组合：')+obj.m.join(' + ')):((en?'Library: ':'舞步库：')+(obj.moves?obj.moves.length:0)+(en?' moves (overwrites your current library)':' 个动作（将覆盖当前库）')),()=>{
+        if(obj.t==='lib'){applyImport({moves:obj.moves,bodyParts:obj.body,rhythms:obj.rhythm});}
+        else if(obj.t==='combo'){toast(t('toast.gotCombo'));obj.m.forEach(n=>addHistory(n,'dance'));}
+        history.replaceState(null,'',location.pathname);
+      });
+    }catch(e){}
+  }
+}
+function svgToImg(svgStr){return new Promise(res=>{const img=new Image();const blob=new Blob([svgStr],{type:'image/svg+xml'});const url=URL.createObjectURL(blob);img.onload=()=>{res(img);URL.revokeObjectURL(url);};img.onerror=()=>res(null);img.src=url;});}
+async function exportComboImage(combo){
+  toast(t('toast.rendering'));
+  const cw=Math.min(combo.length,4),rows=Math.ceil(combo.length/cw);
+  const cellW=180,cellH=210,pad=24,headH=70;
+  const W=cw*cellW+pad*2,H=headH+rows*cellH+pad;
+  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+  const dark=state.settings.theme==='dark';ctx.fillStyle=dark?'#141a2e':'#fbf7ef';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=dark?'#eef1fa':'#1d2440';ctx.font='bold 26px system-ui';ctx.textAlign='left';ctx.fillText('🎷 '+combo.map(m=>m.name).join(' + ').slice(0,40),pad,46);
+  ctx.font='14px system-ui';ctx.fillStyle=dark?'#9aa6c6':'#5d6688';const totBeats=combo.reduce((s,m)=>s+(m.beats||4),0);ctx.fillText(isEN()?('Blues Groove Lab · '+totBeats+' beats'):('蓝调灵感工坊 · '+totBeats+'拍'),pad,66);
+  for(let i=0;i<combo.length;i++){const m=combo[i];const cx=pad+(i%cw)*cellW,cy=headH+Math.floor(i/cw)*cellH;
+    ctx.fillStyle=dark?'#1a2238':'#ffffff';roundRect(ctx,cx+6,cy+6,cellW-12,cellH-12,16);ctx.fill();
+    let svg=moveImg(m)?null:figureFront(m.pose||autoPoseFor(m.name));
+    if(svg){svg=svg.replace('<svg ','<svg style="--fig:'+(dark?'#efe4c6':'#2b3354')+';--fig-accent:'+ACCENTS[state.settings.accent][0]+';" ');const im=await svgToImg(svg);if(im)ctx.drawImage(im,cx+30,cy+18,cellW-60,140);}
+    else if(moveImg(m)){const im=new Image();im.src=moveImg(m);await new Promise(r=>{im.onload=r;im.onerror=r;});ctx.drawImage(im,cx+30,cy+18,cellW-60,140);}
+    ctx.fillStyle=dark?'#eef1fa':'#1d2440';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.fillText(m.name,cx+cellW/2,cy+178);
+    ctx.fillStyle=ACCENTS[state.settings.accent][0];ctx.font='12px system-ui';ctx.fillText(m.count||'',cx+cellW/2,cy+196);ctx.textAlign='left';
+  }
+  c.toBlob(blob=>{const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='combo.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast(t('toast.imgSaved'));});
+}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function printLibrary(){
+  $('printArea').innerHTML='<h1 style="text-align:center">🎷 '+(isEN()?'Blues Move Library':'蓝调舞步库')+'</h1>'+state.moves.map(m=>`<div class="print-card">${figureFront(m.pose||autoPoseFor(m.name)).replace('<svg ','<svg style="--fig:#2b3354;--fig-accent:#d9853a;" ')}<div class="pn">${esc(m.name)} ${esc(moveSub(m))}</div><div class="pd">${esc(countLabel(m))} · ${esc(moveDesc(m))}</div></div>`).join('');
+  window.print();
+}
+
+/* ===== 紧凑 QR 编码器（byte 模式, EC=M, 固定掩码0, 版本1-10） ===== */
+const QR=(function(){
+  const EXP=new Array(256),LOG=new Array(256);(function(){let x=1;for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&0x100)x^=0x11d;}EXP[255]=EXP[0];})();
+  function gmul(a,b){if(!a||!b)return 0;return EXP[(LOG[a]+LOG[b])%255];}
+  function genPoly(n){let p=[1];for(let i=0;i<n;i++){const np=new Array(p.length+1).fill(0);for(let j=0;j<p.length;j++){np[j]^=gmul(p[j],1);np[j+1]^=gmul(p[j],EXP[i]);}p=np;}return p;}
+  function rs(data,n){const res=new Array(n).fill(0);for(let i=0;i<data.length;i++){const factor=data[i]^res[0];res.shift();res.push(0);if(factor){const g=genPoly(n);for(let j=0;j<n;j++)res[j]^=gmul(g[j+1],factor);} }return res;}
+  // 版本容量(byte, EC=M): dataCodewords, ecPerBlock, numBlocks(group1)
+  const CAP={1:{tot:26,ec:10,b:[[1,16]]},2:{tot:44,ec:16,b:[[1,28]]},3:{tot:70,ec:26,b:[[1,44]]},4:{tot:100,ec:18,b:[[2,32]]},5:{tot:134,ec:24,b:[[2,43]]},6:{tot:172,ec:16,b:[[4,27]]},7:{tot:196,ec:18,b:[[4,31]]},8:{tot:242,ec:22,b:[[2,38],[2,39]]},9:{tot:292,ec:22,b:[[3,36],[2,37]]},10:{tot:346,ec:26,b:[[4,43],[1,44]]}};
+  const ALIGN={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  function chooseVer(len){for(let v=1;v<=10;v++){const cap=CAP[v];const dataCW=cap.b.reduce((s,g)=>s+g[0]*g[1],0);// header:4+ (v<10?8:16) bits + data*8
+    const need=4+(v<10?8:16)+len*8;if(need<=dataCW*8)return v;}return null;}
+  function encode(str){
+    let bytes;
+    if(window.TextEncoder){bytes=Array.from(new TextEncoder().encode(str));}
+    else{bytes=[];for(let i=0;i<str.length;i++){const c=str.charCodeAt(i);if(c<128)bytes.push(c);else if(c<2048){bytes.push(192|(c>>6),128|(c&63));}else{bytes.push(224|(c>>12),128|((c>>6)&63),128|(c&63));}}}
+    const ver=chooseVer(bytes.length);if(!ver)throw'too long';
+    const cap=CAP[ver];const dataCW=cap.b.reduce((s,g)=>s+g[0]*g[1],0);
+    // bitstream
+    let bits=[];const put=(val,n)=>{for(let i=n-1;i>=0;i--)bits.push((val>>i)&1);};
+    put(4,4);put(bytes.length,ver<10?8:16);bytes.forEach(b=>put(b,8));
+    // terminator
+    let cap_bits=dataCW*8;if(bits.length+4<=cap_bits)put(0,4);while(bits.length%8)bits.push(0);
+    let codewords=[];for(let i=0;i<bits.length;i+=8){let v=0;for(let j=0;j<8;j++)v=(v<<1)|bits[i+j];codewords.push(v);}
+    const pad=[0xEC,0x11];let pi=0;while(codewords.length<dataCW){codewords.push(pad[pi++%2]);}
+    // split blocks, ec
+    const blocks=[];let idx=0;cap.b.forEach(g=>{for(let i=0;i<g[0];i++){const d=codewords.slice(idx,idx+g[1]);idx+=g[1];blocks.push({d,ec:rs(d,cap.ec)});}});
+    const maxD=Math.max(...blocks.map(b=>b.d.length));const final=[];
+    for(let i=0;i<maxD;i++)blocks.forEach(b=>{if(i<b.d.length)final.push(b.d[i]);});
+    for(let i=0;i<cap.ec;i++)blocks.forEach(b=>final.push(b.ec[i]));
+    // matrix
+    const size=17+ver*4;const m=[];for(let i=0;i<size;i++)m.push(new Array(size).fill(null));
+    function placeFinder(r,c){for(let i=-1;i<=7;i++)for(let j=-1;j<=7;j++){const rr=r+i,cc=c+j;if(rr<0||cc<0||rr>=size||cc>=size)continue;const inb=(i>=0&&i<=6&&(j===0||j===6))||(j>=0&&j<=6&&(i===0||i===6))||(i>=2&&i<=4&&j>=2&&j<=4);m[rr][cc]=inb?1:0;}}
+    placeFinder(0,0);placeFinder(0,size-7);placeFinder(size-7,0);
+    // timing
+    for(let i=8;i<size-8;i++){if(m[6][i]===null)m[6][i]=i%2===0?1:0;if(m[i][6]===null)m[i][6]=i%2===0?1:0;}
+    // dark module
+    m[size-8][8]=1;
+    // alignment
+    const al=ALIGN[ver];for(let i=0;i<al.length;i++)for(let j=0;j<al.length;j++){const r=al[i],c=al[j];if(m[r][c]!==null)continue;for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++){m[r+dr][c+dc]=(Math.max(Math.abs(dr),Math.abs(dc))!==1)?1:0;}}
+    // reserve format areas (set to 0 temporarily so data skips them)
+    function reserve(r,c){if(m[r][c]===null)m[r][c]=0;}
+    for(let i=0;i<9;i++){reserve(8,i);reserve(i,8);}for(let i=0;i<8;i++){reserve(8,size-1-i);reserve(size-1-i,8);}
+    // place data with mask 0
+    let dir=-1,row=size-1,bitIdx=0;const dataBits=[];final.forEach(cw=>{for(let i=7;i>=0;i--)dataBits.push((cw>>i)&1);});
+    for(let col=size-1;col>0;col-=2){if(col===6)col--;for(;;row+=dir){for(let c=0;c<2;c++){const cc=col-c;if(m[row][cc]===null){let v=bitIdx<dataBits.length?dataBits[bitIdx++]:0;if((row+cc)%2===0)v^=1;/*mask0*/m[row][cc]=v;}}if(row+dir<0||row+dir>=size){dir=-dir;break;}}}
+    // format info (EC=M=00, mask0=000 => 0b00000) with BCH
+    const fmt=formatBits(0);// returns 15 bits array
+    const fpos=[[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+    for(let i=0;i<15;i++){const[r,c]=fpos[i];m[r][c]=fmt[i];}
+    const fpos2=[[size-1,8],[size-2,8],[size-3,8],[size-4,8],[size-5,8],[size-6,8],[size-7,8],[8,size-8],[8,size-7],[8,size-6],[8,size-5],[8,size-4],[8,size-3],[8,size-2],[8,size-1]];
+    for(let i=0;i<15;i++){const[r,c]=fpos2[i];m[r][c]=fmt[i];}
+    return m;
+  }
+  function formatBits(mask){// EC level M=0b00, data=ec(2)+mask(3)
+    let data=(0<<3)|mask;let d=data<<10;const g=0b10100110111;for(let i=14;i>=10;i--){if((d>>i)&1)d^=g<<(i-10);}let bits=((data<<10)|d)^0b101010000010010;const out=[];for(let i=14;i>=0;i--)out.push((bits>>i)&1);return out;}
+  return{encode};
+})();
+function drawQR(container,text){
+  const m=QR.encode(text);const size=m.length;const scale=Math.max(2,Math.floor(220/(size+8)));const q=4;const px=(size+q*2)*scale;
+  const c=document.createElement('canvas');c.width=px;c.height=px;const ctx=c.getContext('2d');
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,px,px);ctx.fillStyle='#000';
+  for(let r=0;r<size;r++)for(let col=0;col<size;col++)if(m[r][col])ctx.fillRect((col+q)*scale,(r+q)*scale,scale,scale);
+  container.innerHTML='';container.appendChild(c);
+}
+
+/* ===================== 撤销 ===================== */
+let undoFn=null,undoTimer=null;
+function pushUndo(label,fn){undoFn=fn;$('snackText').textContent=label;$('snackbar').classList.add('show');clearTimeout(undoTimer);undoTimer=setTimeout(()=>$('snackbar').classList.remove('show'),6000);}
+$('snackUndo')&&($('snackUndo').onclick=()=>{if(undoFn){undoFn();undoFn=null;}$('snackbar').classList.remove('show');toast(t('toast.undone'));});
+
+/* ===================== 设置 ===================== */
+function openSettings(){
+  const s=state.settings;
+  $('settingsBody').innerHTML=`<h3>⚙️ ${s.lang==='en'?'Settings':'设置'}</h3>
+    <label class="fld">${s.lang==='en'?'Accent color':'主题色'}</label>
+    <div class="swatches" id="swatches">${Object.keys(ACCENTS).map(k=>`<div class="swatch ${s.accent===k?'on':''}" data-acc="${k}" style="background:linear-gradient(135deg,${ACCENTS[k][0]},${ACCENTS[k][1]})"></div>`).join('')}</div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Language':'语言'}</div></div><select id="setLang" style="width:auto;margin:0;"><option value="zh" ${s.lang==='zh'?'selected':''}>中文</option><option value="en" ${s.lang==='en'?'selected':''}>English</option></select></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Font size':'字体大小'}</div></div><input type="range" class="slider" id="setFont" min="0.85" max="1.25" step="0.05" value="${s.fontScale}" style="width:130px;"></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Animate figures':'动画图示'}</div><div class="desc">${s.lang==='en'?'Move the focus figure':'让焦点图形动起来'}</div></div><button class="toggle ${s.anim?'on':''}" id="setAnim"></button></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Sound':'音效'}</div></div><button class="toggle ${s.sound?'on':''}" id="setSound"></button></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Voice call-outs':'语音报招'}</div></div><button class="toggle ${s.voice?'on':''}" id="setVoice"></button></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Volume':'音量'}</div></div><input type="range" class="slider" id="setVol" min="0" max="1" step="0.05" value="${s.volume}" style="width:130px;"></div>
+    <div class="settings-row"><div><div class="lbl">${s.lang==='en'?'Vibrate':'震动反馈'}</div></div><button class="toggle ${s.vibrate?'on':''}" id="setVib"></button></div>
+    <label class="fld" style="margin-top:14px;">${s.lang==='en'?'Data':'数据'}</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="mbtn" id="setExport">⬇️ ${s.lang==='en'?'Export':'导出'}</button>
+      <button class="mbtn" id="setImport">⬆️ ${s.lang==='en'?'Import':'导入'}</button>
+      <button class="mbtn danger" id="setReset">↺ ${s.lang==='en'?'Reset':'重置默认'}</button>
+    </div>
+    <div class="storage-meter" id="setStorage" style="margin-top:8px;"></div>
+    <div class="modal-actions"><button class="mbtn primary" id="setClose">${s.lang==='en'?'Done':'完成'}</button></div>`;
+  openModal('settingsModal');
+  document.querySelectorAll('#swatches .swatch').forEach(sw=>sw.onclick=()=>{state.settings.accent=sw.dataset.acc;applyAccent();save();openSettings();refreshAll();});
+  $('setLang').onchange=e=>{state.settings.lang=e.target.value;save();applyLang();applyModeUI();openSettings();refreshAll();};
+  $('setFont').oninput=e=>{state.settings.fontScale=+e.target.value;applyFont();save();};
+  $('setAnim').onclick=()=>{state.settings.anim=!state.settings.anim;save();openSettings();if(!state.settings.anim)clearAnim();};
+  $('setSound').onclick=()=>{state.settings.sound=!state.settings.sound;applySound();save();openSettings();};
+  $('setVoice').onclick=()=>{state.settings.voice=!state.settings.voice;save();openSettings();$('voiceTog').classList.toggle('on',state.settings.voice);};
+  $('setVol').oninput=e=>{state.settings.volume=+e.target.value;save();};
+  $('setVib').onclick=()=>{state.settings.vibrate=!state.settings.vibrate;save();openSettings();vibrate(20);};
+  $('setExport').onclick=exportData;$('setImport').onclick=()=>$('importFileInput').click();
+  $('setReset').onclick=()=>showConfirm(s.lang==='en'?'Reset to defaults?':'恢复默认？',s.lang==='en'?'This overwrites your current customizations.':'这会覆盖你当前的自定义内容。',()=>{const snap=clone(state);state.moves=clone(DEFAULT_MOVES);state.bodyParts=clone(DEFAULT_BODY);state.rhythms=clone(DEFAULT_RHYTHM);state.decks=[];state.activeDeck='';ensureIds();save();refreshAll();closeModal('settingsModal');pushUndo(s.lang==='en'?'Reset':'已重置',()=>{Object.assign(state,snap);ensureIds();save();refreshAll();});});
+  $('setClose').onclick=()=>closeModal('settingsModal');
+  let ls=0;try{ls=(localStorage.getItem(STORE_KEY)||'').length;}catch(e){}
+  $('setStorage').textContent=`${s.lang==='en'?'Storage used':'已用存储'}: ${(ls/1024).toFixed(1)} KB`;
+}
+function applyTheme(){document.documentElement.setAttribute('data-theme',state.settings.theme);$('themeBtn').textContent=state.settings.theme==='dark'?'🌙':'☀️';document.querySelector('meta[name=theme-color]').setAttribute('content',state.settings.theme==='dark'?'#0c1120':'#efe9dc');}
+function applyAccent(){const a=ACCENTS[state.settings.accent]||ACCENTS.amber;document.documentElement.style.setProperty('--accent',a[0]);document.documentElement.style.setProperty('--accent-d',a[1]);}
+function applyFont(){document.documentElement.style.fontSize=(16*(state.settings.fontScale||1))+'px';}
+function applySound(){$('soundBtn').textContent=state.settings.sound?'🔊':'🔇';}
+function vibrate(ms){if(state.settings.vibrate&&navigator.vibrate)try{navigator.vibrate(ms);}catch(e){}}
+
+/* ===================== 通用 ===================== */
+function openModal(id){$(id).classList.add('active');}
+function closeModal(id){$(id).classList.remove('active');}
+document.querySelectorAll('.modal-mask').forEach(mask=>mask.addEventListener('click',e=>{if(e.target===mask){mask.classList.remove('active');if(mask.id==='detailModal'||mask.id==='settingsModal')clearAnim();}}));
+let confirmCb=null;
+function showConfirm(title,msg,cb){$('confirmTitle').textContent=title;$('confirmMsg').textContent=msg;confirmCb=cb;openModal('confirmModal');}
+$('confirmOk').onclick=()=>{closeModal('confirmModal');if(confirmCb)confirmCb();};
+$('confirmCancel').onclick=()=>closeModal('confirmModal');
+
+let toastTimer=null;
+function toast(msg){const tEl=$('toast');tEl.textContent=msg;tEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>tEl.classList.remove('show'),1600);}
+async function copyText(text){try{await navigator.clipboard.writeText(text);toast(t('toast.copied'));}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(t('toast.copied'));}catch(_){toast(t('toast.copyFail'));}ta.remove();}}
+
+function refreshAll(){renderDanceResult(currentCombo);renderRhythmResult(currentGroove?currentGroove.part:null,currentGroove?currentGroove.rhythm:null);renderLibrary($('searchInput')?$('searchInput').value:'');renderDeckSelect();renderMotd();renderHistory();renderStorageMeter();}
+
+/* 标签页 */
+function switchTab(which){
+  if(which!=='gen'&&phrasePlaying)stopPhrasePlay();
+  ['Gen','Practice','Lib'].forEach(k=>{$('tab'+k).classList.toggle('active',k.toLowerCase()===which);$('view'+k).hidden=(k.toLowerCase()!==which);});
+  if(which==='lib')renderLibrary($('searchInput').value);
+}
+
+/* ===================== 风格模式：Solo Blues ⇄ Solo Jazz ===================== */
+function applyModeUI(){
+  const jz=state.mode==='jazz';
+  if($('modeBlues'))$('modeBlues').classList.toggle('active',!jz);
+  if($('modeJazz'))$('modeJazz').classList.toggle('active',jz);
+  if($('subt'))$('subt').textContent=t(jz?'t2.jazz':'t2.blues');
+  document.body.setAttribute('data-mode',state.mode);
+}
+function renderAll(){
+  generateDance(true);renderHistory();
+  renderLibrary($('searchInput')?$('searchInput').value:'');renderDeckSelect();renderMotd();
+}
+function switchMode(m){
+  if(m!=='blues'&&m!=='jazz')return;if(m===state.mode)return;
+  if(flow.on)exitFlow();clearAnim();if(phrasePlaying)stopPhrasePlay();
+  syncActive();state.mode=m;hydrateActive();currentCombo=[];
+  activeFilters={tags:new Set(),levels:new Set()};
+  if($('searchInput'))$('searchInput').value='';
+  save();applyModeUI();renderAll();
+  toast(m==='jazz'?(state.settings.lang==='en'?'Solo Jazz':'Solo Jazz 模式'):(state.settings.lang==='en'?'Solo Blues':'Solo Blues 模式'));
+}
+
+/* 模式状态 */
+let flowMode='bars';
+Object.defineProperty(state,'bars',{get(){return state._bars||8;},set(v){state._bars=v;}});
+Object.defineProperty(state,'sec',{get(){return state._sec||6;},set(v){state._sec=v;}});
+
+/* ===================== 事件绑定 ===================== */
+function bind(){
+  $('danceBtn').onclick=()=>generateDance();$('rhythmBtn').onclick=generateRhythm;
+  $('knownToggle').onclick=()=>{state.settings.onlyKnown=!state.settings.onlyKnown;$('knownTog').classList.toggle('on',state.settings.onlyKnown);save();generateDance(true);};
+  $('selectMovesBtn').onclick=openKnownPicker;
+  $('moveMinus').onclick=()=>setMoveCount((state.settings.moveCount||4)-1);
+  $('movePlus').onclick=()=>setMoveCount((state.settings.moveCount||4)+1);
+  $('clearHistoryBtn').onclick=()=>{const snap=clone(state.history);state.history=[];save();renderHistory();pushUndo(isEN()?'History cleared':'已清空历史',()=>{state.history=snap;save();renderHistory();});};
+
+  $('tabGen').onclick=()=>switchTab('gen');$('tabPractice').onclick=()=>switchTab('practice');$('tabLib').onclick=()=>switchTab('lib');
+  $('modeBlues').onclick=()=>switchMode('blues');$('modeJazz').onclick=()=>switchMode('jazz');
+  $('themeBtn').onclick=()=>{state.settings.theme=state.settings.theme==='dark'?'light':'dark';applyTheme();save();};
+  $('soundBtn').onclick=()=>{state.settings.sound=!state.settings.sound;applySound();save();if(state.settings.sound)sound('tick');};
+  $('settingsBtn').onclick=openSettings;$('helpBtn').onclick=()=>{renderHelp();openModal('helpModal');};
+  $('helpClose').onclick=()=>{closeModal('helpModal');state.firstRun=false;save();};
+
+  $('searchInput').oninput=e=>renderLibrary(e.target.value);
+  $('deckSelect').onchange=e=>{state.activeDeck=e.target.value;save();renderLibrary($('searchInput').value);};
+  $('manageDeckBtn').onclick=openDeckManager;
+  $('addMoveBtn').onclick=()=>openMoveEditor(null);$('bulkAddBtn').onclick=()=>openModal('bulkModal');$('knownPickerBtn').onclick=openKnownPicker;
+  $('shareBtn').onclick=()=>openShare('lib');$('printBtn').onclick=printLibrary;
+  $('editBodyBtn').onclick=()=>openListEditor('bodyParts');$('editRhythmBtn').onclick=()=>openListEditor('rhythms');
+  $('importFileInput').onchange=e=>{if(e.target.files[0])importData(e.target.files[0]);e.target.value='';};
+
+  $('emSave').onclick=saveMove;$('emCancel').onclick=()=>closeModal('editMoveModal');$('emDelete').onclick=deleteMove;
+  $('emImgBtn').onclick=()=>$('imgFileInput').click();$('emImgClear').onclick=()=>{editingImg=null;editingImgChanged=true;updateImgUI();};
+  $('imgFileInput').onchange=async e=>{const file=e.target.files[0];if(!file)return;if(file.size>8*1024*1024){toast(t('toast.imgBig'));e.target.value='';return;}try{editingImg=await compressImage(file);editingImgChanged=true;updateImgUI();}catch(err){toast(t('toast.imgFail'));}e.target.value='';};
+  $('listSave').onclick=saveList;$('listCancel').onclick=()=>closeModal('listModal');
+  $('bulkSave').onclick=saveBulk;$('bulkCancel').onclick=()=>closeModal('bulkModal');
+
+  // 节拍器
+  $('bpmSlider').oninput=e=>setBpm(+e.target.value);
+  $('bpmPresets').innerHTML=[50,60,70,80,90,100].map(b=>`<button class="pill sm" data-bpm="${b}">${b}</button>`).join('');
+  $('bpmPresets').querySelectorAll('[data-bpm]').forEach(b=>b.onclick=()=>setBpm(+b.dataset.bpm));
+  $('tapBtn').onclick=tapTempo;
+  $('bpmMinus').onclick=()=>{setBpm(state.settings.bpm-1);renderBpmTicks();};
+  $('bpmPlus').onclick=()=>{setBpm(state.settings.bpm+1);renderBpmTicks();};
+  $('bpmRange').oninput=e=>{setBpm(snapBpm(+e.target.value));renderBpmTicks();};
+  $('bpmPopMask').onclick=e=>{if(e.target===$('bpmPopMask'))closeBpmPop();};
+  let _phraseRsT;window.addEventListener('resize',()=>{clearTimeout(_phraseRsT);_phraseRsT=setTimeout(()=>{if(!$('viewGen').hidden)relayoutPhrase();},180);});
+  $('metroBtn').onclick=()=>{metro.on?stopMetro():startMetro();};
+  $('metroVoiceTog').classList.toggle('on',state.settings.metroAccent);
+  $('metroVoiceTog').onclick=()=>{state.settings.metroAccent=!state.settings.metroAccent;$('metroVoiceTog').classList.toggle('on',state.settings.metroAccent);save();};
+
+  // 流动
+  $('flowByBars').onclick=()=>{flowMode='bars';$('flowByBars').classList.add('active');$('flowBySec').classList.remove('active');$('barsRow').hidden=false;$('secRow').hidden=true;};
+  $('flowBySec').onclick=()=>{flowMode='sec';$('flowBySec').classList.add('active');$('flowByBars').classList.remove('active');$('barsRow').hidden=true;$('secRow').hidden=false;};
+  $('voiceTog').onclick=()=>{state.settings.voice=!state.settings.voice;$('voiceTog').classList.toggle('on',state.settings.voice);save();};
+  $('barsMinus').onclick=()=>{state.bars=Math.max(2,state.bars-2);$('barsVal').textContent=state.bars;save();};
+  $('barsPlus').onclick=()=>{state.bars=Math.min(32,state.bars+2);$('barsVal').textContent=state.bars;save();};
+  $('secMinus').onclick=()=>{state.sec=Math.max(2,state.sec-1);$('secVal').textContent=state.sec;save();};
+  $('secPlus').onclick=()=>{state.sec=Math.min(30,state.sec+1);$('secVal').textContent=state.sec;save();};
+  $('flowBtn').onclick=enterFlow;
+
+  // 键盘
+  document.addEventListener('keydown',e=>{
+    if(/INPUT|TEXTAREA|SELECT/.test((e.target.tagName||''))) {if(e.key==='Escape')e.target.blur();return;}
+    if(e.key==='Escape'){document.querySelectorAll('.modal-mask.active').forEach(m=>m.classList.remove('active'));closeBpmPop();if(flow.on)exitFlow();clearAnim();return;}
+    if(flow.on){if(e.key==='ArrowRight'||e.key===' ')flowAdvance();return;}
+    const gen=!$('viewGen').hidden;
+    if(e.key===' '&&gen){e.preventDefault();generateDance();}
+    else if((e.key==='r'||e.key==='R')&&gen){generateDance();}
+    else if(e.key==='p'||e.key==='P'){if(!$('viewPractice').hidden)metro.on?stopMetro():startMetro();else if(gen)togglePhrasePlay();}
+  });
+  // 滑动换招
+  let tx=0;const ra=$('danceResult');
+  ra.addEventListener('touchstart',e=>tx=e.changedTouches[0].clientX,{passive:true});
+  ra.addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>70)generateDance();},{passive:true});
+}
+
+function renderHelp(){
+  const en=state.settings.lang==='en';
+  $('helpBody').innerHTML=en?
+    `<p>🎲 <b>Generate</b> — pick how many moves you want and get a combo laid out in 8-counts. Turn on “only moves I know” to stay in your own vocabulary.</p>
+     <p>🥁 <b>Practice</b> — a metronome (tap to set tempo) and hands-free <b>Flow Mode</b> that calls moves aloud while you dance.</p>
+     <p>📚 <b>Library</b> — every move has a figure, side & footwork views, tags and levels. Make decks, attach photos, share or print.</p>
+     <p>Everything is offline and saved on this device.</p>`:
+    `<p>🎲 <b>随机生成</b> — 选好动作数量，得到按 8 拍排布的组合。打开「只出我会的」只练你熟悉的动作。</p>
+     <p>🥁 <b>练习室</b> — 节拍器（点击定速）+ 免手 <b>流动模式</b>，自动报招让你专心跳。</p>
+     <p>📚 <b>舞步库</b> — 每个动作都有图示、侧面/脚步视图、标签和难度。可建合集、贴参考图、分享或打印。</p>
+     <p>全部离线，数据存在本机。</p>`;
+}
+
+/* ===================== 初始化 ===================== */
+async function init(){
+  load();
+  await idbOpen();
+  const imgs=await idbAll();imgs.forEach(r=>imgCache.set(r.id,r.data));
+  await migrateImages();
+  applyTheme();applyAccent();applyFont();applySound();applyLang();applyModeUI();
+  $('knownTog').classList.toggle('on',state.settings.onlyKnown);
+  $('voiceTog').classList.toggle('on',state.settings.voice);
+  state.settings.moveCount=Math.max(2,Math.min(moveCountMax(),state.settings.moveCount||4));$('moveCountVal').textContent=state.settings.moveCount;
+  $('bpmVal').textContent=state.settings.bpm;$('bpmSlider').value=state.settings.bpm;
+  $('barsVal').textContent=state.bars;$('secVal').textContent=state.sec;
+  renderBeatDots();
+  bind();
+  generateDance(true);renderRhythmResult(null);renderHistory();renderLibrary('');renderDeckSelect();renderMotd();
+  tryImportFromHash();
+  if(state.firstRun){renderHelp();openModal('helpModal');}
+}
+init();
+</script>
+</body>
+</html>
